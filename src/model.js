@@ -830,6 +830,23 @@ function makeModification$ (actions) {
         }
 
       }
+      if (meta.postStream === "vsm_"){
+        const cellObj = displayObj.tRowCntrl.cellDiv
+        const vsmObj = { tid: cellObj.id, actionType: "VsmActionCreated" }
+        vsmObj.id = cellObj.schid ? cellObj.schid : cellObj.id + "_" + cellObj.prop + "_" + formObj.whenStamp
+        if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)
+          formObj.whenStamp = 0
+        const widStamp = moment.unix(formObj.whenStamp * 60).day("Monday").format("YYYY-MM-DD")
+        vsmObj.wid = "Mon" + moment(widStamp).format("YYYYMMDD")
+        if (vsmObj.spreadRight > 0)
+          vsmObj.counter =  1
+        vsmObj.user = displayObj.session.uid
+        const vsmPost = changedOnlyProps(vsmObj.id, meta.postStream, stateObj, mutate(vsmObj, formObj), ["user"])
+        if (Object.keys(vsmPost).length < 4) // actionType, id and user are baseline.
+          return displayObj;
+        arrOfPosts.push(vsmPost)
+         console.log("vsm POST!!! arrOfPosts, vsmObj, formObj", arrOfPosts, vsmObj, formObj)
+      }
       else if (!idSeed)
         formObj.id = meta.routeChain[meta.routeChain.length - 1]
       const actionType = meta.routeKey + (idSeed ? "_Created" : "_Updated")
