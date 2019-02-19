@@ -679,6 +679,11 @@ input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
   color: #fff; 
 }
+.upperLeft {
+  position: absolute;
+  top: 95px;
+  left: 2px; 
+}
 .upperRight {
   position: absolute;
   top: 2px;
