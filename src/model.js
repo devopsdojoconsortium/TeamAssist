@@ -604,6 +604,9 @@ function makeModification$ (actions) {
         displayObj[setting][key] = divId
         displayObj.cntrl.snd = (action.val.style && action.val.style.match(/270deg/) ? "fore" : "back")
       }
+      else if (setting === "vsmFrm" && action.val){
+        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["idx", "prop", "vsmid"]), displayObj.sub1, { frm: setting })
+      }
       // table cell click operations
       else if (setting === "schFrm" && action.val.prop){
         const teamObj = trimObj(displayObj.list[action.val.idx], ["id"])
@@ -739,6 +742,7 @@ function makeModification$ (actions) {
       // build formObj for post
       const arrOfPosts = [] // if formObjs are pushed to this, use instead of single
       const keys = fConfs.map(i => i.name)
+      const postStream = meta.postStream + (meta.postStream.match(/_$/) ? displayObj.rteObj.selectedId : "")
       let formObj = fConfs.reduce((acc, fo) => {
         const k = fo.name
         acc[k] = fo.type.match(/^date/) ? makeMinStamp(action[k].value, "utc") : action[k].value
@@ -831,17 +835,14 @@ function makeModification$ (actions) {
 
       }
       if (meta.postStream === "vsm_"){
-        const cellObj = displayObj.tRowCntrl.cellDiv
-        const vsmObj = { tid: cellObj.id, actionType: "VsmActionCreated" }
-        vsmObj.id = cellObj.schid ? cellObj.schid : cellObj.id + "_" + cellObj.prop + "_" + formObj.whenStamp
+        const cellObj = displayObj.settings.vsmObj
+        const vsmObj = {  actionType: "VsmActionCreated" }
+        vsmObj.id = cellObj.vsmid ? cellObj.vsmid : untilUniq(moment().format("T"), stateObj[postStream])
+        // cellObj.id + "_" + cellObj.prop + "_" + formObj.whenStamp
         if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)
-          formObj.whenStamp = 0
-        const widStamp = moment.unix(formObj.whenStamp * 60).day("Monday").format("YYYY-MM-DD")
-        vsmObj.wid = "Mon" + moment(widStamp).format("YYYYMMDD")
-        if (vsmObj.spreadRight > 0)
-          vsmObj.counter =  1
+          vsmObj.deleted = 1
         vsmObj.user = displayObj.session.uid
-        const vsmPost = changedOnlyProps(vsmObj.id, meta.postStream, stateObj, mutate(vsmObj, formObj), ["user"])
+        const vsmPost = changedOnlyProps(vsmObj.id, postStream, stateObj, mutate(vsmObj, formObj), ["user"])
         if (Object.keys(vsmPost).length < 4) // actionType, id and user are baseline.
           return displayObj;
         arrOfPosts.push(vsmPost)
@@ -863,7 +864,7 @@ function makeModification$ (actions) {
 
       serviceEmitter$.emit("service", {
         resProp: "EventCreated",
-        req: { hstream: (meta.postStream || meta.hstream || "oopsStream") },
+        req: { hstream: (postStream || meta.hstream || "oopsStream") },
         postData: arrOfPosts.length ? arrOfPosts.map(i => formEventPost(i))
           : [formEventPost(mutate(changedOnly, {
             id: formObj.id,

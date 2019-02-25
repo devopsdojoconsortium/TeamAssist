@@ -482,7 +482,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .vsmContainer{
   width: 98%;
-  height: 150px;
+  height: 380px;
   overflow: auto;
   margin: 6px;  
 }

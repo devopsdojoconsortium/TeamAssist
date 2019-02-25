@@ -1043,4 +1043,4 @@ export default function view (viewData$) {
     ])
   );
 }
-export {renderPanel, renderFooter, renderMenu, nl2br};
+export {renderPanel, renderFooter, renderMenu, nl2br, formProps, hashSrc, inputSelList};

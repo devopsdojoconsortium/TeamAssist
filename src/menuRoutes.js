@@ -59,21 +59,19 @@ const validRoutes = {
     id: { meta: {
       name: "Team",
       menuLevel: 3,
-     // panelFn: "value",
 
-      hardFilt: { status: ["imm", "ch", "qual", "cons", "eng"] },
       formConfig: [
-        { label: "", type: "radio", name: "schType", opts: {
-          cons: "Consult", chr: "Charter", chall: "Challenge"
+        { label: "Description", type: "text", name: "name", size: 25, maxlength: 35 },
+        { label: "Action Type", type: "select", name: "ActType", opts: {
+          design: "Design", code: "Code", devTest: "Dev Test", approve: "Approvals", 
+          build: "Build", intTest: "Integration Test", deploy: "Deployment", other: "Other"
         } },
-        { label: "Note", type: "text", name: "schNote", size: 35, maxlength: 35 },
-        { label: "Team Commitment", type: "select", name: "commitment", opts: {
-          loose: "Loosely Considering", tentative: "Tentative", committed: "Committed" // keys tie to css!
+        { label: "Lead Time", type: "number", name: "ltHrs", size: 5 },
+        { label: "Process Time", type: "number", name: "ptHrs", size: 5 },
+        { label: "Hours / Days", type: "radio", name: "timeMult", opts: {
+          hrs: "1", days: "8"
         } },
-        { label: "Key Coach", type: "select", name: "aCoach", opts: "coachers" },
-        { label: "2nd Coach", type: "select", name: "tCoach", opts: "coachers" },
-        { label: "Specific Date/Time", type: "datetime-local", name: "whenStamp" },
-        { label: "Auto-add weeks (5 for challenges)", type: "number", name: "spreadRight" },
+        { label: "% Complete/Accurate", type: "number", name: "pctAcc", size: 5 },
       ]
 
     }}
