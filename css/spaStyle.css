@@ -491,6 +491,7 @@ input[type=range]:focus::-ms-fill-upper {
   height: 50px;
   float: left;
   margin: 0;
+  transition: all 0.8s ease-in-out;  
 }
 .vsmWait{
   float: left;
@@ -498,6 +499,7 @@ input[type=range]:focus::-ms-fill-upper {
   border-top: 2px solid #990000;
   border-right: 2px solid #009000;
   border-radius: 0 7px 0 0;
+  transition: all 0.8s ease-in-out;  
 }
 .vsmProcess{
   float: left;
@@ -505,6 +507,7 @@ input[type=range]:focus::-ms-fill-upper {
   border-bottom: 2px solid #000000;
   border-right: 2px solid #000000;
   border-radius: 0 0 7px 0;
+  transition: all 0.8s ease-in-out;
 }
 .vsmLegend{
   position: absolute;
@@ -514,6 +517,7 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: left;
   border: 1px solid #999;
   border-radius: 5px 5px 3px 3px;
+  transition: all 1.3s ease-in-out;
 }
 .vsmLegend h4{
   margin: 0;
@@ -524,6 +528,42 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmLegend div {
   padding: 4px;
+}
+
+.vsmFrm{
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  width: 335px;
+  height: auto;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 5px;
+  background: #2929da;
+  text-align: left;
+  font-size: 1.6em;
+  color: #fff;
+  z-index: 22;
+}
+.vsmFrmRows{
+  margin: 5px 0;
+}
+.vsmFrmRows strong{
+  display: inline-block;
+  width: 135px;
+}
+.vsmFrmRows input, .vsmFrmRows select{
+  font-size: 1em;
+}
+.vsmFrmSub{
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  height: 35px; 
+  background: #2929da;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #fff; 
 }
 
 .yell{

@@ -61,17 +61,17 @@ const validRoutes = {
       menuLevel: 3,
 
       formConfig: [
-        { label: "Description", type: "text", name: "name", size: 25, maxlength: 35 },
-        { label: "Action Type", type: "select", name: "ActType", opts: {
+        { label: "Step Name", type: "text", name: "name", size: 25, maxlength: 35, req: "Step Name Required" },
+        { label: "Action Type", type: "select", name: "actType", req: "Action Type Required", opts: {
           design: "Design", code: "Code", devTest: "Dev Test", approve: "Approvals", 
           build: "Build", intTest: "Integration Test", deploy: "Deployment", other: "Other"
         } },
-        { label: "Lead Time", type: "number", name: "ltHrs", size: 5 },
-        { label: "Process Time", type: "number", name: "ptHrs", size: 5 },
+        { label: "Lead Time", type: "number", name: "ltHrs", size: 5, req: "Lead Time Required" },
+        { label: "Process Time", type: "number", name: "ptHrs", size: 5, req: "Process Time Required" },
         { label: "Hours / Days", type: "radio", name: "timeMult", opts: {
           hrs: "1", days: "8"
         } },
-        { label: "% Complete/Accurate", type: "number", name: "pctAcc", size: 5 },
+        { label: "% C & A", type: "number", name: "pctAcc", size: 5 },
       ]
 
     }}

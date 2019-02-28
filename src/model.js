@@ -161,7 +161,7 @@ function buildStateObj (stateObj, eventStore, sKey, lsObj) {
       // stateKillers for virtual deletion flags
       if (sKey === "schedule" && e.whenStamp < 300000) // deleted sched items are sent to 1970
         delete stateObj[sKey][e.id]
-      else if (e.statusDELETE) // deleted team. Put in SYSADMIN bypass here to restore enablement.
+      else if (e.statusDELETE || e.deleted) // deleted team. Put in SYSADMIN bypass here to restore enablement.
         delete stateObj[sKey][e.id]
       else
         idList.push(e.id) // keeps list build sorted by event# sequence
@@ -605,7 +605,8 @@ function makeModification$ (actions) {
         displayObj.cntrl.snd = (action.val.style && action.val.style.match(/270deg/) ? "fore" : "back")
       }
       else if (setting === "vsmFrm" && action.val){
-        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["idx", "prop", "vsmid"]), displayObj.sub1, { frm: setting })
+        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["idx", "prop", "actid"]), { frm: setting })
+        displayObj.formObj = { errors: {} } // reset
       }
       // table cell click operations
       else if (setting === "schFrm" && action.val.prop){
@@ -837,16 +838,20 @@ function makeModification$ (actions) {
       if (meta.postStream === "vsm_"){
         const cellObj = displayObj.settings.vsmObj
         const vsmObj = {  actionType: "VsmActionCreated" }
-        vsmObj.id = cellObj.vsmid ? cellObj.vsmid : untilUniq(moment().format("T"), stateObj[postStream])
+        vsmObj.id = cellObj.actid ? cellObj.actid : untilUniq(moment().format("T"), stateObj[postStream])
         // cellObj.id + "_" + cellObj.prop + "_" + formObj.whenStamp
         if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)
           vsmObj.deleted = 1
         vsmObj.user = displayObj.session.uid
         const vsmPost = changedOnlyProps(vsmObj.id, postStream, stateObj, mutate(vsmObj, formObj), ["user"])
-        if (Object.keys(vsmPost).length < 4) // actionType, id and user are baseline.
+        if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
+          displayObj.formObj.errors.ltHrs = "No fields were changed!"
+        if (formObj.ptHrs && formObj.ltHrs < formObj.ptHrs) //  
+          displayObj.formObj.errors.ptHrs = "Process Time cannot exceed Lead"
+        console.log("vsmPOST!!! arrOfPosts, vsmObj, formObj", vsmPost, arrOfPosts, vsmObj, formObj)
+        if (Object.keys(displayObj.formObj.errors).length)
           return displayObj;
         arrOfPosts.push(vsmPost)
-         console.log("vsm POST!!! arrOfPosts, vsmObj, formObj", arrOfPosts, vsmObj, formObj)
       }
       else if (!idSeed)
         formObj.id = meta.routeChain[meta.routeChain.length - 1]
@@ -925,9 +930,12 @@ function makeModification$ (actions) {
           return displayByRoute(displayObj.returnRte, displayObj, ["schedule", "post" + moment().format('mmss'), post.id])
         }
         if (req.hstream.match("vsm_")){ // vsm updated. return to same
-          displayObj.cntrl.snd = "glass"
-          readReq({ resProp: "sub1", subCnt: 1, noCache: true, req: { hstream: req.hstream + post.tid} }, 600)
-          return displayByRoute(displayObj.returnRte, displayObj, ["vsm", "post" + moment().format('mmss'), post.id])
+          // console.log('req, post', req, post)
+          readReq({ resProp: "sub1", subCnt: 1, noCache: true, req: { hstream: req.hstream } }, 400)
+          // return displayByRoute(displayObj.returnRte, displayObj, ["vsm", "id", req.hstream.replace(/\w+_/, "")])
+          delete displayObj.settings.vsmObj
+          return mutate(displayObj, {cntrl: {snd: "gong"}}) // bass ?
+
         }
         // refresh same stream with noCache call.
         readReq({ resProp: "main", noCache: true, req: { hstream: req.hstream }}, 900)
@@ -1004,8 +1012,7 @@ function makeModification$ (actions) {
           }
           else if (req.hstream.match("vsm_")){
             displayObj[doKey] = loadStoreObject(req.hstream, results.data.rows).reduce((acc, i) => {
-              acc[i.tid] = acc[i.tid] || {}
-              acc[i.tid][i.wid] = acc[i.tid][i.wid] ? acc[i.tid][i.wid].concat(i) : [i]
+              acc[i.id] = i
               return acc
             }, {})
           }
