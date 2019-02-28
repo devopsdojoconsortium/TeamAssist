@@ -194,10 +194,10 @@ const panelObj = {
     const team = rteObj.details || {}
     return  h('div', { style: { position: "relative", textAlign: "center" }}, [
       h('h1', (team.project || "") + " Value Stream Mapping"),
-      h('a.la.la-edit.la-3x.tableIconLink', {
-        attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
-        style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
-      }, ""),
+      // h('a.la.la-edit.la-3x.tableIconLink', {
+      //  attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
+      //  style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
+      // }, ""),
       rteObj.meta.blockIt ? rteObj.meta.blockIt : valueStreamDetail(team, rteObj.meta, vd)
     ])
   },
@@ -865,17 +865,17 @@ function renderHeader (viewData) {
     h('div.BannerBg.dataEnv_' + viewData.session.dataEnv, [
       h('div.bannerTitle', ""),
       h('img.ttLogo', {props: {src: "images/teamTrek.png"}}), 
-      h('img.topRightLogo', {props:{ src: "images/CignaLogo_white.png"}}), 
-      h('div.bannerMeta', [
+      // h('img.topRightLogo', {props:{ src: "images/CignaLogo_white.png"}}), 
+      /* h('div.bannerMeta', [
         h('div', h('span.yell', viewData.session.displayName || viewData.session.loginName)), 
         h('div', loginLevels[viewData.session.loginLevel] || "Welcome"), 
         h('div', viewData.session.uid ? 
           h('a', { props: { href: "#/users/modUser/id/" + viewData.session.uid }}, [
             h('img.gearIcon', { props: { src: "images/gear.png" }})
           ]) : ""), 
-      ]),
+      ]), */
     ]),
-    h('div.bannerLocIcons', bannerLocIconsList)
+    // h('div.bannerLocIcons', bannerLocIconsList)
 
 //      h('div.crumbs', viewData.rteObj.meta.routeChain.join(" :: ")), // kept in case someone wants a crumb trail. :-)
   ]);
@@ -1037,7 +1037,7 @@ export default function view (viewData$) {
       renderHeader(viewData),
       renderPanel(viewData),
       renderModal(viewData),
-      renderMenu(viewData),
+      // renderMenu(viewData), // http://localhost:8080/#/vsm/id/6cc326
       renderFooter(viewData),
       player(viewData)
     ])
