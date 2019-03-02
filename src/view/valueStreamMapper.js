@@ -1,5 +1,5 @@
 import {h} from '@cycle/dom';
-import {minToDateFormat, mutate, trimObj} from '../frpHelpers';
+import {mutate} from '../frpHelpers';
 import {formProps, hashSrc, inputSelList} from '../view';
 
 export default function valueStreamDetail (mapKey, team, meta, vd) {
@@ -58,14 +58,18 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
 
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
 
-  if(!vsmIObj || idx  !== Number(vsmIObj.pos))
+  if (!vsmIObj || idx  !== Number(vsmIObj.pos))
     return [
-      h('div#vsmFrm.mClick.la.la-plus.upperLeft', { 
-        style:{ fontSize:"1.2em"}, attrs: { mapkey: mapKey, pos: idx} 
-      }),
-      h('div#vsmFrm.mClick.la.la-edit.upperLeft', { 
-        style:{ left: (ltHrsLen * 16) + "px", fontSize:"1.2em"}, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
-      })
+      h('div#vsmFrm.mClick.vsmFrmCallInsert', { 
+        attrs: { mapkey: mapKey, pos: idx} 
+      }, h('div.la.la-plus', { 
+        style:{ fontSize:"1.6em"}
+      })),
+      h('div#vsmFrm.mClick.vsmFrmCallEdit', { 
+        style:{ width: (ltHrsLen * 30) - 18 + "px" }, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
+      }, h('div.la.la-edit', { 
+        style:{ left: (ltHrsLen * 15) + "px", fontSize:"1.6em"}, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
+      }))
     ]
 
   const mappedIcon = { hrs: "hourglass", days: "calendar.blue" }
@@ -75,11 +79,10 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
   // ["schType", "schNote", "aCoach", "tCoach", "spreadRight" "whenStamp" ]
   const frmObj = vsmIObj.actid && vd.sub1 ? vd.sub1[vsmIObj.actid] :
   { 
-    actType: "chall", 
     timeMult: "hrs",
-    mapName: cntrlObj.mapName || "current"
+    pctAcc: 90
   }
-   console.log('frmObj, vsmIObj,', frmObj, vsmIObj, vd.sub1)
+  // console.log('frmObj, vsmIObj,', frmObj, vsmIObj, vd.sub1)
   if (!frmObj)
     return h('i')
   const exitX = h('div#delProp_settings_vsmObj.mClick.la.la-close.upperRight')
@@ -120,7 +123,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
  
   return h('div.vsmFrm', [
     exitX,
-    h('div', "<--  Insert Action Step"),
+    h('div', vsmIObj.actid ? "Update Step: " + frmObj.name : " Create Action as Step " + (idx + 1)),
     formTag
   ])
 

@@ -482,7 +482,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .vsmContainer{
   width: 98%;
-  height: 394px;
+  height: 400px;
   overflow: auto;
   margin: 6px;  
 }
@@ -532,7 +532,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .vsmFrm{
   position: absolute;
-  top: 4px;
+  top: 10px;
   left: 3px;
   width: 335px;
   height: auto;
@@ -564,6 +564,43 @@ input[type=range]:focus::-ms-fill-upper {
   border-radius: 5px;
   font-size: 1em;
   color: #fff; 
+}
+
+.vsmFrmCallInsert{
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 15px;
+  height: 70px;
+  border-left: 2px transparent;
+  color: #fff;
+}
+.vsmFrmCallInsert div {
+  position: absolute;
+  top: 52px;
+  left: -2px;
+  border-radius: 0 0 5px;
+}
+.vsmFrmCallInsert:hover {
+  border-left: 2px solid #0f0;
+}
+.vsmFrmCallInsert:hover div {
+  background: #ccc;
+}
+
+.vsmFrmCallEdit{
+  position: absolute;
+  top: 50px;
+  left: 18px;
+  min-width: 15px;
+  height: 20px;
+  color: #fff;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 0 0 5px 5px;
+}
+.vsmFrmCallEdit:hover {
+  background: #ccc;
 }
 
 .yell{

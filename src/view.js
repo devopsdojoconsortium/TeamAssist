@@ -355,7 +355,7 @@ function teamDetail (team, meta, vd) {
 
 function formProps (e, val) {
   const allowed = ["type", "name", "min", "max", "maxlength", "disabled", 
-    "rows", "cols", "title", "placeholder", "size"]
+    "rows", "cols", "title", "placeholder", "size", "step"]
   // console.log("e, val, e, val ------------------------------------", e, val)
   return allowed.filter(x => e[x] || e[x] === 0)
     .concat("value").reduce((acc, i) => {
