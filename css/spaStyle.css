@@ -557,13 +557,21 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmFrmSub{
   position: absolute;
-  top: 120px;
+  top: 194px;
   right: 20px;
   height: 35px; 
   background: #2929da;
   border-radius: 5px;
   font-size: 1em;
   color: #fff; 
+}
+.vsmFrmDaysHrs{
+  position: absolute;
+  top: 104px;
+  left: 243px;
+  font-size: 0.6em;
+  font-weight: bold;
+  color: #900; 
 }
 
 .vsmFrmCallInsert{

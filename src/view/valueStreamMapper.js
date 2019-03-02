@@ -30,21 +30,16 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ),
         h('div.vsmProcess', { style: { width: (ptHrsLen * 30) + "px" }}, [
           h('br'),
-          h('strong', act.ptHrs + " Days"),
+          h('strong', calcDaysHrs(act.ptHrs)),
         ]),
         h('div.vsmLegend', { style: { width: (ptHrsLen * 30) + "px" }}, [
           h('h4', act.name),
           h('div', [
-            "Lead Time: " + act.ltHrs,          
+            "Lead: " + calcDaysHrs(act.ltHrs, 0.25), // 0.25 is only val that works in fn for now
             h('br'),
-            "C&A %: " + act.pctAcc,
+            "C&A: " + act.pctAcc + "%",
           ])
         ])
-
-//        h('div.stickyLeft', h('span.bigSticky.fa.fa-sticky-note.orange', 
-//          h('span.bigStickyTxt', [ h('b', "Week"), h('br'), h('b', row.weekNum) ]))), 
-//        h('div.weeklyText', [row.report, h('div.weeklyMeta', metaHtml)]),
-//        h('br', { style: { clear: "all" }})
       ]
     )
   })
@@ -113,6 +108,8 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
       // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
+      (e.name === "ltHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "110px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
+      (e.name === "ptHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "144px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
     ])
   })
 
@@ -127,5 +124,16 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
     formTag
   ])
 
-
 }
+
+function calcDaysHrs (num, inDays) {
+  num = Number(num)
+  if (inDays && num)
+    return (num % inDays ? (num + inDays/2) : num) + " Day" + (num === 1 || num === 1 - (inDays/2) ? "" : "s")
+  const days = parseInt(num)
+  const hours = num % 1
+  return (days ? days + " Day" + (days > 1 ? "s" : "") : "") + 
+    (days && hours ? ", " : "") + 
+    (hours ? (hours * 8) + " Hour" + (hours > 0.125 ? "s" : "")  : "")
+}
+
