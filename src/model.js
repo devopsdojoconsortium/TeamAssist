@@ -605,7 +605,7 @@ function makeModification$ (actions) {
         displayObj.cntrl.snd = (action.val.style && action.val.style.match(/270deg/) ? "fore" : "back")
       }
       else if (setting === "vsmFrm" && action.val){
-        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["idx", "prop", "actid"]), { frm: setting })
+        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["mapkey", "pos", "actid"]), { frm: setting })
         displayObj.formObj = { errors: {} } // reset
       }
       // table cell click operations
@@ -836,22 +836,55 @@ function makeModification$ (actions) {
 
       }
       if (meta.postStream === "vsm_"){
-        const cellObj = displayObj.settings.vsmObj
-        const vsmObj = {  actionType: "VsmActionCreated" }
-        vsmObj.id = cellObj.actid ? cellObj.actid : untilUniq(moment().format("T"), stateObj[postStream])
-        // cellObj.id + "_" + cellObj.prop + "_" + formObj.whenStamp
+        const stepObj = displayObj.settings.vsmObj
+        const postObj = {  actionType: "VsmActionCreated" }
+        postObj.id = stepObj.actid ? stepObj.actid : untilUniq(moment().format("T"), stateObj[postStream])
+        // stepObj.id + "_" + stepObj.pos + "_" + formObj.whenStamp
         if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)
-          vsmObj.deleted = 1
-        vsmObj.user = displayObj.session.uid
-        const vsmPost = changedOnlyProps(vsmObj.id, postStream, stateObj, mutate(vsmObj, formObj), ["user"])
+          postObj.deleted = 1
+        postObj.user = displayObj.session.uid
+        const vsmPost = changedOnlyProps(postObj.id, postStream, stateObj, mutate(postObj, formObj), ["user"])
         if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
           displayObj.formObj.errors.ltHrs = "No fields were changed!"
         if (formObj.ptHrs && formObj.ltHrs < formObj.ptHrs) //  
           displayObj.formObj.errors.ptHrs = "Process Time cannot exceed Lead"
-        console.log("vsmPOST!!! arrOfPosts, vsmObj, formObj", vsmPost, arrOfPosts, vsmObj, formObj)
         if (Object.keys(displayObj.formObj.errors).length)
           return displayObj;
         arrOfPosts.push(vsmPost)
+        // adjust meta key with array
+        const vsmObj = displayObj.sub1 || { maps: {}, meta_current: {}}
+        vsmObj.maps = vsmObj.maps && vsmObj.maps.ord ? vsmObj.maps : { ord: []}
+        const meta = vsmObj["meta_" + stepObj.mapkey] || {}
+        const ord = meta.ord || []
+        if(stepObj.actid && postObj.deleted)
+          arrOfPosts.push( mutate(trimObj(postObj, ["user", "actionType"]), {
+            id: "meta_" + stepObj.mapkey,
+            deletes: meta.deletes + 1,
+            ord: ord.filter(x => x !== postObj.id)
+          }) )
+        else if(!stepObj.actid){
+          console.log("ADDACT!!! ", postObj, ord)
+          let newArr = []
+          ord.forEach((i, idx) => {
+            if(stepObj.pos === idx)
+              newArr.push(postObj.id)
+            newArr.push(i)
+          })
+          arrOfPosts.push( mutate(trimObj(postObj, ["user", "actionType"]), {
+            id: "meta_" + stepObj.mapkey,
+            ord: stepObj.pos > ord.length ? ord.concat(postObj.id) : newArr
+            // ord: stepObj.pos >= ord.length ? ord.concat(postObj.id) : ord.splice(stepObj.pos, 0, postObj.id)
+          }) )
+        }
+        if(vsmObj.maps.ord.indexOf(stepObj.mapkey) === -1){
+          arrOfPosts.push( mutate(trimObj(postObj, ["user", "actionType"]), {
+            id: "maps",
+            ord: vsmObj.maps.ord.concat(stepObj.mapkey)
+          }) )
+        }
+
+        console.log("vsmPOST!!! vsmPost, arrOfPosts, postObj, stepObj", vsmPost, arrOfPosts, postObj, stepObj)
+
       }
       else if (!idSeed)
         formObj.id = meta.routeChain[meta.routeChain.length - 1]

@@ -2,7 +2,7 @@ import {h} from '@cycle/dom';
 import {minToDateFormat, mutate, trimObj} from '../frpHelpers';
 import {formProps, hashSrc, inputSelList} from '../view';
 
-export default function valueStreamDetail (team, meta, vd) {
+export default function valueStreamDetail (mapKey, team, meta, vd) {
   const vbbbsMap = ["Analyze", "Code", "Make Merge Request", "Code Review", "Dev Testing", "QA", "prodDeploy", "smokeTest"]
     .map(i => ({
       name: i,
@@ -26,7 +26,7 @@ export default function valueStreamDetail (team, meta, vd) {
     return h('div.vsmAction' + (idx % 2 ? ".sch_tentative" : ""), { style: { width: (ltHrsLen * 30) + 4 + "px"}},
       [
         h('div.vsmWait', { style: { width: (waitHrs * 30) + "px"}}, 
-          vsmFrm(vd.settings.vsmObj, idx, act.id, ltHrsLen, vd)
+          vsmFrm(vd.settings.vsmObj, mapKey, idx, act.id, ltHrsLen, vd)
         ),
         h('div.vsmProcess', { style: { width: (ptHrsLen * 30) + "px" }}, [
           h('br'),
@@ -56,15 +56,15 @@ export default function valueStreamDetail (team, meta, vd) {
 }
 
 
-function vsmFrm (vsmIObj, idx, actId, ltHrsLen, vd) {
+function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
 
-  if(!vsmIObj || idx  !== Number(vsmIObj.prop))
+  if(!vsmIObj || idx  !== Number(vsmIObj.pos))
     return [
       h('div#vsmFrm.mClick.la.la-plus.upperLeft', { 
-        style:{ fontSize:"1.2em"}, attrs: { prop: idx} 
+        style:{ fontSize:"1.2em"}, attrs: { mapkey: mapKey, pos: idx} 
       }),
       h('div#vsmFrm.mClick.la.la-edit.upperLeft', { 
-        style:{ left: (ltHrsLen * 16) + "px", fontSize:"1.2em"}, attrs: {actid: actId, prop: idx} 
+        style:{ left: (ltHrsLen * 16) + "px", fontSize:"1.2em"}, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
       })
     ]
 
