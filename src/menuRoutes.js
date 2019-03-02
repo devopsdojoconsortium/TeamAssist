@@ -66,12 +66,12 @@ const validRoutes = {
           design: "Design", code: "Code", devTest: "Dev Test", approve: "Approvals", 
           build: "Build", intTest: "Integration Test", deploy: "Deployment", other: "Other"
         } },
-        { label: "Lead Time", type: "number", name: "ltHrs", size: 5, req: "Lead Time Required" },
-        { label: "Process Time", type: "number", name: "ptHrs", size: 5, req: "Process Time Required" },
+        { label: "Lead Time", type: "number", name: "ltHrs", min: 0.125, step: 0.125, req: "Lead Time Required" },
+        { label: "Process Time", type: "number", name: "ptHrs", min: 0.125, step: 0.125, req: "Process Time Required" },
         { label: "Hours / Days", type: "radio", name: "timeMult", opts: {
           hrs: "1", days: "8"
         } },
-        { label: "% C & A", type: "number", name: "pctAcc", size: 5 },
+        { label: "% C & A", type: "number", name: "pctAcc", min: 1, max: 100, step: 1 },
       ]
 
     }}
