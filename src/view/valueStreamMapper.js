@@ -3,18 +3,11 @@ import {mutate} from '../frpHelpers';
 import {formProps, hashSrc, inputSelList} from '../view';
 
 export default function valueStreamDetail (mapKey, team, meta, vd) {
-  const vbbbsMap = ["Analyze", "Code", "Make Merge Request", "Code Review", "Dev Testing", "QA", "prodDeploy", "smokeTest"]
-    .map(i => ({
-      name: i,
-      actType: "",
-      ltHrs: 8.2,
-      ptHrs: 6.1,
-      pctAcc: 80
-    }))
 
-  const cntrlObj = vd.sub1 && vd.sub1.meta || {}
-
-  const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
+  const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
+  
+  // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
+  const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
 
   let accumWidth = 10
   const out = vsMap.filter(x => x.ltHrs).map((act, idx) => {
@@ -30,12 +23,12 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ),
         h('div.vsmProcess', { style: { width: (ptHrsLen * 30) + "px" }}, [
           h('br'),
-          h('strong', calcDaysHrs(act.ptHrs)),
+          h('strong', "PT: " + calcDaysHrs(act.ptHrs)),
         ]),
         h('div.vsmLegend', { style: { width: (ptHrsLen * 30) + "px" }}, [
           h('h4', act.name),
           h('div', [
-            "Lead: " + calcDaysHrs(act.ltHrs, 0.25), // 0.25 is only val that works in fn for now
+            "LT: " + calcDaysHrs(act.ltHrs, 0.25), // 0.25 is only val that works in fn for now
             h('br'),
             "C&A: " + act.pctAcc + "%",
           ])
@@ -69,7 +62,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
 
   const mappedIcon = { hrs: "hourglass", days: "calendar.blue" }
 
-  const cntrlObj = vd.sub1 && vd.sub1.meta || {}
+  // const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
   // const teamAllSched = vd.sub1 && vd.sub1[teamObj.id] || {}
   // ["schType", "schNote", "aCoach", "tCoach", "spreadRight" "whenStamp" ]
   const frmObj = vsmIObj.actid && vd.sub1 ? vd.sub1[vsmIObj.actid] :
@@ -108,8 +101,8 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
       // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
-      (e.name === "ltHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "110px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
-      (e.name === "ptHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "144px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
+      (e.name === "ltHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "113px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
+      (e.name === "ptHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "146px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
     ])
   })
 
@@ -129,7 +122,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
 function calcDaysHrs (num, inDays) {
   num = Number(num)
   if (inDays && num)
-    return (num % inDays ? (num + inDays/2) : num) + " Day" + (num === 1 || num === 1 - (inDays/2) ? "" : "s")
+    return (num % inDays ? (num + inDays / 2) : num) + " Day" + (num === 1 || num === 1 - (inDays / 2) ? "" : "s")
   const days = parseInt(num)
   const hours = num % 1
   return (days ? days + " Day" + (days > 1 ? "s" : "") : "") + 

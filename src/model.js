@@ -838,7 +838,7 @@ function makeModification$ (actions) {
       if (meta.postStream === "vsm_"){
         const stepObj = displayObj.settings.vsmObj
         const postObj = {  actionType: "VsmActionCreated" }
-        postObj.id = stepObj.actid ? stepObj.actid : untilUniq(moment().format("T"), stateObj[postStream])
+        postObj.id = stepObj.actid ? stepObj.actid : "m" + untilUniq( moment().format(), stateObj[postStream])
         // stepObj.id + "_" + stepObj.pos + "_" + formObj.whenStamp
         if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)
           postObj.deleted = 1
@@ -863,10 +863,10 @@ function makeModification$ (actions) {
             ord: ord.filter(x => x !== postObj.id)
           }) )
         else if(!stepObj.actid){
-          console.log("ADDACT!!! ", postObj, ord)
+          console.log("ADDACT!!! ", postObj, ord, stepObj)
           let newArr = []
           ord.forEach((i, idx) => {
-            if(stepObj.pos === idx)
+            if(Number(stepObj.pos) === idx)
               newArr.push(postObj.id)
             newArr.push(i)
           })

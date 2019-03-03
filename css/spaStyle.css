@@ -557,7 +557,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmFrmSub{
   position: absolute;
-  top: 194px;
+  top: 198px;
   right: 20px;
   height: 35px; 
   background: #2929da;
@@ -568,7 +568,7 @@ input[type=range]:focus::-ms-fill-upper {
 .vsmFrmDaysHrs{
   position: absolute;
   top: 104px;
-  left: 243px;
+  left: 240px;
   font-size: 0.6em;
   font-weight: bold;
   color: #900; 
