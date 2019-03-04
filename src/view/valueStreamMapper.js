@@ -9,13 +9,11 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
   const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
 
-  let accumWidth = 10
   const out = vsMap.filter(x => x.ltHrs).map((act, idx) => {
     const waitHrs = act.ltHrs - act.ptHrs
     const ptHrsLen = act.ptHrs > 3 ? Number(act.ptHrs) : 3
     const ltHrsLen = waitHrs + ptHrsLen
-    accumWidth += (ltHrsLen * 34)
-    // console.log('waitHrs, ptHrsLen, ltHrsLen, accumWidth:::::> ', waitHrs, ptHrsLen, ltHrsLen, accumWidth)
+    // console.log('waitHrs, ptHrsLen, ltHrsLen, accumWidth:::::> ', waitHrs, ptHrsLen, ltHrsLen)
     return h('div.vsmAction' + (idx % 2 ? ".sch_tentative" : ""), { style: { width: (ltHrsLen * 30) + 4 + "px"}},
       [
         h('div.vsmWait', { style: { width: (waitHrs * 30) + "px"}}, 
@@ -38,15 +36,28 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   })
   return  h('div.vsmContainer', [
     h('div', { style: { height: "120px"}}),
-    h('div', { style: { width: accumWidth + "px"  }}, out)  
+    h('div', { style: { width: "max-content"  }}, [ metaFrm(vd.settings.vsmObj, mapKey, vd), ...out] )  
   ])
+
+}
+
+
+function metaFrm (vsmIObj, mapKey, vd) {
+  console.log('function metaFrm (vsmIObj, mapKey, vd) {', vsmIObj, mapKey, vd)
+  if (!vsmIObj || vsmIObj.meta !== 1)
+    return h('div#vsmFrm.mClick.vsmMetaFrm', { attrs: { mapkey: mapKey, meta: 1} }, 
+      h('div.la.la-plus', { 
+        style:{ fontSize:"1.6em"}
+      }))
+
+  return h('div.vsmMetaFrm', { style:{ width: "300px"}}, "werwer" )  
 
 }
 
 
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
 
-  if (!vsmIObj || idx  !== Number(vsmIObj.pos))
+  if (!vsmIObj || idx !== Number(vsmIObj.pos))
     return [
       h('div#vsmFrm.mClick.vsmFrmCallInsert', { 
         attrs: { mapkey: mapKey, pos: idx} 
