@@ -846,12 +846,13 @@ function makeModification$ (actions) {
         const vsmPost = changedOnlyProps(postObj.id, postStream, stateObj, mutate(postObj, formObj), ["user"])
         if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
           displayObj.formObj.errors.ltHrs = "No fields were changed!"
-        if (formObj.ptHrs && formObj.ltHrs < formObj.ptHrs) //  
+        if (formObj.ptHrs && Number(formObj.ltHrs) < Number(formObj.ptHrs)) //  
           displayObj.formObj.errors.ptHrs = "Process Time cannot exceed Lead"
         if (Object.keys(displayObj.formObj.errors).length)
           return displayObj;
         arrOfPosts.push(vsmPost)
         // adjust meta key with array
+        postObj.pctAcc = postObj.pctAcc || 1
         const vsmObj = displayObj.sub1 || { maps: {}, meta_current: {}}
         vsmObj.maps = vsmObj.maps && vsmObj.maps.ord ? vsmObj.maps : { ord: []}
         const meta = vsmObj["meta_" + stepObj.mapkey] || {}
