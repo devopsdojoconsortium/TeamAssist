@@ -544,6 +544,7 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 1.6em;
   color: #fff;
   z-index: 22;
+  transition: all 0.8s ease-in-out;  
 }
 .vsmFrmRows{
   margin: 5px 0;
@@ -609,6 +610,15 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmFrmCallEdit:hover {
   background: #ccc;
+}
+
+.vsmMetaFrm{
+  position: relative;
+  float: left;
+  margin: 0;
+  color: #fff;
+  background: #ccf;
+  transition: all 0.8s ease-in-out;  
 }
 
 .yell{

@@ -605,7 +605,7 @@ function makeModification$ (actions) {
         displayObj.cntrl.snd = (action.val.style && action.val.style.match(/270deg/) ? "fore" : "back")
       }
       else if (setting === "vsmFrm" && action.val){
-        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["mapkey", "pos", "actid"]), { frm: setting })
+        displayObj.settings.vsmObj = mutate(trimObj(action.val, ["mapkey", "pos", "actid"]), { pos: Number(action.val.pos) })
         displayObj.formObj = { errors: {} } // reset
       }
       // table cell click operations

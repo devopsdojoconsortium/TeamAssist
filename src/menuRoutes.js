@@ -72,6 +72,16 @@ const validRoutes = {
           hrs: "1", days: "8"
         } },
         { label: "% C & A", type: "number", name: "pctAcc", min: 1, max: 100, step: 1 },
+      ],
+
+      metaFormConfig: [
+        { label: "Map Name", type: "text", name: "mapName", size: 25, maxlength: 35, req: "Map Name Required" },
+        { label: "Trigger Event", type: "text", name: "trigger", req: "Trigger Event Required" },
+        { label: "Update Session", type: "select", name: "updateType", req: "Choose Session Type", opts: {
+          discovery: "Discovery", correct: "Correction", track: "Track Improvements"
+        } },
+        { label: "Application Stack", type: "text", name: "appStack" },
+        { label: "Notes", type: "text", name: "notes" }
       ]
 
     }}
