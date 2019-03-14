@@ -261,11 +261,10 @@ function getMenuRecurse (obj, route, dO, depth, tabs){
   return [tmpitems, tabs];
 }
 
-function validateForm (displayObj, fAct) {
-  const fConf = displayObj.rteObj.meta.formConfig.find(i => i.name === fAct.name);
+function validateForm (displayObj, fAct, formConfig) {
+  const fConf = (formConfig || displayObj.rteObj.meta.formConfig).find(i => i.name === fAct.name);
   if (!fConf)
     return displayObj.formObj.errors;
-  // console.log('fAct, fConf', fAct, fConf)
   if (fConf.req === "email" && !fAct.value.match(/^\S+\@\S+\.\S+$/)){
     displayObj.formObj.errors[fAct.name] = "Email required in proper format"
   }
@@ -277,6 +276,8 @@ function validateForm (displayObj, fAct) {
   }
   else
     delete displayObj.formObj.errors[fAct.name]
+
+  // console.log('VALIDATION... fAct, fConf, formConfig', fAct, fConf, formConfig, displayObj.formObj.errors)
 
   return displayObj.formObj.errors;
 }
@@ -651,7 +652,9 @@ function makeModification$ (actions) {
       if(action.textarea && displayObj.modalObj.field === action.name){
         displayObj.modalObj.preview = action.value
       }
-      displayObj.formObj.errors = validateForm(displayObj, action);
+      const vsmSettingsObj = displayObj.settings.vsmObj || {}
+      displayObj.formObj.errors = validateForm(displayObj, action, 
+        vsmSettingsObj.pos === -1 ? displayObj.rteObj.meta.metaFormConfig : "");
       displayObj.formObj[action.name] = action.value
       return displayObj
     }
@@ -662,10 +665,11 @@ function makeModification$ (actions) {
     benchMark('formSubmit$ observer on action response', true);
     return (displayObj) => {
       displayObj.cntrl = {};
-      const fConfs = displayObj.rteObj.meta.formConfig.filter(x => !x.pane);
+      const vsmSettingsObj = displayObj.settings.vsmObj || {}
       const meta = displayObj.rteObj.meta
+      const fConfs = vsmSettingsObj.pos === -1 ? meta.metaFormConfig : meta.formConfig.filter(x => !x.pane);
       fConfs.forEach(f => {
-        displayObj.formObj.errors = validateForm(displayObj, { name: f.name, value: action[f.name].value });
+        displayObj.formObj.errors = validateForm(displayObj, { name: f.name, value: action[f.name].value }, fConfs);
       })
       if (action.bulkJson){
         // const bulkObj = translateBulkTeamJson(action.bulkJson.value, stateObj[meta.hstream])
@@ -839,13 +843,14 @@ function makeModification$ (actions) {
         const stepObj = displayObj.settings.vsmObj
         const postObj = {  actionType: "VsmActionCreated" }
         postObj.id = stepObj.actid ? stepObj.actid : "m" + untilUniq( moment().format(), stateObj[postStream])
-        // stepObj.id + "_" + stepObj.pos + "_" + formObj.whenStamp
+        if (stepObj.pos === -1)
+          postObj.id = "meta_" + stepObj.mapkey
         if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)
           postObj.deleted = 1
         postObj.user = displayObj.session.uid
         const vsmPost = changedOnlyProps(postObj.id, postStream, stateObj, mutate(postObj, formObj), ["user"])
         if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
-          displayObj.formObj.errors.ltHrs = "No fields were changed!"
+          displayObj.formObj.errors.name = "No fields were changed!"
         if (formObj.ptHrs && Number(formObj.ltHrs) < Number(formObj.ptHrs)) //  
           displayObj.formObj.errors.ptHrs = "Process Time cannot exceed Lead"
         if (Object.keys(displayObj.formObj.errors).length)
@@ -863,7 +868,7 @@ function makeModification$ (actions) {
             deletes: meta.deletes + 1,
             ord: ord.filter(x => x !== postObj.id)
           }) )
-        else if(!stepObj.actid){
+        else if(!stepObj.actid && stepObj.pos > -1){
           console.log("ADDACT!!! ", postObj, ord, stepObj)
           let newArr = []
           ord.forEach((i, idx) => {

@@ -61,7 +61,7 @@ const validRoutes = {
       menuLevel: 3,
 
       formConfig: [
-        { label: "Step Name", type: "text", name: "name", size: 25, maxlength: 35, req: "Step Name Required" },
+        { label: "Step Name", type: "text", name: "name", size: 25, maxlength: 25, req: "Step Name Required" },
         { label: "Action Type", type: "select", name: "actType", req: "Action Type Required", opts: {
           design: "Design", code: "Code", devTest: "Dev Test", approve: "Approvals", 
           build: "Build", intTest: "Integration Test", deploy: "Deployment", other: "Other"
@@ -75,12 +75,12 @@ const validRoutes = {
       ],
 
       metaFormConfig: [
-        { label: "Map Name", type: "text", name: "mapName", size: 25, maxlength: 35, req: "Map Name Required" },
+        { label: "Map Name", type: "text", name: "name", size: 25, maxlength: 35, req: "Map Name Required" },
         { label: "Trigger Event", type: "text", name: "trigger", req: "Trigger Event Required" },
-        { label: "Update Session", type: "select", name: "updateType", req: "Choose Session Type", opts: {
+        { label: "Edit Mode", type: "select", name: "updateType", req: "Choose Edit Mode", opts: {
           discovery: "Discovery", correct: "Correction", track: "Track Improvements"
         } },
-        { label: "Application Stack", type: "text", name: "appStack" },
+        { label: "App Stack", type: "text", name: "appStack" },
         { label: "Notes", type: "text", name: "notes" }
       ]
 
