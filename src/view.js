@@ -405,7 +405,7 @@ function modForm (rteObj, vd, panelHeight) {
       e.title += " This field is only editable by a " + loginLevels[e.accessLevel] + " or greater."
     }
     else if (e.req)
-      formEleStyle.style.border = "2px solid #d9201b"
+      formEleStyle.style.border = "2px solid #171717"
     const optsSrc = e.opts ? hashSrc(vd, e.opts) : ""
     const opts = (e.type === "select" && e.opts) ?
       Object.keys(optsSrc).map(k => {

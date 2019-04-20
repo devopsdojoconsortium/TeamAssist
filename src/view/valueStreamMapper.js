@@ -54,31 +54,24 @@ function metaFrm (vsmIObj, mapKey, vd) {
       return ""
     const formEleStyle = {}
     formEleStyle.style = formEleTypeMap[e.type] ? mutate(formEleTypeMap[e.type], {color: "#900"}) : {width: "183px"}
-    formEleStyle.style.border = "2px solid #999"
+    formEleStyle.style.border = e.req ? "2px solid #666" : "2px solid #aaa"
     const optsSrc = e.opts ? hashSrc(vd, e.opts) : ""
     const opts = optsSrc ? Object.keys(optsSrc).map(k => ( { k: k, v: optsSrc[k] } )) : ""
-    let formEle = opts ? 
+    const formEle = opts ? 
       inputSelList( e.name, frmObj[e.name], ["", ...opts], "keyInput", 
         formEleStyle.style, e.numIndex, { title: e.title }) :
       h('input.keyInput', mutate(formEleStyle, { attrs: formProps(e, frmObj[e.name]) }))
     // console.log('e.opts, optsSrc, opts', e.opts, optsSrc, opts)
-    if (e.type === "radio" && opts)
-      formEle = h('div', { style: {float: "right"}}, opts.map(r => h('div', {style: {float: "left", margin: "0 12px"}}, [ 
-        h('label.fa.fa-' + mappedIcon[r.k], {style:{cursor:"pointer", fontSize:mappedIconFontSize[r.k]}, attrs: {"for": r.k, title: r.v}}), " ",
-        h('input#' + r.k + '.keyInput', { props: formProps(mutate(e, {value: frmObj[e.name], title: r.v}), r.k) } )
-      ])).concat( h('div', {style:{clear: "both", width: "180px", height: "3px"}}) ))
     return h('div.vsmFrmRows', [
       h('strong', (e.type !== "submit" ? e.label + ": " : "")), 
       // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
-      (e.name === "ltHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "113px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
-      (e.name === "ptHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "146px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
     ])
   })
 
   const formTag = h('form.formSubmit', { 
-    style: { padding: "5px", color: "#333" },
+    style: { padding: "0 5px", color: "#333", minHeight: "210px" },
     attrs: { onSubmit: "return false" }
   }, [...formArr, h('input.vsmFrmSub', { props: { type: "submit", value: (frmObj.id ? "Update" : "Create") }} )] )
  
@@ -145,13 +138,14 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
       return ""
     const formEleStyle = {}
     formEleStyle.style = formEleTypeMap[e.type] ? mutate(formEleTypeMap[e.type], {color: "#900"}) : {width: "183px"}
-    formEleStyle.style.border = "2px solid #999"
+    formEleStyle.style.border = e.req ? "2px solid #666" : "2px solid #aaa"
     const optsSrc = e.opts ? hashSrc(vd, e.opts) : ""
     const opts = optsSrc ? Object.keys(optsSrc).map(k => ( { k: k, v: optsSrc[k] } )) : ""
     let formEle = opts ? 
       inputSelList( e.name, frmObj[e.name], ["", ...opts], "keyInput", 
         formEleStyle.style, e.numIndex, { title: e.title }) :
       h('input.keyInput', mutate(formEleStyle, { attrs: formProps(e, frmObj[e.name]) }))
+    console.log('formProps(e, frmObj[e.name])', e.req, formProps(e, frmObj[e.name]), e)
     // console.log('e.opts, optsSrc, opts', e.opts, optsSrc, opts)
     if (e.type === "radio" && opts)
       formEle = h('div', { style: {float: "right"}}, opts.map(r => h('div', {style: {float: "left", margin: "0 12px"}}, [ 
