@@ -4,6 +4,8 @@ import {formProps, hashSrc, inputSelList} from '../view';
 
 export default function valueStreamDetail (mapKey, team, meta, vd) {
 
+  const actOpts = meta.formConfig.find(o => o.name === "actType").opts
+
   const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
   
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
@@ -24,7 +26,10 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
           h('strong', "PT: " + calcDaysHrs(act.ptHrs)),
         ]),
         h('div.vsmLegend', { style: { width: (ptHrsLen * 30) + "px" }}, [
-          h('h4', act.name),
+          h('h4', { attrs: {
+            tooltip: "Action Type: " + actOpts[act.actType] + " \n More fields coming here. let's see what happens on overloads",
+            tooltipPos: "bottom"            
+          }}, act.name),
           h('div', [
             "LT: " + calcDaysHrs(act.ltHrs, 0.25), // 0.25 is only val that works in fn for now
             h('br'),
