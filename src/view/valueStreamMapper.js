@@ -11,27 +11,27 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
   const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
 
-  const out = vsMap.filter(x => x.ltHrs).map((act, idx) => {
-    const waitHrs = act.ltHrs - act.ptHrs
-    const ptHrsLen = act.ptHrs > 3 ? Number(act.ptHrs) : 3
-    const ltHrsLen = waitHrs + ptHrsLen
-    // console.log('waitHrs, ptHrsLen, ltHrsLen, accumWidth:::::> ', waitHrs, ptHrsLen, ltHrsLen)
-    return h('div.vsmAction' + (idx % 2 ? ".sch_tentative" : ""), { style: { width: (ltHrsLen * 30) + 4 + "px"}},
+  const out = vsMap.filter(x => x.lTime).map((act, idx) => {
+    const waitTime = act.lTime - act.pTime
+    const ptLen = act.pTime > 3 ? Number(act.pTime) : 3
+    const ltLen = waitTime + ptLen
+
+    return h('div.vsmAction' + (idx % 2 ? ".sch_tentative" : ""), { style: { width: (ltLen * 30) + 4 + "px"}},
       [
-        h('div.vsmWait', { style: { width: (waitHrs * 30) + "px"}}, 
-          vsmFrm(vd.settings.vsmObj, mapKey, idx, act.id, ltHrsLen, vd)
+        h('div.vsmWait', { style: { width: (waitTime * 30) + "px"}}, 
+          vsmFrm(vd.settings.vsmObj, mapKey, idx, act.id, ltLen, vd)
         ),
-        h('div.vsmProcess', { style: { width: (ptHrsLen * 30) + "px" }}, [
+        h('div.vsmProcess', { style: { width: (ptLen * 30) + "px" }}, [
           h('br'),
-          h('strong', "PT: " + calcDaysHrs(act.ptHrs)),
+          h('strong', "PT: " + calcDaysHrs(act.pTime)),
         ]),
-        h('div.vsmLegend', { style: { width: (ptHrsLen * 30) + "px" }}, [
+        h('div.vsmLegend', { style: { width: (ptLen * 30) + "px" }}, [
           h('h4', { attrs: {
             tooltip: "Action Type: " + actOpts[act.actType] + " \n More fields coming here. let's see what happens on overloads",
             tooltipPos: "bottom"            
           }}, act.name),
           h('div', [
-            "LT: " + calcDaysHrs(act.ltHrs, 0.25), // 0.25 is only val that works in fn for now
+            "LT: " + calcDaysHrs(act.lTime, 0.25), // 0.25 is only val that works in fn for now
             h('br'),
             "C&A: " + act.pctAcc + "%",
           ])
@@ -104,7 +104,7 @@ function metaFrm (vsmIObj, mapKey, vd) {
 }
 
 
-function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
+function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
 
   if (!vsmIObj || idx !== vsmIObj.pos)
     return [
@@ -114,9 +114,9 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
         style:{ fontSize:"1.6em"}
       })),
       h('div#vsmFrm.mClick.vsmFrmCallEdit', { 
-        style:{ width: (ltHrsLen * 30) - 18 + "px" }, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
+        style:{ width: (ltLen * 30) - 18 + "px" }, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
       }, h('div.la.la-edit', { 
-        style:{ left: (ltHrsLen * 15) + "px", fontSize:"1.6em"}, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
+        style:{ left: (ltLen * 15) + "px", fontSize:"1.6em"}, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
       }))
     ]
 
@@ -162,8 +162,8 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltHrsLen, vd) {
       // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
-      (e.name === "ltHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "113px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
-      (e.name === "ptHrs" ? h('div.vsmFrmDaysHrs', { style: {top: "146px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
+      (e.name === "lTime" ? h('div.vsmFrmDaysHrs', { style: {top: "113px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
+      (e.name === "pTime" ? h('div.vsmFrmDaysHrs', { style: {top: "146px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
     ])
   })
 
