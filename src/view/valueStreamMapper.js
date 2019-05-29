@@ -10,11 +10,13 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
   const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
+  let outLen = 0
 
   const out = vsMap.filter(x => x.lTime).map((act, idx) => {
     const waitTime = act.lTime - act.pTime
     const ptLen = act.pTime > 3 ? Number(act.pTime) : 3
     const ltLen = waitTime + ptLen
+    outLen++
 
     return h('div.vsmAction' + (idx % 2 ? ".sch_tentative" : ""), { style: { width: (ltLen * 30) + 4 + "px"}},
       [
@@ -38,7 +40,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ])
       ]
     )
-  })
+  }).concat( h('div.vsmAction', vsmFrm(vd.settings.vsmObj, mapKey, outLen, '', '', vd) ))
   return  h('div.vsmContainer', [
     h('div', { style: { height: "120px"}}),
     h('div', { style: { width: "max-content"  }}, [ metaFrm(vd.settings.vsmObj, mapKey, vd), ...out] )  
@@ -105,6 +107,15 @@ function metaFrm (vsmIObj, mapKey, vd) {
 
 
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
+
+  if (!ltLen && !vsmIObj)
+    return [
+      h('div#vsmFrm.mClick.vsmTrailFrm', { 
+        attrs: { mapkey: mapKey, pos: idx} 
+      }, h('div.la.la-plus', { 
+        style:{ fontSize:"2em", position: "absolute", top: "50px", left: "0px" }
+      })),
+    ]
 
   if (!vsmIObj || idx !== vsmIObj.pos)
     return [

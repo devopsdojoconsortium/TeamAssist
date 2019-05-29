@@ -581,7 +581,7 @@ input[type=range]:focus::-ms-fill-upper {
   width: 15px;
   height: 70px;
   border-left: 2px transparent;
-  color: #fff;
+  color: #F4F5F7;
 }
 .vsmFrmCallInsert div {
   position: absolute;
@@ -602,7 +602,7 @@ input[type=range]:focus::-ms-fill-upper {
   left: 18px;
   min-width: 15px;
   height: 20px;
-  color: #fff;
+  color: #F4F5F7;
   margin: 0 auto;
   text-align: center;
   border-radius: 0 0 5px 5px;
@@ -615,9 +615,23 @@ input[type=range]:focus::-ms-fill-upper {
   position: relative;
   float: left;
   margin: 0;
-  color: #fff;
+  color: #F4F5F7;
   background: #ccf;
   transition: all 0.8s ease-in-out;  
+}
+.vsmTrailFrm{
+  position: relative;
+  float: left;
+  width: 23px;
+  height: 75px;
+  margin: 0;
+  color: #F4F5F7;
+  background: #F4F5F7;
+  transition: all 0.2s ease-in;  
+  border-radius: 0 5px 5px 5px;
+}
+.vsmTrailFrm:hover {
+  background: #ccc;
 }
 
 .yell{
