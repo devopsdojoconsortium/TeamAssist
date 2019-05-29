@@ -40,12 +40,50 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ])
       ]
     )
-  }).concat( h('div.vsmAction', vsmFrm(vd.settings.vsmObj, mapKey, outLen, '', '', vd) ))
+  })
+  .concat( h('div.vsmAction', vsmFrm(vd.settings.vsmObj, mapKey, outLen, '', '', vd) ))
+  .concat( h('div.vsmAction', outLen > 1 ? summaryBox(vsMap.filter(x => x.lTime)) : "" ))
+
   return  h('div.vsmContainer', [
     h('div', { style: { height: "120px"}}),
     h('div', { style: { width: "max-content"  }}, [ metaFrm(vd.settings.vsmObj, mapKey, vd), ...out] )  
   ])
 
+}
+
+
+function summaryBox (vsMap) {
+
+  const accum = vsMap.reduce((acc, i) => {
+    acc.lTime += Number(i.lTime)
+    acc.pTime += Number(i.pTime)
+    acc.pctAcc = (i.pctAcc / 100) * acc.pctAcc
+    return acc
+  }, { lTime: 0, pTime: 0, pctAcc: 1 })
+
+  const out = h('div.vsmLegend', { style: { width: "160px", top: "-55px", color: "#333" }}, [
+          h('h4', { style: { background: "#333" }, attrs: {
+            tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
+            Math.ceil(accum.pTime / accum.lTime * 100) + "%",
+            tooltipPos: "top"
+          }}, "VSM Summary"),
+          h('div', [
+            h('b', "Lead Time: "), calcDaysHrs(accum.lTime, 0.25), // 0.25 is only val that works in fn for now
+            h('br'),
+            h('b', "Process Time: "), calcDaysHrs(accum.pTime, 0.25), 
+            h('br'),
+            h('b', "Wait Time: "), calcDaysHrs((accum.lTime - accum.pTime), 0.25), 
+            h('br'),
+            h('b', "Comp & Acc: "),  Math.ceil(accum.pctAcc * 1000) / 10 + "%",
+          ])
+        ])
+
+  return  [
+      h('div.la.la-arrow-right', { style:{ 
+        position: "absolute", top: "-15px", left: "-8px", fontSize:"2em", fontWeight: "bold" 
+      }} ),
+      h('div', { style: { width: "180px" } }, out)
+    ]  
 }
 
 
@@ -86,7 +124,7 @@ function metaFrm (vsmIObj, mapKey, vd) {
   const styleObj = { width: "350px", top: "0px", height: "1px" }
   let frmStyle = { top: "-110px", left: "0px", opacity: 1 }
 
-  console.log('vsmIObj, mapKey', vsmIObj, mapKey, styleObj)
+  // console.log('vsmIObj, mapKey', vsmIObj, mapKey, styleObj)
 
   if (!vsmIObj || vsmIObj.pos !== -1){
     mutate(styleObj, { width: "25px", top: "-150px", height: "250px" })

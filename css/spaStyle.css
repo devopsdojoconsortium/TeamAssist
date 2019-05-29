@@ -528,6 +528,10 @@ input[type=range]:focus::-ms-fill-upper {
 .vsmLegend div {
   padding: 4px;
 }
+.vsmLegend b {
+  display: inline-block;
+  width: 85px;
+}
 
 .vsmFrm{
   position: absolute;
