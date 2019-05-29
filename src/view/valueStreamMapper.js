@@ -146,15 +146,6 @@ function metaFrm (vsmIObj, mapKey, vd) {
 
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
 
-  if (!ltLen && !vsmIObj)
-    return [
-      h('div#vsmFrm.mClick.vsmTrailFrm', { 
-        attrs: { mapkey: mapKey, pos: idx} 
-      }, h('div.la.la-plus', { 
-        style:{ fontSize:"2em", position: "absolute", top: "50px", left: "0px" }
-      })),
-    ]
-
   if (!vsmIObj || idx !== vsmIObj.pos)
     return [
       h('div#vsmFrm.mClick.vsmFrmCallInsert', { 
@@ -162,11 +153,11 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
       }, h('div.la.la-plus', { 
         style:{ fontSize:"1.6em"}
       })),
-      h('div#vsmFrm.mClick.vsmFrmCallEdit', { 
+      ltLen ? h('div#vsmFrm.mClick.vsmFrmCallEdit', { 
         style:{ width: (ltLen * 30) - 18 + "px" }, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
       }, h('div.la.la-edit', { 
         style:{ left: (ltLen * 15) + "px", fontSize:"1.6em"}, attrs: {actid: actId, mapkey: mapKey, pos: idx} 
-      }))
+      })) : ""
     ]
 
   const mappedIcon = { hrs: "hourglass", days: "calendar.blue" }

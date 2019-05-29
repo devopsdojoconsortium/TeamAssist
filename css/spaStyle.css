@@ -623,20 +623,6 @@ input[type=range]:focus::-ms-fill-upper {
   background: #ccf;
   transition: all 0.8s ease-in-out;  
 }
-.vsmTrailFrm{
-  position: relative;
-  float: left;
-  width: 23px;
-  height: 75px;
-  margin: 0;
-  color: #F4F5F7;
-  background: #F4F5F7;
-  transition: all 0.2s ease-in;  
-  border-radius: 0 5px 5px 5px;
-}
-.vsmTrailFrm:hover {
-  background: #ccc;
-}
 
 .yell{
 	color: #ff9;
