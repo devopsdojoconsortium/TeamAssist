@@ -61,7 +61,7 @@ function summaryBox (vsMap) {
     return acc
   }, { lTime: 0, pTime: 0, pctAcc: 1 })
 
-  const out = h('div.vsmLegend', { style: { width: "160px", top: "-55px", color: "#333" }}, [
+  const out = h('div.vsmLegend', { style: { width: "160px", top: "-50px", color: "#333" }}, [
           h('h4', { style: { background: "#333" }, attrs: {
             tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
             Math.ceil(accum.pTime / accum.lTime * 100) + "%",
@@ -80,9 +80,9 @@ function summaryBox (vsMap) {
 
   return  [
       h('div.la.la-arrow-right', { style:{ 
-        position: "absolute", top: "-15px", left: "-8px", fontSize:"2em", fontWeight: "bold" 
+        position: "absolute", top: "-15px", left: "4px", fontSize:"2em", fontWeight: "bold" 
       }} ),
-      h('div', { style: { width: "180px" } }, out)
+      h('div', { style: { width: "190px" } }, out)
     ]  
 }
 
