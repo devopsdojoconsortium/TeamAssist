@@ -550,6 +550,7 @@ input[type=range]:focus::-ms-fill-upper {
   transition: all 0.8s ease-in-out;  
 }
 .vsmFrmRows{
+  position: relative;
   margin: 5px 0;
 }
 .vsmFrmRows strong{
@@ -558,6 +559,15 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmFrmRows input, .vsmFrmRows select{
   font-size: 1em;
+}
+.vsmFrmRowsWrap {
+  display: inline-block;
+}
+.vsmFrmRowsIcon {
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  cursor: pointer;
 }
 .vsmFrmSub{
   position: absolute;
@@ -571,8 +581,8 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmFrmDaysHrs{
   position: absolute;
-  top: 104px;
-  left: 240px;
+  top: 8px;
+  left: 215px;
   font-size: 0.6em;
   font-weight: bold;
   color: #900; 
