@@ -609,6 +609,9 @@ function makeModification$ (actions) {
         displayObj.settings.vsmObj = mutate(trimObj(action.val, ["mapkey", "pos", "actid"]), { pos: Number(action.val.pos) })
         displayObj.formObj = { errors: {} } // reset
       }
+      else if (setting === "timeType"){
+        displayObj.formObj[key] = divId === "days" ? "mins" : "days"
+      }
       // table cell click operations
       else if (setting === "schFrm" && action.val.prop){
         const teamObj = trimObj(displayObj.list[action.val.idx], ["id"])

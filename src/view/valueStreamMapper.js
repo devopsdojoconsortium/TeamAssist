@@ -160,7 +160,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
       })) : ""
     ]
 
-  const mappedIcon = { hrs: "hourglass", days: "calendar.blue" }
+  const mappedIcon = { mins: "hourglass", days: "calendar.blue" }
 
   // const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
   // const teamAllSched = vd.sub1 && vd.sub1[teamObj.id] || {}
@@ -175,7 +175,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     return h('i')
   const exitX = h('div#delProp_settings_vsmObj.mClick.la.la-close.upperRight')
   // get formConfig set in menuRoutes and look like modForm does
-  const formEleTypeMap = { checkbox: {top: "1px", left: "215px"}, number:{ width: "85px"} }
+  const formEleTypeMap = { checkbox: {top: "1px", left: "215px"}, number:{ width: "70px"} }
   const mappedIconFontSize = { chall: "2em", chr: "2.1em", cons: "2em" }
   const editAct = frmObj.id ? { label: "Delete Item?", type: "checkbox", name: "deleteIt", value: "1" } : {}
   const formArr = vd.rteObj.meta.formConfig.concat(editAct).map(e => {
@@ -190,9 +190,26 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
       inputSelList( e.name, frmObj[e.name], ["", ...opts], "keyInput", 
         formEleStyle.style, e.numIndex, { title: e.title }) :
       h('input.keyInput', mutate(formEleStyle, { attrs: formProps(e, frmObj[e.name]) }))
-    console.log('formProps(e, frmObj[e.name])', e.req, formProps(e, frmObj[e.name]), e)
+    // console.log('formProps(e, frmObj[e.name])', e.req, formProps(e, frmObj[e.name]), e)
     // console.log('e.opts, optsSrc, opts', e.opts, optsSrc, opts)
-    if (e.type === "radio" && opts)
+    if (e.name === "lTime" || e.name === "pTime") {
+      const nameExt = e.name + "Type"
+      const stepsToggle = (vd.formObj[nameExt] === "mins" || frmObj[nameExt] === "mins") ? { 
+        min: 1, max: 120, step: 1,
+        value: frmObj[e.name] ? frmObj[e.name] : e.value * 1440
+      } : {} 
+      const iconToggle = stepsToggle.step ? "mins" : "days"
+      const mutatedFrmEle = { attrs: mutate(formProps(e, frmObj[e.name]), stepsToggle) }
+      formEle = h('div.vsmFrmRowsWrap', [
+        h('input.keyInput', mutate(formEleStyle, mutatedFrmEle )),
+        h('div.vsmFrmDaysHrs', calcDaysHrs(vd.formObj[e.name] || frmObj[e.name], 0, vd.formObj[nameExt] || frmObj[nameExt])),
+        h('div#timeType_' + nameExt + '_' + iconToggle + '.vsmFrmRowsIcon.mClick.fa.fa-' + mappedIcon[iconToggle], { style:{ fontSize: "0.8em" }})
+      ])
+    }
+    else if (e.type === "hidden"){
+      return h('input.keyInput', { props: formProps(mutate(e, {value: vd.formObj[e.name] || frmObj[e.name]} )) } )
+    }
+    else if (e.type === "radio" && opts)
       formEle = h('div', { style: {float: "right"}}, opts.map(r => h('div', {style: {float: "left", margin: "0 12px"}}, [ 
         h('label.fa.fa-' + mappedIcon[r.k], {style:{cursor:"pointer", fontSize:mappedIconFontSize[r.k]}, attrs: {"for": r.k, title: r.v}}), " ",
         h('input#' + r.k + '.keyInput', { props: formProps(mutate(e, {value: frmObj[e.name], title: r.v}), r.k) } )
@@ -202,8 +219,8 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
       // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
-      (e.name === "lTime" ? h('div.vsmFrmDaysHrs', { style: {top: "113px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : ""),
-      (e.name === "pTime" ? h('div.vsmFrmDaysHrs', { style: {top: "146px"}}, calcDaysHrs(vd.formObj[e.name] || frmObj[e.name])) : "")
+      (e.name === "lTime" ? h('div.vsmFrmDaysHrs', calcDaysHrs(vd.formObj[e.name] || frmObj[e.name], 0, vd.formObj.lTimeType || frmObj.lTimeType)) : ""),
+     // (e.name === "pTime" ? h('div.vsmFrmDaysHrs', calcDaysHrs(vd.formObj[e.name] || frmObj[e.name], 0, vd.formObj.pTimeType || frmObj.pTimeType)) : "")
     ])
   })
 
@@ -220,8 +237,10 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
 
 }
 
-function calcDaysHrs (num, inDays) {
+function calcDaysHrs (num, inDays, inMins) {
   num = Number(num)
+  if (inMins === "mins" && num)
+    return (num % inDays ? (num + inDays / 2) : num) + " Minute" + (num === 1 || num === 1 - (inDays / 2) ? "" : "s")
   if (inDays && num)
     return (num % inDays ? (num + inDays / 2) : num) + " Day" + (num === 1 || num === 1 - (inDays / 2) ? "" : "s")
   const days = parseInt(num)
