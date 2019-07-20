@@ -855,8 +855,9 @@ function makeModification$ (actions) {
         if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
           displayObj.formObj.errors.name = "No fields were changed!"
         if (formObj.pTime && formObj.lTime) {
-          const lt = Number(formObj.lTime) / (formObj.lTimeType === "mins" ? 1440 : 1)
-          const pt = Number(formObj.pTime) / (formObj.pTimeType === "mins" ? 1440 : 1)
+          const lt = Number(formObj.lTime) / (formObj.lTimeType === "mins" ? 480 : 1)
+          const pt = Number(formObj.pTime) / (formObj.pTimeType === "mins" ? 480 : 1)
+          console.log('formObj', formObj, pt, lt) 
           if (pt > lt)
             displayObj.formObj.errors.lTime = "Process Time cannot exceed Lead"
         }  
