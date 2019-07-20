@@ -62,28 +62,28 @@ function summaryBox (vsMap) {
   }, { lTime: 0, pTime: 0, pctAcc: 1 })
 
   const out = h('div.vsmLegend', { style: { width: "160px", top: "-50px", color: "#333" }}, [
-          h('h4', { style: { background: "#333" }, attrs: {
-            tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
-            Math.ceil(accum.pTime / accum.lTime * 100) + "%",
-            tooltipPos: "top"
-          }}, "VSM Summary"),
-          h('div', [
-            h('b', "Lead Time: "), calcDaysHrs(accum.lTime, 0.25), // 0.25 is only val that works in fn for now
-            h('br'),
-            h('b', "Process Time: "), calcDaysHrs(accum.pTime, 0.25), 
-            h('br'),
-            h('b', "Wait Time: "), calcDaysHrs((accum.lTime - accum.pTime), 0.25), 
-            h('br'),
-            h('b', "Comp & Acc: "),  Math.ceil(accum.pctAcc * 1000) / 10 + "%",
-          ])
-        ])
+    h('h4', { style: { background: "#333" }, attrs: {
+      tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
+      Math.ceil(accum.pTime / accum.lTime * 100) + "%",
+      tooltipPos: "top"
+    }}, "VSM Summary"),
+    h('div', [
+      h('b', "Lead Time: "), calcDaysHrs(accum.lTime, 0.25), // 0.25 is only val that works in fn for now
+      h('br'),
+      h('b', "Process Time: "), calcDaysHrs(accum.pTime, 0.25), 
+      h('br'),
+      h('b', "Wait Time: "), calcDaysHrs((accum.lTime - accum.pTime), 0.25), 
+      h('br'),
+      h('b', "Comp & Acc: "),  Math.ceil(accum.pctAcc * 1000) / 10 + "%",
+    ])
+  ])
 
   return  [
-      h('div.la.la-arrow-right', { style:{ 
-        position: "absolute", top: "-15px", left: "4px", fontSize:"2em", fontWeight: "bold" 
-      }} ),
-      h('div', { style: { width: "190px" } }, out)
-    ]  
+    h('div.la.la-arrow-right', { style:{ 
+      position: "absolute", top: "-15px", left: "4px", fontSize:"2em", fontWeight: "bold" 
+    }} ),
+    h('div', { style: { width: "190px" } }, out)
+  ]  
 }
 
 
@@ -162,9 +162,6 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
 
   const mappedIcon = { mins: "hourglass", days: "calendar.blue" }
 
-  // const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
-  // const teamAllSched = vd.sub1 && vd.sub1[teamObj.id] || {}
-  // ["schType", "schNote", "aCoach", "tCoach", "spreadRight" "whenStamp" ]
   const frmObj = vsmIObj.actid && vd.sub1 ? vd.sub1[vsmIObj.actid] :
   { 
     timeMult: "hrs",
@@ -216,11 +213,8 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
       ])).concat( h('div', {style:{clear: "both", width: "180px", height: "3px"}}) ))
     return h('div.vsmFrmRows', [
       h('strong', (e.type !== "submit" ? e.label + ": " : "")), 
-      // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
-      (e.name === "lTime" ? h('div.vsmFrmDaysHrs', calcDaysHrs(vd.formObj[e.name] || frmObj[e.name], 0, vd.formObj.lTimeType || frmObj.lTimeType)) : ""),
-     // (e.name === "pTime" ? h('div.vsmFrmDaysHrs', calcDaysHrs(vd.formObj[e.name] || frmObj[e.name], 0, vd.formObj.pTimeType || frmObj.pTimeType)) : "")
     ])
   })
 
