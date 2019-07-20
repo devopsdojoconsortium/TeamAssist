@@ -67,9 +67,9 @@ const validRoutes = {
           build: "Build", intTest: "Integration Test", deploy: "Deployment", other: "Other"
         } },
         { label: "Lead Time", type: "number", name: "lTime", min: 0.125, step: 0.125, req: "Lead Time Required" },
-        { label: "LEAD TIME TYPE", type: "hidden", name: "lTimeType" },
+        {  type: "hidden", name: "lTimeType" },
         { label: "Process Time", type: "number", name: "pTime", min: 0.125, step: 0.125, req: "Process Time Required" },
-        { label: "PROCESS TIME TYPE", type: "hidden", name: "pTimeType" },
+        {  type: "hidden", name: "pTimeType" },
         { label: "% C & A", type: "number", name: "pctAcc", min: 1, max: 100, step: 1 },
       ],
 

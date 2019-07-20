@@ -191,11 +191,13 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     // console.log('e.opts, optsSrc, opts', e.opts, optsSrc, opts)
     if (e.name === "lTime" || e.name === "pTime") {
       const nameExt = e.name + "Type"
-      const stepsToggle = (vd.formObj[nameExt] === "mins" || frmObj[nameExt] === "mins") ? { 
+      let stepsToggle = (vd.formObj[nameExt] === "mins" || frmObj[nameExt] === "mins") ? { 
         min: 1, max: 120, step: 1,
         value: frmObj[e.name] ? frmObj[e.name] : e.value * 1440
       } : {} 
       const iconToggle = stepsToggle.step ? "mins" : "days"
+      if (!stepsToggle.step && vd.formObj[e.name] >= 5) // 5 days or more, no need to incr on hours
+        stepsToggle = { min: 1, step: 1 }
       const mutatedFrmEle = { attrs: mutate(formProps(e, frmObj[e.name]), stepsToggle) }
       formEle = h('div.vsmFrmRowsWrap', [
         h('input.keyInput', mutate(formEleStyle, mutatedFrmEle )),
