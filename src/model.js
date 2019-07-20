@@ -854,8 +854,12 @@ function makeModification$ (actions) {
         const vsmPost = changedOnlyProps(postObj.id, postStream, stateObj, mutate(postObj, formObj), ["user"])
         if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
           displayObj.formObj.errors.name = "No fields were changed!"
-        if (formObj.pTime && Number(formObj.lTime) < Number(formObj.pTime)) //  
-          displayObj.formObj.errors.pTime = "Process Time cannot exceed Lead"
+        if (formObj.pTime && formObj.lTime) {
+          const lt = Number(formObj.lTime) / (formObj.lTimeType === "mins" ? 1440 : 1)
+          const pt = Number(formObj.pTime) / (formObj.pTimeType === "mins" ? 1440 : 1)
+          if (pt > lt)
+            displayObj.formObj.errors.lTime = "Process Time cannot exceed Lead"
+        }  
         if (Object.keys(displayObj.formObj.errors).length)
           return displayObj;
         arrOfPosts.push(vsmPost)

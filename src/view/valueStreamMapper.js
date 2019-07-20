@@ -13,8 +13,10 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   let outLen = 0
 
   const out = vsMap.filter(x => x.lTime).map((act, idx) => {
-    const waitTime = act.lTime - act.pTime
-    const ptLen = act.pTime > 3 ? Number(act.pTime) : 3
+    const lt = Number(act.lTime) / (act.lTimeType === "mins" ? 1440 : 1)
+    const pt = Number(act.pTime) / (act.pTimeType === "mins" ? 1440 : 1)
+    const waitTime = lt - pt
+    const ptLen = pt > 3 ? pt : 3
     const ltLen = waitTime + ptLen
     outLen++
 
@@ -25,7 +27,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ),
         h('div.vsmProcess', { style: { width: (ptLen * 30) + "px" }}, [
           h('br'),
-          h('strong', "PT: " + calcDaysHrs(act.pTime)),
+          h('strong', "PT: " + calcDaysHrs(act.pTime, 0, act.pTimeType)),
         ]),
         h('div.vsmLegend', { style: { width: (ptLen * 30) + "px" }}, [
           h('h4', { attrs: {
@@ -33,7 +35,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
             tooltipPos: "bottom"            
           }}, act.name),
           h('div', [
-            "LT: " + calcDaysHrs(act.lTime, 0.25), // 0.25 is only val that works in fn for now
+            "LT: " + calcDaysHrs(act.lTime, 0.25, act.lTimeType), // 0.25 is only val that works in fn for now
             h('br'),
             "C&A: " + act.pctAcc + "%",
           ])
@@ -191,13 +193,13 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     // console.log('e.opts, optsSrc, opts', e.opts, optsSrc, opts)
     if (e.name === "lTime" || e.name === "pTime") {
       const nameExt = e.name + "Type"
-      let stepsToggle = (vd.formObj[nameExt] === "mins" || frmObj[nameExt] === "mins") ? { 
-        min: 1, max: 120, step: 1,
-        value: frmObj[e.name] ? frmObj[e.name] : e.value * 1440
+      let stepsToggle = (vd.formObj[nameExt] === "mins" || (!vd.formObj[nameExt] && frmObj[nameExt] === "mins")) ? { 
+        min: 1, max: 120, step: 1
       } : {} 
       const iconToggle = stepsToggle.step ? "mins" : "days"
       if (!stepsToggle.step && vd.formObj[e.name] >= 5) // 5 days or more, no need to incr on hours
         stepsToggle = { min: 1, step: 1 }
+      console.log('vd.formObj[e.name] || frmObj[e.name], stepsToggle', vd.formObj[e.name], frmObj[e.name], stepsToggle)
       const mutatedFrmEle = { attrs: mutate(formProps(e, frmObj[e.name]), stepsToggle) }
       formEle = h('div.vsmFrmRowsWrap', [
         h('input.keyInput', mutate(formEleStyle, mutatedFrmEle )),
