@@ -13,8 +13,8 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   let outLen = 0
 
   const out = vsMap.filter(x => x.lTime).map((act, idx) => {
-    const lt = Number(act.lTime) / (act.lTimeType === "mins" ? 1440 : 1)
-    const pt = Number(act.pTime) / (act.pTimeType === "mins" ? 1440 : 1)
+    const lt = Number(act.lTime) / (act.lTimeType === "mins" ? 480 : 1) // mins in 8 hour day
+    const pt = Number(act.pTime) / (act.pTimeType === "mins" ? 480 : 1)
     const waitTime = lt - pt
     const ptLen = pt > 3 ? pt : 3
     const ltLen = waitTime + ptLen
