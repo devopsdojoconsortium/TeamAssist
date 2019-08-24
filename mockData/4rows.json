@@ -1,0 +1,41 @@
+{
+    "total": "0",
+    "page": "1",
+    "records": "4",
+    "rows": [
+        {
+            "Date": "8/21/2016",
+            "Transmitted": "152",
+            "Pending": "0",
+            "Error": "0"
+        },
+        {
+            "Date": "8/20/2016",
+            "Transmitted": "152",
+            "Pending": "0",
+            "Error": "0"
+        },
+        {
+            "Date": "8/19/2016",
+            "Transmitted": "152",
+            "Pending": "0",
+            "Error": "0"
+        },
+        {
+            "Date": "8/18/2016",
+            "Transmitted": "152",
+            "Pending": "0",
+            "Error": "0"
+        }
+    ],
+    "PageInfo": {
+        "CurrentPage": "0",
+        "TotalPages": "0",
+        "IsFirstPage": "False",
+        "IsLastPage": "False"
+    },
+    "Status": {
+        "StatusCode": "1",
+        "StatusMessage": "Success"
+    }
+}

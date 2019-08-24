@@ -1,0 +1,34 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "settings": {
+        "html/indent": "+2"  // indentation is the <script> indentation plus two spaces.
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "globals": {
+        "global": true
+    },
+    "rules": {
+        "indent": [
+            "warn",
+            2
+        ],
+        "no-console": [
+            "off"
+        ],
+        "comma-spacing": [ "warn" ],
+        "space-before-function-paren": [ "warn" ],
+        "space-infix-ops": ["warn"],
+        "no-var": [ "warn" ],
+        "prefer-const": [ "warn" ],
+        "eqeqeq": [ "warn" ],
+        "keyword-spacing": [ "warn" ],
+        "spaced-comment": [ "warn" ],
+        "block-scoped-var": ["warn"]
+    }
+}
