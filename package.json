@@ -40,7 +40,7 @@
     "chai": "^3.5.0",
     "chai-virtual-dom": "^1.0.0",
     "cucumber": "^4.1.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-watch": "^1.2.5",
     "jsonfile": "^4.0.0",
     "live-server": "^0.9.0",
