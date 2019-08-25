@@ -12,16 +12,16 @@ const panelObj = {
     const locs = vd.settings.ttLoc && vd.settings.ttLoc.length ? vd.settings.ttLoc : ["ct", "vr"]
     const metaMap = {
       ct: {
-        title: "Bloomfield TeamTrek at Wilde Campus",
-        confluenceUrl: "https://cyg.confluence.com", 
+        title: "TeamTrek at Connecticut Campus",
+        confluenceUrl: "https://confluence.com", 
         activitiesImg: "./images/posters/null.jpg",
-        activitiesUrl: "https://goo.gl/forms/IKNG30zeyJt3QMu23",
+        activitiesUrl: "https://goo.gl/forms/sample",
       },
       vr: {
         title: "The Virtual TeamTrek (VoJo)",
-        confluenceUrl: "https://cyg.confluence.com", 
+        confluenceUrl: "https://confluence.com", 
         activitiesImg: "./images/posters/virtualWarriorsArentMade.jpg",
-        activitiesUrl: "https://cyg.confluence.com"
+        activitiesUrl: "https://confluence.com"
       }
     }
     const divWidth = 94 / locs.length
@@ -33,7 +33,7 @@ const panelObj = {
       return h('div', { style: { float: "left", width: divWidth + "%", minHeight: "600px", padding: 0, margin: "10px 5px", textAlign: "center", border: "3px solid #000"}}, [
         h('div', { style: { background: "#fff", padding: "4px", clear: "both"}}, [ 
           h('img#setting_ttLoc_' + l + '.locIconImg.ttLocSel.mClick', { 
-            attrs: { src: 'images/tt_' + l.toUpperCase() + '_icon.png', align: 'absmiddle'},
+            attrs: { src: 'images/dojo_' + l.toUpperCase() + '_icon.png', align: 'absmiddle'},
             style: { float: "left"}
           }) 
         ]),
@@ -183,7 +183,7 @@ const panelObj = {
         attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
         style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
       }, ""),
-      h('a.la.la-edit.la-3x.tableIconLink', {
+      h('a.la.la-map.la-3x.tableIconLink', {
         attrs: { href: "#/vsm/id/" + team.id },
         style: { position: "absolute", top: "43px", right: "45px", width: "30px", textDecoration: "none"}
       }, ""),
@@ -194,11 +194,11 @@ const panelObj = {
     const team = rteObj.details || {}
     const vsmMaps = vd.sub1 && vd.sub1.maps && vd.sub1.maps.ord || ["current"]
     return  h('div', { style: { position: "relative", textAlign: "center" }}, [
-      h('h1', (team.project || "") + " Value Stream Mapping"),
-      // h('a.la.la-edit.la-3x.tableIconLink', {
-      //  attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
-      //  style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
-      // }, ""),
+      h('h1', " Value Stream Maps"),
+      h('a.la.la-edit.la-3x.tableIconLink', {
+        attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
+        style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
+      }, ""),
       h('div', 
         rteObj.meta.blockIt ? rteObj.meta.blockIt : vsmMaps.map(i => valueStreamDetail(i, team, rteObj.meta, vd))
       )
@@ -611,7 +611,7 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
           textAlign: "center", width: "450px", 
           marginLeft: Math.floor(Math.random() * 620) + "px"
         },
-        attrs: {src: 'images/animation/ninjaBounceLoader.gif'}
+        attrs: {src: 'images/animation/ninjaPushButton.gif'}
       })
     ])
   const tp = tableParams || vd.rteObj.meta.tableParams;  // favor generic input, default to tableDefault tableConfig && vd.list
@@ -861,7 +861,7 @@ function renderHeader (viewData) {
       tooltipPos: "bottom"
     }}, 
     h('img#setting_ttLoc_' + st + '.locIconImg.mClick' + ttLocSel, { 
-      attrs: { src: 'images/tt_' + st + '_icon.png', align: 'absmiddle'}
+      attrs: { src: 'images/dojo_' + st + '_icon.png', align: 'absmiddle'}
     }))
   })
   return h('div.header', [
@@ -1040,7 +1040,7 @@ export default function view (viewData$) {
       renderHeader(viewData),
       renderPanel(viewData),
       renderModal(viewData),
-      // renderMenu(viewData), // http://localhost:8080/#/vsm/id/6cc326
+      renderMenu(viewData), // http://localhost:8080/#/vsm/id/6cc326
       renderFooter(viewData),
       player(viewData)
     ])

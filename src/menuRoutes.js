@@ -48,7 +48,7 @@ const validRoutes = {
   vsm: {
     meta: {
       name: "Value Stream Map " + today(),      menuName: "VSM",
-      menuLevel: 5,
+      menuLevel: 10,
       panelFn: "valueStream",
       hstream: "teams",
       postStream: "vsm_",
@@ -208,7 +208,7 @@ const validRoutes = {
     modUser: {
       meta: {
         name: "Add User",
-        menuLevel: 6, // gone
+        menuLevel: 3, // gone
         hstream: "users",
         panel: "Add a New User to teamTrek",
         panelFn: "formPanel",
@@ -307,7 +307,7 @@ const validRoutes = {
     href: "",
     panelFn: "formPanel",
     // move this to special validRoutes property
-    sessPropForId: "vzid",
+    sessPropForId: "eid",
     formConfig: [
       { pane: "What role best fits you in the teamTrek?", name: "roleSelect"},
       { label: "Just Visiting", type: "radio", name: "levelSought", value: "1" },

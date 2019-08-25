@@ -65,6 +65,11 @@ function monthYear (){
   }, {})
 }
 
+const teamLinks = [       
+  { dKey: "", label: "VSM", atagClasses: ".la.la-map.la-3x.tableIconLink", altVal: " ", atag: "#/vsm/id/{id}", width: 30 },
+  { dKey: "", label: "Report", atagClasses: ".la.la-book.la-3x.tableIconLink", altVal: " ", atag: "#/teams/id/{id}", width: 30 },
+  { dKey: "", label: "Edit", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/teams/modTeam/id/{id}", width: 30 }
+]
 
 const tableConfig = {
   teamReports: { // not a standard table view, but these defaults are good for pivot types
@@ -98,7 +103,7 @@ const tableConfig = {
       { dKey: "ttLoc", label: ".", width: 28, title: "__", hashMap: ttLocs,
         thStyle: "#setting_schShift_Prev.mClick.thSchedToggle.la.la-caret-square-o-left.la-2x",
         tdStyle: "borderRight2Blk", // mutedBg",
-        imgUrl: "/images/tt_{ttLoc}_icon.png", 
+        imgUrl: "/images/dojo_{ttLoc}_icon.png", 
         atagStyle: { width: "25px", background: "#F4F5F7" } // F4F5F7
       },
     ]
@@ -123,7 +128,7 @@ const tableConfig = {
       { dKey: "contactName", label: "Contact", sort: "asc", atag: "mailto:{contactEmail}" },
       { dKey: "ttLoc", label: " ", sort: "asc", width: 32, title: "__", hashMap: ttLocs,
         thStyle: "thMapsigns.fa.fa-map-signs",
-        imgUrl: "/images/tt_{ttLoc}_icon.png", 
+        imgUrl: "/images/dojo_{ttLoc}_icon.png", 
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "description", label: "Challenge Description", minWidth: 300 },
@@ -131,8 +136,7 @@ const tableConfig = {
       { dKey: "coachNotes", label: "Coaching Notes", sort: "asc", width: 280, tdStyle: "#modal_priors_cell.mClick.clickBg" },
       { dKey: "challengeStartDate", label: "Start Date", dateFormat: "MM/DD/YY" },
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
-      { dKey: "", label: "", atagClasses: ".la.la-book.la-3x.tableIconLink", altVal: " ", atag: "#/teams/id/{id}", width: 30 },
-      { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/teams/modTeam/pane_progress/id/{id}", width: 30 }
+      ...teamLinks
     ],
     filtersPage: { searchCol: ["project", "contactName"] },
     filtersExtra: {
@@ -146,7 +150,7 @@ const tableConfig = {
       { dKey: "contactName", label: "Contact", sort: "asc", minWidth: 180, atag: "mailto:{contactEmail}"  },
       { dKey: "ttLoc", label: " ", sort: "asc", width: 32, title: "__", hashMap: ttLocs,
         thStyle: "thMapsigns.fa.fa-map-signs",
-        imgUrl: "/images/tt_{ttLoc}_icon.png", 
+        imgUrl: "/images/dojo_{ttLoc}_icon.png", 
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "lob", label: "LOB", hashMap: lobs },
@@ -157,7 +161,6 @@ const tableConfig = {
       { dKey: "salesNotes", label: "Pipeline Notes", sort: "asc", width: 280, tdStyle: "#modal_priors_cell.mClick.clickBg" },
       { dKey: "nextContactDate", label: "Next Contact", sort: "desc", width: 100, dateFormat: "MM/DD/YY" },
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
-      { dKey: "", label: "", atagClasses: ".la.la-book.la-3x.tableIconLink", altVal: " ", atag: "#/teams/id/{id}", width: 30 },
       { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/teams/modTeam/pane_pipeline/id/{id}", width: 30 }
     ],
     filtersPage: { searchCol: [ "project", "contactName"] },
@@ -173,7 +176,7 @@ const tableConfig = {
       { dKey: "contactName", label: "Contact", sort: "asc", atag: "mailto:{contactEmail}"  },
       { dKey: "ttLoc", label: " ", sort: "asc", width: 32, title: "__", hashMap: ttLocs,
         thStyle: "thMapsigns.fa.fa-map-signs",
-        imgUrl: "/images/tt_{ttLoc}_icon.png", 
+        imgUrl: "/images/dojo_{ttLoc}_icon.png", 
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "keyPracticesLearned", label: "Practices Learned", minWidth: 180 },
@@ -182,8 +185,7 @@ const tableConfig = {
       { dKey: "challengeEndDate", label: "Ended", sort: "asc", dateFormat: "MM/DD/YY" },
       { dKey: "teamSize", label: "Team Size"},
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
-      { dKey: "", label: "", atagClasses: ".la.la-book.la-3x.tableIconLink", altVal: " ", atag: "#/teams/id/{id}", width: 30 },
-      { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/teams/modTeam/pane_completed/id/{id}", width: 30 }
+      ...teamLinks
     ],
     filtersPage: { searchCol: [ "project", "contactName"] },
     filtersExtra: {
@@ -197,7 +199,7 @@ const tableConfig = {
       { dKey: "contactName", label: "Contact", sort: "asc", minWidth: 180, atag: "mailto:{contactEmail}"  },
       { dKey: "ttLoc", label: " ", sort: "asc", width: 32, title: "__", hashMap: ttLocs,
         thStyle: "thMapsigns.fa.fa-map-signs",
-        imgUrl: "/images/tt_{ttLoc}_icon.png", 
+        imgUrl: "/images/dojo_{ttLoc}_icon.png", 
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "lob", label: "LOB", hashMap: lobs },
@@ -205,8 +207,7 @@ const tableConfig = {
       { dKey: "teamSize", label: "Team Size"},
       { dKey: "coachNotes", label: "Coaching Notes", width: 280, tdStyle: "#modal_priors_cell.mClick.clickBg" },
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
-      { dKey: "", label: "", atagClasses: ".la.la-book.la-3x.tableIconLink", altVal: " ", atag: "#/teams/id/{id}", width: 30 },
-      { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/teams/modTeam/id/{id}", width: 30 }
+      ...teamLinks
     ],
     filtersPage: { searchCol: [ "project", "contactName"] },
     filtersExtra: {
@@ -220,7 +221,7 @@ const tableConfig = {
       { dKey: "loginName", label: "Session Name/Email", minWidth: 180, atag: "mailto:{email}"  },
       { dKey: "ttLoc", label: " ", sort: "asc", width: 32, title: "__", hashMap: ttLocs,
         thStyle: "thMapsigns.fa.fa-map-signs",
-        imgUrl: "/images/tt_{ttLoc}_icon.png", 
+        imgUrl: "/images/dojo_{ttLoc}_icon.png", 
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "teamTied", label: "Member of Team", hashMap: "engagedTeams" },

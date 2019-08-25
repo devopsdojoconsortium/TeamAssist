@@ -469,7 +469,7 @@ function displayByRoute (route, displayObj, tweakHist){
   displayObj.menu = getMenu(displayObj, route);
 
   if (!displayObj.session.loginLevel){ // dozjjHcQj50w
-    Cookie.set("ttID", "dozjjHcQj50w", { expires: 77 }) // for dev ENV ONLY. Do not commit it setting!
+    // Cookie.set("ttID", "", { expires: 77 }) // for dev ENV ONLY. Do not commit it setting!
     const cookies = Cookie.get()
     if (cookies.ttID)
       serviceEmitter$.emit("service", { resProp: "getSession", req: {
@@ -670,7 +670,8 @@ function makeModification$ (actions) {
       displayObj.cntrl = {};
       const vsmSettingsObj = displayObj.settings.vsmObj || {}
       const meta = displayObj.rteObj.meta
-      const fConfs = vsmSettingsObj.pos === -1 ? meta.metaFormConfig : meta.formConfig.filter(x => !x.pane);
+      const fConfs = vsmSettingsObj.pos === -1 &&  meta.metaFormConfig ? meta.metaFormConfig : 
+        meta.formConfig.filter(x => !x.pane);
       fConfs.forEach(f => {
         displayObj.formObj.errors = validateForm(displayObj, { name: f.name, value: action[f.name].value }, fConfs);
       })
@@ -750,7 +751,8 @@ function makeModification$ (actions) {
       // build formObj for post
       const arrOfPosts = [] // if formObjs are pushed to this, use instead of single
       const keys = fConfs.map(i => i.name)
-      const postStream = meta.postStream + (meta.postStream.match(/_$/) ? displayObj.rteObj.selectedId : "")
+      const postStream = (meta.postStream || meta.hstream)
+        + (meta.postStream && meta.postStream.match(/_$/) ? displayObj.rteObj.selectedId : "")
       let formObj = fConfs.reduce((acc, fo) => {
         const k = fo.name
         acc[k] = fo.type.match(/^date/) ? makeMinStamp(action[k].value, "utc") : action[k].value
@@ -761,13 +763,13 @@ function makeModification$ (actions) {
         // console.log("makeFormObj->" + k, action[k].value, acc[k])
         return acc
       }, {})
-      // console.log('formObj', extend({}, formObj), action);
+       console.log('formObj displayObj.session', extend({}, formObj), action, displayObj.session);
       // new vs mod
       const idSeed = meta.pageKey === meta.routeKey ? formObj[keys[0]] : "" // VERY temp
       if (meta.sessPropForId && displayObj.session[meta.sessPropForId]){
-        formObj.id = displayObj.session[meta.sessPropForId] // non-hashed for vzid
+        formObj.id = displayObj.session[meta.sessPropForId] // non-hashed for eid
         // idSeed = displayObj.session[meta.sessPropForId]  // hash method for any other stream
-        formObj = mutate(formObj, trimObj(displayObj.session, ["loginLevel", "loginName", "email", "employeeId", "vzid"]))
+        formObj = mutate(formObj, trimObj(displayObj.session, ["loginLevel", "loginName", "email", "employeeId", "eid"]))
       }
       if (meta.postStream === "schedule" && displayObj.tRowCntrl.cellDiv){
         const cellObj = displayObj.tRowCntrl.cellDiv
@@ -877,7 +879,7 @@ function makeModification$ (actions) {
             ord: ord.filter(x => x !== postObj.id)
           }) )
         else if(!stepObj.actid && stepObj.pos > -1){
-          console.log("ADDACT!!! ", postObj, ord, stepObj)
+          // console.log("ADDACT!!! ", postObj, ord, stepObj)
           let newArr = []
           ord.forEach((i, idx) => {
             if(Number(stepObj.pos) === idx)
@@ -886,7 +888,7 @@ function makeModification$ (actions) {
           })
           arrOfPosts.push( mutate(trimObj(postObj, ["user", "actionType"]), {
             id: "meta_" + stepObj.mapkey,
-            ord: stepObj.pos > ord.length ? ord.concat(postObj.id) : newArr
+            ord: stepObj.pos >= ord.length ? ord.concat(postObj.id) : newArr
             // ord: stepObj.pos >= ord.length ? ord.concat(postObj.id) : ord.splice(stepObj.pos, 0, postObj.id)
           }) )
         }
@@ -997,7 +999,7 @@ function makeModification$ (actions) {
           (results.fromES.match(/(119-99-239|teamTrek.ebiz)/) ? "stg" : "dit")
         // console.log('stateObj[req.hstream] && ses', stateObj[req.hstream], req.hstream, ses)
         displayObj.session = mutate(displayObj.session, ses)
-        if (displayObj.session.vzid)
+        if (displayObj.session.eid)
           serviceEmitter$.emit("service", { resProp: "getProfile", req: {
             hstream: "users",
             href: "?embed=tryharder",
@@ -1007,10 +1009,10 @@ function makeModification$ (actions) {
         return displayObj;
       }
       else if (results.svc.resProp === "getProfile"){
-        const hashOfID = displayObj.session.vzid
+        const hashOfID = displayObj.session.eid
         if (stateObj[req.hstream] && stateObj[req.hstream][hashOfID]){
           const profile = trimObjExcl(stateObj[req.hstream][hashOfID], ["eStamp", "id", "eId", "priors", "eventType"]);
-          console.log('profile profile profile ::::', profile, req.hstream, hashOfID, displayObj.session.vzid)
+          console.log('profile profile profile ::::', profile, req.hstream, hashOfID, displayObj.session.eid)
           profile.loginLevel = profile.loginLevel || 1
           displayObj.session = mutate(displayObj.session, profile, { uid: hashOfID })
           if (!profile.ttLoc) // make em say who they are / where they from!
@@ -1021,7 +1023,7 @@ function makeModification$ (actions) {
         }
         else if (!stateObj[req.hstream]) // REDUND... needs another round to get users stateObj
           return mutate(displayObj, {cntrl: {snd: 1}})
-        console.log("hashOfID = displayObj.session.vzid", hashOfID, displayObj.session.vzid, stateObj[req.hstream][hashOfID])
+        console.log("hashOfID = displayObj.session.eid", hashOfID, displayObj.session.eid, stateObj[req.hstream][hashOfID])
         return mutate(displayObj, { rteObj: getRteObj(["welcomeLevel"]) });
       }
       else if (results.svc.resProp === "makeTeamHash" && stateObj[req.hstream]){
@@ -1071,7 +1073,7 @@ function makeModification$ (actions) {
             displayObj.rteObj.details.evtData += "Event Count: " + eventStore[rteObj.hstream].length + "\n"
             // stateObj[req.hstream][displayObj.rteObj.selectedId] || {}
           }
-          console.log("sdsdfsdf", req)
+          // console.log("sdsdfsdf", req)
         }
         else {
           displayObj.list = [{ errorMessage: "rows can't be missing!" }]
@@ -1079,9 +1081,8 @@ function makeModification$ (actions) {
           return displayObj
         }
         // make details obj for form
-        if (displayObj.rteObj.selectedId && stateObj[req.hstream]){
-          displayObj.rteObj.details = stateObj[req.hstream][displayObj.rteObj.selectedId] || {}
-          // console.log("rteObj.details", rteObj.details)
+        if (displayObj.rteObj.selectedId && stateObj[meta.hstream]){
+          displayObj.rteObj.details = stateObj[meta.hstream][displayObj.rteObj.selectedId] || {}
           if (meta.formConfig && meta.formConfig.some(s => s.journal)){
             const obj = extend(displayObj.rteObj.details)
             const priorKeys = obj.priors ? [obj.eId].concat(obj.priors.reverse()) : [obj.eId]

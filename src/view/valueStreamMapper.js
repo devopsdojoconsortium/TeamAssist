@@ -91,8 +91,20 @@ function summaryBox (vsMap) {
 
 function metaFrm (vsmIObj, mapKey, vd) {
 
-  const frmObj = vd.sub1 ? vd.sub1["meta_" + mapKey] : {}  
-
+  let frmObj = vd.sub1 && vd.sub1["meta_" + mapKey]
+  if (vd.sub1 && vd.sub1[0] && vd.sub1[0].errorMessage) {
+    frmObj = { name: "" }
+  }
+  else if (!frmObj)
+    return h('div', [
+      h('img', { 
+        style: {
+          textAlign: "center", width: "375px", 
+          marginLeft: Math.floor(Math.random() * 620) + "px"
+        },
+        attrs: {src: 'images/animation/ninjaPushButton.gif'}
+      })
+    ])
   const exitX = h('div#delProp_settings_vsmObj.mClick.la.la-close.upperRight')
   const formEleTypeMap = { checkbox: {top: "1px", left: "215px"}, number:{ width: "85px"} }
 
