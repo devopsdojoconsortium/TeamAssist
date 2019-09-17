@@ -37,8 +37,8 @@ const validRoutes = {
         { label: "Team Commitment", type: "select", name: "commitment", opts: {
           loose: "Loosely Considering", tentative: "Tentative", committed: "Committed" // keys tie to css!
         } },
-        { label: "Key Coach", type: "select", name: "aCoach", opts: "coachers" },
-        { label: "2nd Coach", type: "select", name: "tCoach", opts: "coachers" },
+        { label: "Key Coach", type: "select", name: "aCoach", opts: "coachers", numIndex: true }, // numIndex: true covers numeric EID
+        { label: "2nd Coach", type: "select", name: "tCoach", opts: "coachers", numIndex: true },
         { label: "Specific Date/Time", type: "datetime-local", name: "whenStamp" },
         { label: "Auto-add weeks (5 for challenges)", type: "number", name: "spreadRight" },
       ]
@@ -180,7 +180,7 @@ const validRoutes = {
           { label: "Speed to Value Improvement", type: "text", name: "speedToValueImprovement" },
           { label: "Post TeamTrek Follow Up Notes", type: "textarea", name: "followUp", rows: 7, cols: 35, journal: true},
             { pane: "Assignments, etc", name: "meta"},
-          { label: "Primary Coach / POC", type: "select", name: "keyCoach", opts: "coachers" },
+          { label: "Primary Coach / POC", type: "select", name: "keyCoach", opts: "coachers", numIndex: true },
           { label: "Permanently DELETE", type: "checkbox", name: "statusDELETE", value: 1 },
         ],
         panel: "Update information for team"
@@ -215,7 +215,7 @@ const validRoutes = {
         formConfig: [
           { pane: "Basic Profile Information", name: "basic"},
           { label: "Preferred Display Name (First/Last)", type: "text", name: "displayName", req: "The name you love to hear. YOURS!" },
-          { label: "TeamTrek Location", req: "Most relevant Location", type: "select", name: "ttLoc", opts: ttLocs },
+          { label: "TeamTrek Location", type: "select", name: "ttLoc", opts: ttLocs },
           { label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
             name: "loginLevel", opts: loginLevels, numIndex: true, title: "App Permission only settable up to YOUR level!" }
         ]
@@ -300,6 +300,35 @@ const validRoutes = {
     }}
   },
   // below is where we'll put all our special routes
+  loginScreen: { meta: {
+    menuLevel: 10, // over 5 kept from menu
+    name: "Login",
+    hstream: "users",
+    postStream: "session_",
+    panelFn: "formPanel",
+    makeSess: "eid",
+    formConfig: [
+      { pane: "This app requires a valid employee session", name: "Login"},
+      { label: "Your EID", type: "text", name: "eid", req: "6" },
+      { label: "Password", type: "password", name: "password", req: "8", },
+    ]
+  }},
+  register: { meta: {
+    menuLevel: 10, // over 5 kept from menu
+    name: "Register for Access",
+    hstream: "users",
+    postStream: "session_",
+    panelFn: "formPanel",
+    makeSess: "eid",
+    formConfig: [
+      { pane: "Register now", name: "Register"},
+      { label: "Full Name", type: "text", name: "loginName", req: "Your name is key" },
+      { label: "Email", type: "text", name: "email", req: "email", title: ""},
+      { label: "Your EID", type: "text", name: "eid", req: "Enter your valid Employee Number" },
+      { label: "Password", type: "password", name: "password", req: "Strong local password", },
+      { label: "Repeat Password", type: "password", name: "password2", req: "Confirm Password", },
+    ]
+  }},
   welcomeLevel: { meta: {
     menuLevel: 10, // over 5 kept from menu
     name: "Welcome to the TeamTrek!",

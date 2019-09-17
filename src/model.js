@@ -215,14 +215,14 @@ function formEventPost (obj, idSeed, actionType = "generic", asOfStamp, postStre
     obj.id = untilUniq(idSeed, stateObj[obj.postStream || postStream])
   if (asOfStamp)
     obj.asOfStamp = asOfStamp
-  return obj.id ? {
+  return {
     "eventId": uuidFn(),
     "eventType": obj.actionType || actionType,
     "data": mutate(trimObjExcl(obj, ["eId", "eventType", "actionType", "postStream", "idSeed"]), {
       "eStamp": obj.eStamp || makeMinStamp()
     }),
     "metadata": {"$causationId" : obj.user, "$correlationId" : obj.id}
-  } : {}
+  }
 }
 
 function getMenu (dO, route){
@@ -478,7 +478,7 @@ function displayByRoute (route, displayObj, tweakHist){
         noPreTag: true
       }, authHeader: "Accept:application/json" });
     else
-      return mutate(displayObj, { rteObj: getRteObj(["cookiesBlock"], 0) });
+      return mutate(displayObj, { rteObj: getRteObj( route[0] === "register" ? route : ["loginScreen"], 0) });
     displayObj.cntrl.loading = 1;
     return mutate(displayObj, {cntrl: {noop: 1}});
   }
@@ -751,7 +751,7 @@ function makeModification$ (actions) {
       // build formObj for post
       const arrOfPosts = [] // if formObjs are pushed to this, use instead of single
       const keys = fConfs.map(i => i.name)
-      const postStream = (meta.postStream || meta.hstream)
+      let postStream = (meta.postStream || meta.hstream)
         + (meta.postStream && meta.postStream.match(/_$/) ? displayObj.rteObj.selectedId : "")
       let formObj = fConfs.reduce((acc, fo) => {
         const k = fo.name
@@ -763,13 +763,25 @@ function makeModification$ (actions) {
         // console.log("makeFormObj->" + k, action[k].value, acc[k])
         return acc
       }, {})
-       console.log('formObj displayObj.session', extend({}, formObj), action, displayObj.session);
+      // console.log('formObj displayObj.session', extend({}, formObj), action, displayObj.session);
       // new vs mod
-      const idSeed = meta.pageKey === meta.routeKey ? formObj[keys[0]] : "" // VERY temp
+      let idSeed = meta.pageKey === meta.routeKey ? formObj[keys[0]] : "" // VERY temp
       if (meta.sessPropForId && displayObj.session[meta.sessPropForId]){
         formObj.id = displayObj.session[meta.sessPropForId] // non-hashed for eid
         // idSeed = displayObj.session[meta.sessPropForId]  // hash method for any other stream
         formObj = mutate(formObj, trimObj(displayObj.session, ["loginLevel", "loginName", "email", "employeeId", "eid"]))
+      }
+      if (meta.makeSess){ // post on login or register forms
+        if(formObj.password2 && formObj.password2 !== formObj.password || formObj.password.length < 8)
+          displayObj.formObj.errors.password = "Passwords do not match or are shorter than 8 strong characters"
+        else if (!Object.keys(displayObj.formObj.errors).length) {
+          const sessId = formObj.eid + "Y" + murmur.hash128(formObj.eid + "__" + formObj.password).hex()
+          postStream = "session_" + sessId
+          idSeed = ""
+          formObj.user = displayObj.session.uid = formObj.eid
+          Cookie.set("ttID", sessId, { expires: 77 })          
+        }
+        formObj = trimObjExcl(formObj, ["password", "password2"])
       }
       if (meta.postStream === "schedule" && displayObj.tRowCntrl.cellDiv){
         const cellObj = displayObj.tRowCntrl.cellDiv
@@ -902,7 +914,7 @@ function makeModification$ (actions) {
         console.log("vsmPOST!!! vsmPost, arrOfPosts, postObj, stepObj", vsmPost, arrOfPosts, postObj, stepObj)
 
       }
-      else if (!idSeed)
+      else if (!idSeed && !meta.makeSess)
         formObj.id = meta.routeChain[meta.routeChain.length - 1]
       const actionType = meta.routeKey + (idSeed ? "_Created" : "_Updated")
       const changedOnly = changedOnlyProps(formObj.id, meta.hstream, stateObj, formObj)
@@ -910,7 +922,7 @@ function makeModification$ (actions) {
         displayObj.formObj.errors.submit = "No fields were changed!"
       else
         delete displayObj.formObj.errors.submit
-      //  console.log('changedOnly, formObj, displayObj.formObj, action', changedOnly, formObj, displayObj.formObj, action);
+      // console.log('changedOnly, formObj, displayObj.formObj, action', changedOnly, formObj, displayObj.formObj, action);
       if (Object.keys(displayObj.formObj.errors).length)
         return displayObj;
       displayObj.formObj = { errors: {} } // reset
@@ -918,7 +930,7 @@ function makeModification$ (actions) {
 
       serviceEmitter$.emit("service", {
         resProp: "EventCreated",
-        req: { hstream: (postStream || meta.hstream || "oopsStream") },
+        req: { hstream: (postStream || meta.hstream || "oopsStream"), noPreTag: postStream.match(/session_/) },
         postData: arrOfPosts.length ? arrOfPosts.map(i => formEventPost(i))
           : [formEventPost(mutate(changedOnly, {
             id: formObj.id,
@@ -961,7 +973,10 @@ function makeModification$ (actions) {
           { errorMessage: "Event Created" }
         ];
         const post = results.svc.postData && results.svc.postData[0].data || {}
-
+        if (req.hstream.match(/session_/) && post.eid){ // Login or register
+          displayObj = displayByRoute(displayObj.returnRte, displayObj, ["home"])
+          return displayObj 
+        }
         if (req.hstream === "users" && post.levelSought){ // new user record created
           displayObj = displayByRoute(["users", "modUser", "id", post.id], displayObj)
           return mutate(displayObj, {cntrl: {snd: "gong"}})
@@ -993,19 +1008,22 @@ function makeModification$ (actions) {
       else if (results.svc.resProp === "getSession"){
         const ses = stateObj[req.hstream] ?
           trimObjExcl(stateObj[req.hstream], [ "id", "eId", "priors", "eventType"]) : {};
-        ses.loginName = ses.firstName + " " + ses.lastName
+        // ses.loginName = ses.firstName + " " + ses.lastName
         ses.loginLevel = 1
         ses.dataEnv = results.fromES.match(/localhost/) ? "dev" :
           (results.fromES.match(/(119-99-239|teamTrek.ebiz)/) ? "stg" : "dit")
-        // console.log('stateObj[req.hstream] && ses', stateObj[req.hstream], req.hstream, ses)
+   console.log('stateObj[req.hstream] && ses', stateObj, req.hstream, ses)
         displayObj.session = mutate(displayObj.session, ses)
-        if (displayObj.session.eid)
+        if (displayObj.session.loginName)
           serviceEmitter$.emit("service", { resProp: "getProfile", req: {
             hstream: "users",
             href: "?embed=tryharder",
           }, authHeader: "Accept:application/json" });
-        else
-          return displayByRoute(["cookiesBlock"], displayObj)
+        else {          
+          Cookie.remove("ttID")
+          return mutate(displayObj, { rteObj: getRteObj(["loginScreen"]), formObj: {errors: { password: "invalid login "}} });
+        }
+          // return displayByRoute(["cookiesBlock"], displayObj)
         return displayObj;
       }
       else if (results.svc.resProp === "getProfile"){

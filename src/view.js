@@ -784,7 +784,7 @@ function schFrm (vd, teamObj) {
     const opts = optsSrc ? Object.keys(optsSrc).map(k => ( { k: k, v: optsSrc[k] } )) : ""
     let formEle = opts ? 
       inputSelList( e.name, schObj[e.name], ["", ...opts], "keyInput", 
-        formEleStyle.style, e.numIndex, { title: e.title }) :
+        formEleStyle.style, e.numIndex, { title: e.title }, true) :
       h('input.keyInput', mutate(formEleStyle, { attrs: formProps(e, schObj[e.name]) }))
     // console.log('e.opts, optsSrc, opts', e.opts, optsSrc, opts)
     if (e.type === "radio" && opts)
@@ -868,19 +868,19 @@ function renderHeader (viewData) {
     h('div.BannerBg.dataEnv_' + viewData.session.dataEnv, [
       h('div.bannerTitle', ""),
       h('img.ttLogo', {props: {src: "images/teamTrek.png"}}), 
-      // h('img.topRightLogo', {props:{ src: "images/CignaLogo_white.png"}}), 
-      /* h('div.bannerMeta', [
+      h('img.topRightLogo', {props:{ src: "images/CignaLogo_white.png"}}), 
+      h('div.bannerMeta', [
         h('div', h('span.yell', viewData.session.displayName || viewData.session.loginName)), 
         h('div', loginLevels[viewData.session.loginLevel] || "Welcome"), 
         h('div', viewData.session.uid ? 
           h('a', { props: { href: "#/users/modUser/id/" + viewData.session.uid }}, [
             h('img.gearIcon', { props: { src: "images/gear.png" }})
           ]) : ""), 
-      ]), */
+      ])
     ]),
-    // h('div.bannerLocIcons', bannerLocIconsList)
+    h('div.bannerLocIcons', bannerLocIconsList)
 
-//      h('div.crumbs', viewData.rteObj.meta.routeChain.join(" :: ")), // kept in case someone wants a crumb trail. :-)
+    // h('div.crumbs', viewData.rteObj.meta.routeChain.join(" :: ")), // kept in case someone wants a crumb trail. :-)
   ]);
 }
 
