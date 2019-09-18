@@ -28,7 +28,7 @@ const validRoutes = {
       subUrl: {
         hstream: "schedule",
       },
-      hardFilt: { status: ["imm", "ch", "qual", "cons", "cont", "vsm"] },
+      hardFilt: { status: ["eng", "ch", "qual", "cons", "cont", "vsm"] },
       formConfig: [
         { label: "", type: "radio", name: "schType", opts: {
           cons: "Consult", chr: "Charter", chall: "Challenge"
@@ -90,7 +90,7 @@ const validRoutes = {
       name: "Actively TeamTreking Teams", menuName: "Teams",
       hstream: "teams",
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
-      hardFilt: { status: ["eng", "ch", "vsm"] },
+      hardFilt: { status: ["imm", "eng", "ch", "vsm"] }, // imm kept for backwardsComp
 //    cParams: { vhoid: "", sgid: "", zoneid: "", channelid: "", status: "", preverperiod: "? -1?" },
       primeTab: "Current Teams"
     },
