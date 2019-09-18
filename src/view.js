@@ -206,10 +206,11 @@ const panelObj = {
   },
   restream: function (rteObj, vd, panelHeight){
     // const meta = rteObj.meta
-    return  h('div.hey', { style: { height: (panelHeight - 30) + "px"  }}, [
-      h('div', "review below info and select the specific utility from the list!"),
-      h('strong', "Only working for teams now. Test streams first. This form will not change, but stateObj may be affected, ALWAYS refresh app before execution!"),
-      h('br'), h('br'),
+    return  h('div', { style: { height: (panelHeight - 30) + "px" }}, [
+      h('div.hey', [
+        "Review below info and select the specific utility from the list!", h('br'),
+        h('strong', "Only working for teams now. Test streams first. This form will not change, but stateObj may be affected, ALWAYS refresh app before execution!")
+      ]),
       tableTabs(vd, { style: { margin: "0 0 0 85px" }}), 
       h('div', { style: { position: "relative", margin: "35px"}}, 
         modForm(rteObj, vd, panelHeight)

@@ -37,7 +37,16 @@ body {font: 12px Roboto, Helvetica, Arial, sans-serif; margin: 0px; color: #3333
     margin: 0 0 0 13px;
     float: left;
 }
-
+.hey {
+  border: 1px solid red;
+  clear: both;
+  width: 60%;
+  margin: auto;
+  padding: 3px;
+  text-align: center;
+  color: #000;
+  background: #fcc;
+}
 .modal {
   position: absolute;
   top: 102px;
