@@ -1030,9 +1030,10 @@ function makeModification$ (actions) {
         const hashOfID = displayObj.session.eid
         if (stateObj[req.hstream] && stateObj[req.hstream][hashOfID]){
           const profile = trimObjExcl(stateObj[req.hstream][hashOfID], ["eStamp", "id", "eId", "priors", "eventType"]);
-          console.log('profile profile profile ::::', profile, req.hstream, hashOfID, displayObj.session.eid)
           profile.loginLevel = profile.loginLevel || 1
+          stateObj[req.hstream][hashOfID].displayName = profile.displayName || displayObj.session.loginName
           displayObj.session = mutate(displayObj.session, profile, { uid: hashOfID })
+          console.log('profile profile profile ::::', profile, req.hstream, hashOfID, displayObj.session.eid)
           if (!profile.ttLoc) // make em say who they are / where they from!
             displayObj = displayByRoute(["users", "modUser", "id", hashOfID], displayObj, true)
           // getRteObj(["users", "modUser", "id", hashOfID], profile.loginLevel)

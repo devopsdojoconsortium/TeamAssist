@@ -215,7 +215,7 @@ const validRoutes = {
         formConfig: [
           { pane: "Basic Profile Information", name: "basic"},
           { label: "Preferred Display Name (First/Last)", type: "text", name: "displayName", req: "The name you love to hear. YOURS!" },
-          { label: "TeamTrek Location", type: "select", name: "ttLoc", opts: ttLocs },
+          { label: "TeamTrek Location", req: "Most relevant Location", type: "select", name: "ttLoc", opts: ttLocs },
           { label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
             name: "loginLevel", opts: loginLevels, numIndex: true, title: "App Permission only settable up to YOUR level!" }
         ]
