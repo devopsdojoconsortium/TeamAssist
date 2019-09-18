@@ -28,7 +28,7 @@ const validRoutes = {
       subUrl: {
         hstream: "schedule",
       },
-      hardFilt: { status: ["imm", "ch", "qual", "cons", "eng"] },
+      hardFilt: { status: ["imm", "ch", "qual", "cons", "cont", "vsm"] },
       formConfig: [
         { label: "", type: "radio", name: "schType", opts: {
           cons: "Consult", chr: "Charter", chall: "Challenge"
@@ -90,7 +90,7 @@ const validRoutes = {
       name: "Actively TeamTreking Teams", menuName: "Teams",
       hstream: "teams",
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
-      hardFilt: { status: ["imm", "ch"] },
+      hardFilt: { status: ["eng", "ch", "vsm"] },
 //    cParams: { vhoid: "", sgid: "", zoneid: "", channelid: "", status: "", preverperiod: "? -1?" },
       primeTab: "Current Teams"
     },
@@ -99,7 +99,7 @@ const validRoutes = {
       hstream: "teams",
       menuLevel: 3,
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
-      hardFilt: { status: ["qual", "cons", "eng", "lead", "pre", "null"] },
+      hardFilt: { status: ["qual", "cons", "cont", "vsm", "lead", "pre", "null"] },
       tabPage: true,
     }},
     teamsCompleted: { meta: {

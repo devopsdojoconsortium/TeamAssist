@@ -4,8 +4,8 @@ const ttLocs = { ct: "Connecticut", vr: "Virtual" }
 
 const lobs = ["Customer", "Provider", "Platform", "Client", "Producer"]
 
-const teamStatus = { pre: "Prefill", lead: "Lead", eng: "Engagement", 
-  cons: "Consult", qual: "Pre-qualification", ch: "Charter", imm: "Immersion", grad: "Graduated", out: "Opt-Out" }
+const teamStatus = { pre: "Prefill", lead: "Lead", cont: "Contacted", 
+  cons: "Consult", qual: "Pre-qualification", vsm: "VSM Session", ch: "Charter", eng: "Engagement", grad: "Graduated", out: "Opt-Out" }
 
 const loginLevels = ["Access Pending", "Visitor", "Team Member", "TeamTrek Coach", "TeamTrek Admin", "System Admin"] // 0-5
 const commitmentTypes = { demo: "Demos", lead: "Demos & Leadership", core: "Core Member", consult: "Affiliated Consult" }
