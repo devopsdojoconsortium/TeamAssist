@@ -323,11 +323,13 @@ input[type=range]:focus::-ms-fill-upper {
 .formRowErrorMsg {
     display: block;
     position: absolute;
-    top: 15px;
-    right: 15px;
-    height: 15px;
-    padding: 6px;
+    top: 0px;
+    right: -115px;
+    left: 230px;
+    height: 17px;
+    padding: 4px;
     margin: 0;
+    font-size: 1.6em;
     color: #900;
     border-radius: 5px;
     background-color: #eaa;

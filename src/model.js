@@ -873,7 +873,7 @@ function makeModification$ (actions) {
           const pt = Number(formObj.pTime) / (formObj.pTimeType === "mins" ? 480 : 1)
           console.log('formObj', formObj, pt, lt) 
           if (pt > lt)
-            displayObj.formObj.errors.lTime = "Process Time cannot exceed Lead"
+            displayObj.formObj.errors.lTime = "Process Time > Lead Time"
         }  
         if (Object.keys(displayObj.formObj.errors).length)
           return displayObj;

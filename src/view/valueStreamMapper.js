@@ -125,12 +125,12 @@ function metaFrm (vsmIObj, mapKey, vd) {
       h('strong', (e.type !== "submit" ? e.label + ": " : "")), 
       // (e.label ? h('br', { style: { clear:"both"}}) : ""),
       formEle,
-      (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
+      (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', { style: {fontSize: "0.8em"}}, vd.formObj.errors[e.name]) : ""),
     ])
   })
 
   const formTag = h('form.formSubmit', { 
-    style: { padding: "0 5px", color: "#333", minHeight: "210px" },
+    style: { padding: "0 5px", color: "#333", minHeight: "210px", overflow: "visible" },
     attrs: { onSubmit: "return false" }
   }, [...formArr, h('input.vsmFrmSub', { props: { type: "submit", value: (frmObj.id ? "Update" : "Create") }} )] )
  
@@ -230,12 +230,12 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     return h('div.vsmFrmRows', [
       h('strong', (e.type !== "submit" ? e.label + ": " : "")), 
       formEle,
-      (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
+      (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', { style: {fontSize: "0.8em"}}, vd.formObj.errors[e.name]) : ""),
     ])
   })
 
   const formTag = h('form.formSubmit', { 
-    style: { padding: "5px", color: "#333" },
+    style: { padding: "5px", color: "#333", overflow: "visible"  },
     attrs: { onSubmit: "return false" }
   }, [...formArr, h('input.vsmFrmSub', { props: { type: "submit", value: (frmObj.id ? "Update" : "Create") }} )] )
  
