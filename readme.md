@@ -1,14 +1,41 @@
+
+
 ![](./readmeAssets/teamTrekBlack800.png)
 
-
+# Summary
+ToBeNamed is a fast running full-stack application usable within the enterprise to aid in tracking DevOps and other Digital Transformations by connecting Programs and Teams to Coaching engagements including Dojos, Workshops, SRE embeds, Agile Training and more. It allows 
 # Technologies
-
-* [NodeJS](https://nodejs.org/en/) (v6.11.4)
+Runs as a very short full stack app with just two layers. CycleJS in the front handles over 95% of the workload, is highly configurable and runs as a lightweight Chrome Single Page Application. The back end is strictly an Event Sourcing engine that records posted events and enables controlled reading by the Front End. Additional layers for API gateways and other data models are easy to include into the suite when needed.
 * [CycleJS](https://cycle.js.org/) ([v7.0.0](https://github.com/cyclejs/cyclejs/releases/tag/v7.0.0))
 * [EventStore](https://eventstore.org/) (v4.0.2)
-* [Docker](https://www.docker.com/) (v17.05.0-ce)
 
-# Contributing to teamTrek
+# Features
+ 1. Full, yet lightweight CRM tracking to manage the Digital Transformation coaching efforts for the Enterprise.
+     - Import existing program/team leads via JSON or CSV. Sharepoint, etc.
+    -  Journal notes, next contact, configurable status fields and org tracing.
+    - Easily configurable to include any pre-qualification criteria and algorithms to aid in choosing the most valuable program pursuits for transformation.
+ 2. Multiple User levels: SysAdmin, Admin, Coach, Team member, visitor, with connections between team assignments
+    - All menu items can be configured to be accessible to any level
+    - Admins set levels of others
+    - Coaches assigned to team  (optional)
+    - Team members assigned to team (optional)
+    - User Identity easily tied to SSO, Jira API, or standard register/login
+1. Coaching Schedule in week blocks by team
+     - Assign 1-2 coaches to a team for a 6+ week Dojo engagement
+     - Schedule Charters, Consults and more alongside coaching assignments to track transformation team availability, making visible to all.
+ 1. VSM tool for any team
+     - By team engagement, create 1-n Value Streams in a clean interface, negating the need for Visio and spreadsheets that require followup work.
+     - VSM is easily mutable so the team can track progress, keep the value stream visible, and own their own Kaizen.
+     - VSM events never go away, so progress can literally be replayed in the UI. Treat each change like a git commit and consume change history as needed.
+     - Track actual numbers for lead and process time progress for future reports of success.
+2. Active Team coaching notes and formal weekly reporting
+    - Coaching journal notes for ongoing - adhoc note taking with markdown
+    - Weekly reports designed for Dojo challenges, but valuable for any multi-week engagement.
+    - Configurable for additional team maturity progress measures the enterprise needs to track, including DevOps Radar, Agility Health, etc.
+
+Screenshots available on features2.md
+
+# Contributing to ToBeNamed
 
 ## Quick Pre-reqs
 
