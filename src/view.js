@@ -1018,7 +1018,7 @@ const sounds = {
 };
 // function that is used to play sounds
 function player (vd){
-  const sndPref = vd.session.soundPref || "normal"
+  const sndPref = vd.session.soundPref || "none"
   if (sndPref === "none")
     return
   if (sndPref === "normal" && !vd.cntrl.snd)

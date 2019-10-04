@@ -1,5 +1,5 @@
 import {dateFormat} from "./frpHelpers";
-import {ttLocs, lobs, teamStatus, loginLevels, commitmentTypes} from "./uiConfig";
+import {ttLocs, lobs, teamStatus, loginLevels, commitmentTypes, soundPrefs} from "./uiConfig";
 
 function today (){
   return dateFormat(0);
@@ -233,6 +233,7 @@ const validRoutes = {
           { label: "I'm a User/Consumer", type: "checkbox", name: "roleUser", value: 1},
           { label: "I'm a Sponsor/Stakeholder", type: "checkbox", name: "roleSponsor", value: 1},
           { label: "Challenge Hours Commitment", type: "select", name: "teamCommit", opts: commitmentTypes},
+          { label: "Sound Preference", type: "select", name: "soundPref", opts: soundPrefs}
         ],
         panel: "Connect User to Team, LOB, etc"
       }}
