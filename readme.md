@@ -12,7 +12,7 @@ Runs as a very short full stack app with just two layers. CycleJS in the front h
     - Import existing program/team leads via JSON or CSV. Sharepoint, etc.
     -  Journal notes, next contact, configurable status fields and org tracing.
     - Easily configurable to include any pre-qualification criteria and algorithms to aid in choosing the most valuable program pursuits for transformation.
-1. Multiple User levels: SysAdmin, Admin, Coach, Team member, visitor, with connections between team assignments. See more in [personas](Personas.md) page.
+1. Multiple User levels: SysAdmin, Admin, Coach, Team member, visitor, with connections between team assignments. See more in [personas](docs/Personas.md) page.
     - All menu items can be configured to be accessible to any level
     - Admins set levels of others
     - Coaches assigned to team  (optional)
