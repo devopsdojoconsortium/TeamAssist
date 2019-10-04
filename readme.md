@@ -1,5 +1,3 @@
-
-
 ![](./readmeAssets/teamTrekBlack800.png)
 
 # Summary
@@ -10,11 +8,11 @@ Runs as a very short full stack app with just two layers. CycleJS in the front h
 * [EventStore](https://eventstore.org/) (v4.0.2)
 
 # Features
- 1. Full, yet lightweight CRM tracking to manage the Digital Transformation coaching efforts for the Enterprise.
-     - Import existing program/team leads via JSON or CSV. Sharepoint, etc.
+1. Full, yet lightweight CRM tracking to manage the Digital Transformation coaching efforts for the Enterprise.
+    - Import existing program/team leads via JSON or CSV. Sharepoint, etc.
     -  Journal notes, next contact, configurable status fields and org tracing.
     - Easily configurable to include any pre-qualification criteria and algorithms to aid in choosing the most valuable program pursuits for transformation.
- 2. Multiple User levels: SysAdmin, Admin, Coach, Team member, visitor, with connections between team assignments
+1. Multiple User levels: SysAdmin, Admin, Coach, Team member, visitor, with connections between team assignments. See more in [personas](Personas.md) page.
     - All menu items can be configured to be accessible to any level
     - Admins set levels of others
     - Coaches assigned to team  (optional)
@@ -23,12 +21,12 @@ Runs as a very short full stack app with just two layers. CycleJS in the front h
 1. Coaching Schedule in week blocks by team
      - Assign 1-2 coaches to a team for a 6+ week Dojo engagement
      - Schedule Charters, Consults and more alongside coaching assignments to track transformation team availability, making visible to all.
- 1. VSM tool for any team
+1. VSM tool for any team
      - By team engagement, create 1-n Value Streams in a clean interface, negating the need for Visio and spreadsheets that require followup work.
      - VSM is easily mutable so the team can track progress, keep the value stream visible, and own their own Kaizen.
      - VSM events never go away, so progress can literally be replayed in the UI. Treat each change like a git commit and consume change history as needed.
      - Track actual numbers for lead and process time progress for future reports of success.
-2. Active Team coaching notes and formal weekly reporting
+1. Active Team coaching notes and formal weekly reporting
     - Coaching journal notes for ongoing - adhoc note taking with markdown
     - Weekly reports designed for Dojo challenges, but valuable for any multi-week engagement.
     - Configurable for additional team maturity progress measures the enterprise needs to track, including DevOps Radar, Agility Health, etc.
@@ -70,14 +68,17 @@ File change detected /Users/$user/repos/teamTrek/dist/app.js
 Install EventStore and run
 
 ### Local EventStore Install
-You will need to edit local data in testing -- install EventStore locally. Instructions to follow, but in essence, you will be hitting your local DB via http://localhost:2113/ simply by changing the URL in browser to http://localhost:8080/debug.html
+You will need to edit local data in testing -- install EventStore locally. Instructions are super clear at [EventStore](https://eventstore.org/docs/getting-started/) where you will be hitting your local DB via http://localhost:2113/ in the initial configuration. The docker method is very simple, even for the uninitiated.
 
 ### Dev session management
-You will need to have a session for a dev environment to navigate properly. To do this, first visit your team shared Dev URL and copy your ttID cookie, then paste it in here in the src/model.js file:
+You will need to have a session for a dev environment to navigate properly. To do this, just go to http://localhost:8080/#/register to create a workable session in EventStore. Clear your ttId cookie to log out.
+
+You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable the accessLevel and sessValFilter attributes in menuRoutes below and update your access level:
+
 ```
-    // Cookie.set("ttID", "PASTE_COOKIE_HERE", { expires: 7 }) // for dev ENV ONLY. Do not commit it setting!
+{ label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
+  name: "loginLevel", opts: loginLevels, numIndex: true, title: "App Permission only settable up to YOUR level!" }
 ```
-This should cause a refresh and your session will come alive. MAKE SURE to comment the model.js line out again and do not leave your cookie value in the code -- EVER.
 
 In some cases, you may need to bypass CORS to get to data. More on that [here](./readmeAssets/readme.md) 
 
