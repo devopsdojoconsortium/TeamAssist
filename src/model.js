@@ -1125,7 +1125,7 @@ function makeModification$ (actions) {
               range(7, topReport + 1).forEach(num => {
                 addReports.push( { 
                   label: "Week " + num + " Report", type: "textarea", 
-                  name: "weeklyReport" + num, rows: 4, cols: 80, markDown: true
+                  name: "weeklyReport" + num, rows: 4, cols: 72, markDown: true
                 } )
               })
               meta.formConfig.splice(splicePoint, 0, ...addReports)

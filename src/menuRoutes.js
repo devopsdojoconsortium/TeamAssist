@@ -141,7 +141,7 @@ const validRoutes = {
           { label: "Contact Email", type: "email", name: "contactEmail" },
           { label: "TeamTrek Location", req: "You must select a Location", type: "select", name: "ttLoc", opts: ttLocs },
           // { label: "Line of Business", type: "select", name: "lob", opts: lobs },
-          { label: "What's your goal?", type: "textarea", name: "keyGoal", rows: 3, cols: 80 },
+          { label: "What's your goal?", type: "textarea", name: "keyGoal", rows: 3, cols: 72 },
         ]
       },
       id: { meta: {
@@ -156,9 +156,9 @@ const validRoutes = {
           { label: "Next Contact Date", type: "date", name: "nextContactDate" },
             { pane: "Activation Data", name: "active"},
           // { label: "Team Name", req: "6", type: "text", name: "teamName" }, // initial unique val for adds
-          { label: "Challenge Description", type: "textarea", name: "description", rows: 3, cols: 80 },
+          { label: "Challenge Description", type: "textarea", name: "description", rows: 3, cols: 72 },
           // { label: "Challenge Start Date", type: "date", name: "challengeStartDate" },
-          { label: "Elevator Pitch", type: "textarea", name: "elevatorPitchChallengeDescription", rows: 2, cols: 80 },
+          { label: "Elevator Pitch", type: "textarea", name: "elevatorPitchChallengeDescription", rows: 2, cols: 72 },
           { label: "Confluence Link", type: "text", name: "confluence" },
           { label: "Application ID", type: "text", name: "vastId", title: "."  },
           { label: "Team Color", type: "color", name: "color" }, // fixed naming convention for broad use
@@ -166,17 +166,17 @@ const validRoutes = {
           { label: "Current Health", type: "range", min: 0, max: 10, name: "health" },
           { label: "Coaches Notes", type: "textarea", name: "coachNotes", rows: 7, cols: 35, journal: true },
             { pane: "Weekly Reporting", name: "weeklies"},
-          { label: "Week 0 - post charter", type: "textarea", name: "weeklyReport0", rows: 5, cols: 80, markDown: true},
-          { label: "Week 1 Report", type: "textarea", name: "weeklyReport1", rows: 5, cols: 80, markDown: true},
-          { label: "Week 2 Report", type: "textarea", name: "weeklyReport2", rows: 5, cols: 80, markDown: true},
-          { label: "Week 3 Report", type: "textarea", name: "weeklyReport3", rows: 5, cols: 80, markDown: true},
-          { label: "Week 4 Report", type: "textarea", name: "weeklyReport4", rows: 5, cols: 80, markDown: true},
-          { label: "Week 5 Report", type: "textarea", name: "weeklyReport5", rows: 5, cols: 80, markDown: true},
-          { label: "Week 6 Report", type: "textarea", name: "weeklyReport6", rows: 5, cols: 80, markDown: true},
+          { label: "Week 0 - post charter", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},
+          { label: "Week 1 Report", type: "textarea", name: "weeklyReport1", rows: 5, cols: 72, markDown: true},
+          { label: "Week 2 Report", type: "textarea", name: "weeklyReport2", rows: 5, cols: 72, markDown: true},
+          { label: "Week 3 Report", type: "textarea", name: "weeklyReport3", rows: 5, cols: 72, markDown: true},
+          { label: "Week 4 Report", type: "textarea", name: "weeklyReport4", rows: 5, cols: 72, markDown: true},
+          { label: "Week 5 Report", type: "textarea", name: "weeklyReport5", rows: 5, cols: 72, markDown: true},
+          { label: "Week 6 Report", type: "textarea", name: "weeklyReport6", rows: 5, cols: 72, markDown: true},
             { pane: "Challenge Outcomes", name: "completed"},
           // { label: "Challenge End Date", type: "date", name: "challengeEndDate" },
           { label: "Practices Learned", type: "text", name: "keyPracticesLearned" },
-          { label: "Business Impact", type: "textarea", name: "businessImpact", rows: 3, cols: 80 },
+          { label: "Business Impact", type: "textarea", name: "businessImpact", rows: 3, cols: 72 },
           { label: "Speed to Value Improvement", type: "text", name: "speedToValueImprovement" },
           { label: "Post TeamTrek Follow Up Notes", type: "textarea", name: "followUp", rows: 7, cols: 35, journal: true},
             { pane: "Assignments, etc", name: "meta"},
@@ -193,7 +193,7 @@ const validRoutes = {
       panel: "Dump JSON from Confluence Intake for to load Teams to teamTrek",
       panelFn: "formPanel",
       formConfig: [
-        { label: "Paste in JSON", req: "Must paste in valid JSON from Confluence", type: "textarea", name: "bulkJson", rows: 10, cols: 80 },
+        { label: "Paste in JSON", req: "Must paste in valid JSON from Confluence", type: "textarea", name: "bulkJson", rows: 10, cols: 72 },
         { label: "Import Date", req: "Must supply date for asOfStamp", type: "date", name: "importDate" },
       ]
     }}
