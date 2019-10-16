@@ -54,6 +54,8 @@ To serve teamTrek locally (http://localhost:8080) on your development machine, a
 $ npm start
 ```
 
+This will launch browser (use chrome) and you should just change url to http://localhost:8080/debug.html, as the index runs the minified version.
+
 Now, any time you update a JavaScript file in the *src* directory on your machine a new build will be created updating the *dist* directory and refreshing your browser reflecting the update.
 
 The terminal window will show you the rebuild, or a parsing error. On success, refresh browser to see changes:
