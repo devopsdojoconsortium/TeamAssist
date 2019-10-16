@@ -721,7 +721,9 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
       let cellClass = "";
       if (c.tdStyle){ // now, only tdStyle cells can do cellDivs anyway
         cellClass = (c.tdStyle.match(/^#/) ? "" : ".") + c.tdStyle;
-        if (!cellVal.length && c.tdStyle.match(/mClick/))
+        if (!cellVal.length && c.tdStyle.match(/mClick.clickBg/))
+          cellClass = cellClass.replace(/.mClick.clickBg/, "")
+        else if (cellVal.length <= 100 && c.tdStyle.match(/mClick$/))
           cellClass = cellClass.replace(/.mClick/, "")
         if (vd.tRowCntrl.cellDiv && vd.tRowCntrl.cellDiv.idx == idx && vd.tRowCntrl.cellDiv.prop === c.dKey) // ignore ==
           cellVal = schFrm(vd, item) // only sched has these for now.
