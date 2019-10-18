@@ -138,7 +138,7 @@ const tableConfig = {
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       ...teamLinks
     ],
-    filtersPage: { searchCol: ["project", "contactName"] },
+    filtersPage: { searchCol: ["project", "contactName"], specialRange: [500]  },
     filtersExtra: {
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
     }
@@ -163,7 +163,7 @@ const tableConfig = {
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/teams/modTeam/pane_pipeline/id/{id}", width: 30 }
     ],
-    filtersPage: { searchCol: [ "project", "contactName"] },
+    filtersPage: { searchCol: [ "project", "contactName"], specialRange: [100, 200, 300] },
     filtersExtra: {
       // dateRange: [-100, 0],
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
@@ -187,7 +187,7 @@ const tableConfig = {
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       ...teamLinks
     ],
-    filtersPage: { searchCol: [ "project", "contactName"] },
+    filtersPage: { searchCol: [ "project", "contactName"], specialRange: [100, 200, 300] },
     filtersExtra: {
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
     }
@@ -209,7 +209,7 @@ const tableConfig = {
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       ...teamLinks
     ],
-    filtersPage: { searchCol: [ "project", "contactName"] },
+    filtersPage: { searchCol: [ "project", "contactName"], specialRange: [100, 200, 300, 500] },
     filtersExtra: {
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
     }
