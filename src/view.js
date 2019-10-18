@@ -551,11 +551,12 @@ function tableKeywordFilter (vd, searchCol) {
   if (!searchCol || typeof searchCol !== "object" || !searchCol[0])
     return "";
   const idSearch = vd.rteObj.meta.pageKey //  common sticky ID for all tabs within page
-  const searchColString = "Type for immediate " + searchCol.join(", ") + " matches"
-  return h('div.tableKeywordFilter', [
+  const labelArray = vd.rteObj.meta.tableParams.cols.filter(x => searchCol.some(s => s === x.dKey)).map(l => l.label)
+  const searchColString =  "Matches on: \n - " + labelArray.join("\n - ") + " \n (overrides other filters)"
+  return h('div.tableKeywordFilter', { attrs: { tooltip: searchColString, tooltipPos: "top" }},  [
     h('input#searchKey_' + idSearch + '.tFilterInput.easeAll', { 
-      style: { width: (searchColString.length * 6) + 'px', display: 'inline'},
-      props: { placeholder: searchColString, value: (vd.tRowCntrl.keyWord || "")}
+      style: { width: '250px', display: 'inline'},
+      props: { placeholder: " Filter by Keyword",  value: (vd.tRowCntrl.keyWord || "")}
     }), 
   ]);
 }
