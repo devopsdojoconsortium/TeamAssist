@@ -869,10 +869,9 @@ function makeModification$ (actions) {
         if (Object.keys(vsmPost).length < 4) //  id and user are baseline.
           displayObj.formObj.errors.name = "No fields were changed!"
         if (formObj.pTime && formObj.lTime) {
-          const lt = Number(formObj.lTime) / (formObj.lTimeType === "mins" ? 480 : 1)
-          const pt = Number(formObj.pTime) / (formObj.pTimeType === "mins" ? 480 : 1)
-          console.log('formObj', formObj, pt, lt) 
-          if (pt > lt)
+          vsmPost.ltCalc = Number(formObj.lTime) / (formObj.lTimeType === "mins" ? 480 : 1)
+          vsmPost.ptCalc = Number(formObj.pTime) / (formObj.pTimeType === "mins" ? 480 : 1)
+          if (vsmPost.ptCalc > vsmPost.ltCalc)
             displayObj.formObj.errors.lTime = "Process Time > Lead Time"
         }  
         if (Object.keys(displayObj.formObj.errors).length)
@@ -1012,7 +1011,7 @@ function makeModification$ (actions) {
         ses.loginLevel = 1
         ses.dataEnv = results.fromES.match(/localhost/) ? "dev" :
           (results.fromES.match(/(119-99-239|teamTrek.ebiz)/) ? "stg" : "dit")
-   console.log('stateObj[req.hstream] && ses', stateObj, req.hstream, ses)
+   // console.log('stateObj[req.hstream] && ses', stateObj, req.hstream, ses)
         displayObj.session = mutate(displayObj.session, ses)
         if (displayObj.session.loginName)
           serviceEmitter$.emit("service", { resProp: "getProfile", req: {
