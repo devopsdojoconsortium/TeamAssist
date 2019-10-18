@@ -21,6 +21,7 @@
         "no-console": [
             "off"
         ],
+        "no-useless-escape": ["off"],
         "comma-spacing": [ "warn" ],
         "space-before-function-paren": [ "warn" ],
         "space-infix-ops": ["warn"],
