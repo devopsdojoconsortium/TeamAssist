@@ -57,24 +57,24 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
 function summaryBox (vsMap) {
 
   const accum = vsMap.reduce((acc, i) => {
-    acc.lTime += Number(i.lTime)
-    acc.pTime += Number(i.pTime)
+    acc.lTime += Number(i.ltCalc)
+    acc.pTime += Number(i.ptCalc)
     acc.pctAcc = (i.pctAcc / 100) * acc.pctAcc
     return acc
   }, { lTime: 0, pTime: 0, pctAcc: 1 })
 
-  const out = h('div.vsmLegend', { style: { width: "160px", top: "-50px", color: "#333" }}, [
+  const out = h('div.vsmLegend', { style: { width: "220px", top: "-50px", right: "-60px", color: "#333" }}, [
     h('h4', { style: { background: "#333" }, attrs: {
       tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
       Math.ceil(accum.pTime / accum.lTime * 100) + "%",
       tooltipPos: "top"
     }}, "VSM Summary"),
     h('div', [
-      h('b', "Lead Time: "), calcDaysHrs(accum.lTime, 0.25), // 0.25 is only val that works in fn for now
+      h('b', "Lead Time: "), calcDaysHrs(accum.lTime), // 0.25 is only val that works in fn for now
       h('br'),
-      h('b', "Process Time: "), calcDaysHrs(accum.pTime, 0.25), 
+      h('b', "Process Time: "), calcDaysHrs(accum.pTime), 
       h('br'),
-      h('b', "Wait Time: "), calcDaysHrs((accum.lTime - accum.pTime), 0.25), 
+      h('b', "Wait/Lag Time: "), calcDaysHrs(accum.lTime - accum.pTime), 
       h('br'),
       h('b', "Comp & Acc: "),  Math.ceil(accum.pctAcc * 1000) / 10 + "%",
     ])
@@ -257,6 +257,6 @@ function calcDaysHrs (num, inDays, inMins) {
   const hours = num % 1
   return (days ? days + " Day" + (days > 1 ? "s" : "") : "") + 
     (days && hours ? ", " : "") + 
-    (hours ? (hours * 8) + " Hour" + (hours > 0.125 ? "s" : "")  : "")
+    (hours ? (Math.ceil(hours * 8 * 100) / 100) + " Hour" + (hours > 0.125 ? "s" : "")  : "")
 }
 
