@@ -654,6 +654,7 @@ function makeModification$ (actions) {
       displayObj.cntrl = {};
       if(action.textarea && displayObj.modalObj.field){
         displayObj.modalObj.preview = action.value
+        displayObj.modalObj.field = action.name
       }
       const vsmSettingsObj = displayObj.settings.vsmObj || {}
       displayObj.formObj.errors = validateForm(displayObj, action, 

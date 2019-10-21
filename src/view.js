@@ -427,7 +427,7 @@ function modForm (rteObj, vd, panelHeight) {
             (e.user ? " | " + e.user : ""))
         ]))) 
       if (e.journal || e.markDown)
-        markdownIcons.push( markdownIcon(e.name) )
+        markdownIcons = markdownIcon(e.name, vd.modalObj)
       formEle = h('textarea.keyTAInput', { 
         style: formEleStyle, 
         attrs: formProps(e),
@@ -478,8 +478,9 @@ function modForm (rteObj, vd, panelHeight) {
   ])))
 }
 
-function markdownIcon (fieldName){
-  return h('div#modal_mdHelp_' + fieldName + '.mdHelpIcon.mClick', "")
+function markdownIcon (fieldName, modalObj){
+  const active = modalObj.type && modalObj.field === fieldName ? ".mdHelpIconActive" : ""
+  return [ h("div#modal_mdHelp_" + fieldName + ".mdHelpIcon" + active + ".mClick", " Previewer") ]
 }
 
 function inputSelList (action, sel, options, goClass = "filterChange", style, numIndex, inProps) {
