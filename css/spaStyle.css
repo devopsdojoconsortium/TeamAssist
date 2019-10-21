@@ -537,11 +537,11 @@ input[type=range]:focus::-ms-fill-upper {
   color: #fff; 
 }
 .vsmLegend div {
-  padding: 4px;
+  padding: 4px 4px 4px 8px;
 }
 .vsmLegend b {
   display: inline-block;
-  width: 85px;
+  width: 100px;
 }
 
 .vsmFrm{
@@ -582,7 +582,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .vsmFrmSub{
   position: absolute;
-  top: 198px;
+  bottom: 11px;
   right: 20px;
   height: 35px; 
   background: #2929da;
