@@ -319,6 +319,7 @@ input[type=range]:focus::-ms-fill-upper {
     padding: 4px 7px;
     border-radius: 11px;
     font-size: 17px;
+    cursor: pointer;
 }   
 .formRowErrorMsg {
     display: block;
@@ -589,6 +590,7 @@ input[type=range]:focus::-ms-fill-upper {
   border-radius: 5px;
   font-size: 1em;
   color: #fff; 
+  cursor: pointer;
 }
 .vsmFrmDaysHrs{
   position: absolute;
@@ -709,18 +711,27 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 100;
 }
 
-.mdHelpIcon{
+.mdHelpIcon {
   position: absolute !important;
-  top: 9px;
-  right: 382px;
-  width: 41px;
+  top: 7px;
+  right: 340px;
   height: 26px;
   z-index: 100;
-  background-position: 1px;
+  padding: 0px 3px 0px 42px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 1.4em;
+  line-height: 1.6em;
+  color: #333;
+  background-color: #d6d6d6;
+  background-position: 0px;
   background-image: url(../images/markdown39x24-solid.png);
   background-repeat: no-repeat;
 }
-.mdHelpIcon:hover{
+.mdHelpIcon:hover, .mdHelpIconActive{
+  border: 1px solid #cecece;
+  background-color: #fff;
+  color: #666;
   background-image: url(../images/markdown39x24.png);
   transition: all 0.7s;
 }
@@ -797,6 +808,7 @@ input[type=range]:focus::-ms-fill-upper {
   height: 35px; 
   background: #367ebd;
   color: #fff; 
+  cursor: pointer;
 }
 .upperLeft {
   position: absolute;

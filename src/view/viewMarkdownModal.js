@@ -11,8 +11,8 @@ export default function mdModal () {
       modalPos: {
         top: 20,
         right: 20,
-        width: 590,
-        height: 580
+        width: 620,
+        // height: 580 --> changed to 95% (default)
       }
     },
     list: [
