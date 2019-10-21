@@ -54,7 +54,7 @@ To serve teamTrek locally (http://localhost:8080) on your development machine, a
 $ npm start
 ```
 
-This will launch browser (use chrome) and you should just change url to http://localhost:8080/debug.html, as the index runs the minified version.
+This will launch browser (use chrome) and land you on http://localhost:8080/debug.html, as the index runs the minified version that requires `npm run build` (which you can run in your CI pipeline).
 
 Now, any time you update a JavaScript file in the *src* directory on your machine a new build will be created updating the *dist* directory and refreshing your browser reflecting the update.
 
@@ -75,7 +75,7 @@ You will need to edit local data in testing -- install EventStore locally. Instr
 ### Dev session management
 You will need to have a session for a dev environment to navigate properly. To do this, just go to http://localhost:8080/#/register to create a workable session in EventStore. Clear your ttId cookie to log out.
 
-You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable the accessLevel and sessValFilter attributes in menuRoutes below and update your access level:
+You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable (rename) the accessLevel and sessValFilter attributes in menuRoutes below and update your access level:
 
 ```
 { label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
