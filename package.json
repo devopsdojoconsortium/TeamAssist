@@ -16,11 +16,11 @@
   ],
   "dependencies": {
     "@cycle/dom": "^17.4.0",
-    "@cycle/history": "latest",
+    "@cycle/history": "^7.3.0",
     "@cycle/isolate": "^3.3.0",
     "@cycle/rxjs-run": "^4.0.0-rc.5",
     "@cycle/storage": "^5.0.3",
-    "history": "latest",
+    "history": "^4.10.1",
     "jquery": "^3.3.1",
     "js-cookie": "2.2.0",
     "marked": "^0.4.0",
@@ -49,13 +49,13 @@
     "npm-run-all": "^1.4.0",
     "read-file": "0.2.0",
     "uglify-js": "3.1.5",
-    "watchify": "^3.11.0"
+    "watchify": "^3.11.1"
   },
   "scripts": {
     "build-debug": "mkdirp dist && browserify src/app.js -d -t babelify --outfile dist/app.js",
     "cucumber": "cucumber-js src/test/cucumber/features/ -r src/test/cucumber/steps/",
     "watch:js": "mkdirp dist && watchify src/app.js -t babelify --outfile dist/app.js -dv",
-    "serve": "live-server ./ --host=localhost --watch=dist/app.js --cors",
+    "serve": "live-server ./ --open=debug.html --host=localhost --watch=dist/app.js --cors",
     "uglify": "uglifyjs dist/app.js -c drop_console=true -o dist/app.min.js",
     "build": "npm run build-debug && npm run uglify",
     "start": "npm-run-all --parallel watch:js  serve",
