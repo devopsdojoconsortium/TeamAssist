@@ -951,13 +951,14 @@ function renderModal (viewData) {
     const modalObj = mdModal()
     const preview = viewData.modalObj.preview
     modalBody = h('div.modal-mdHelp', [
-      preview ? tableGrid(viewData, 0, 0, [{ p: markdownRender(preview) }], {
+      tableGrid(viewData, 0, 0, [{ p: markdownRender(preview ? preview : 
+        "## ## Placeholder H2 Markdown. \n- type your own MD in form and see it here.") }], {
         cols: [{
           dKey: "p", label: "Dynamic Markdown Preview", 
-          minWidth: 560, tdStyle: "mdHelpPreviewCell"
+          minWidth: 590, tdStyle: "mdHelpPreviewCell"
         }]
-      }) : "",
-      preview ? h('h3', { style: { margin: "20px 0 3px"}}, "Markdown Legend") : "",
+      }),
+      h('h3', { style: { margin: "20px 0 3px"}}, "Markdown Legend"),
       tableGrid(viewData, 0, 0, modalObj.list, modalObj.params)
     ])
     modalPos = modalObj.params.modalPos
@@ -983,7 +984,7 @@ function renderModal (viewData) {
         top: (scrollOffset + (modConfig.top || 102)) + "px", 
         [left_right]: (left_right === "right" ? modConfig.right : (modConfig.left || 220)) + "px", 
         width: (modConfig.width || 640) + "px", 
-        height: (modConfig.height ? modConfig.height + "px" : "75%"), 
+        height: (modConfig.height ? modConfig.height + "px" : "95%"), 
       }
     }}, h('div.modal-container', [
       h('div.modal-header', [

@@ -652,7 +652,7 @@ function makeModification$ (actions) {
     // console.log(action)
     return (displayObj) => {
       displayObj.cntrl = {};
-      if(action.textarea && displayObj.modalObj.field === action.name){
+      if(action.textarea && displayObj.modalObj.field){
         displayObj.modalObj.preview = action.value
       }
       const vsmSettingsObj = displayObj.settings.vsmObj || {}
