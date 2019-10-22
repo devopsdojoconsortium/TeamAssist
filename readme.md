@@ -38,7 +38,7 @@ Screenshots available on features2.md
 ## Quick Pre-reqs
 
 - Install git
-- Install NodeJS
+- Install NodeJS (v10.3.0 - v12.8.0 for now)
 - Clone this repo
 - `$ npm install`
 
