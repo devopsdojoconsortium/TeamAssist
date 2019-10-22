@@ -605,6 +605,14 @@ function makeModification$ (actions) {
         displayObj[setting][key] = divId
         displayObj.cntrl.snd = (action.val.style && action.val.style.match(/270deg/) ? "fore" : "back")
       }
+      else if (setting === "mdTmpl" && key){
+        const formConfigObj = meta.formConfig.find(cnf => cnf.name === key)
+        formConfigObj.rows = formConfigObj.rows * 2
+        displayObj.formObj[key] = formConfigObj.tmplLoader
+        displayObj.rteObj.details = displayObj.rteObj.details || { [key]: "" }
+        displayObj.rteObj.details[key] = displayObj.rteObj.details[key] || ""
+        displayObj.rteObj.details[key] += formConfigObj.tmplLoader
+      }
       else if (setting === "vsmFrm" && action.val){
         displayObj.settings.vsmObj = mutate(trimObj(action.val, ["mapkey", "pos", "actid"]), { pos: Number(action.val.pos) })
         displayObj.formObj = { errors: {} } // reset

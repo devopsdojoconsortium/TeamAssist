@@ -14,6 +14,10 @@ const restreamFormConfig = [
   { label: "Target Event Number", type: "number", name: "targetEvent" }
 ]
 
+const mdTemplates = {
+  weeklies: "### What We Planned / Accomplished / Deferred\n\n ### What we Learned\n\n ### Challenges and Impediments\n\n ### What's Next\n\n ### Coaching Observations / Progress"
+}
+
 const validRoutes = {
   home: { meta: {
     name: "Welcome to TeamTrek - The Cool Tagline goes Here!",      menuName: "Home",
@@ -141,7 +145,7 @@ const validRoutes = {
           { label: "Contact Email", type: "email", name: "contactEmail" },
           { label: "TeamTrek Location", req: "You must select a Location", type: "select", name: "ttLoc", opts: ttLocs },
           // { label: "Line of Business", type: "select", name: "lob", opts: lobs },
-          { label: "What's your goal?", type: "textarea", name: "keyGoal", rows: 3, cols: 72 },
+          { label: "What's your goal?", type: "textarea", name: "keyGoal", rows: 3, cols: 72, markDown: true },
         ]
       },
       id: { meta: {
@@ -167,12 +171,12 @@ const validRoutes = {
           { label: "Coaches Notes", type: "textarea", name: "coachNotes", rows: 7, cols: 35, journal: true },
             { pane: "Weekly Reporting", name: "weeklies"},
           { label: "Week 0 - post charter", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},
-          { label: "Week 1 Report", type: "textarea", name: "weeklyReport1", rows: 5, cols: 72, markDown: true},
-          { label: "Week 2 Report", type: "textarea", name: "weeklyReport2", rows: 5, cols: 72, markDown: true},
-          { label: "Week 3 Report", type: "textarea", name: "weeklyReport3", rows: 5, cols: 72, markDown: true},
-          { label: "Week 4 Report", type: "textarea", name: "weeklyReport4", rows: 5, cols: 72, markDown: true},
-          { label: "Week 5 Report", type: "textarea", name: "weeklyReport5", rows: 5, cols: 72, markDown: true},
-          { label: "Week 6 Report", type: "textarea", name: "weeklyReport6", rows: 5, cols: 72, markDown: true},
+          { label: "Week 1 Report", type: "textarea", name: "weeklyReport1", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
+          { label: "Week 2 Report", type: "textarea", name: "weeklyReport2", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
+          { label: "Week 3 Report", type: "textarea", name: "weeklyReport3", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
+          { label: "Week 4 Report", type: "textarea", name: "weeklyReport4", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
+          { label: "Week 5 Report", type: "textarea", name: "weeklyReport5", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
+          { label: "Week 6 Report", type: "textarea", name: "weeklyReport6", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
             { pane: "Challenge Outcomes", name: "completed"},
           // { label: "Challenge End Date", type: "date", name: "challengeEndDate" },
           { label: "Practices Learned", type: "text", name: "keyPracticesLearned" },

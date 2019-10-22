@@ -427,7 +427,7 @@ function modForm (rteObj, vd, panelHeight) {
             (e.user ? " | " + e.user : ""))
         ]))) 
       if (e.journal || e.markDown)
-        markdownIcons = markdownIcon(e.name, vd.modalObj)
+        markdownIcons = markdownIcon(e, vd.modalObj)
       formEle = h('textarea.keyTAInput', { 
         style: formEleStyle, 
         attrs: formProps(e),
@@ -441,6 +441,7 @@ function modForm (rteObj, vd, panelHeight) {
       h('label', (e.type !== "submit" ? (e.label || e.name) : "")), 
       (e.type !== "submit" ? h('br') : ""),
       formEle, journalEle, ...markdownIcons,
+
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', vd.formObj.errors[e.name]) : ""),
       (vd.formObj.errors.submit && e.type === "submit" ? h('div.formRowErrorMsg', vd.formObj.errors.submit) : ""),
     ])
@@ -478,9 +479,13 @@ function modForm (rteObj, vd, panelHeight) {
   ])))
 }
 
-function markdownIcon (fieldName, modalObj){
-  const active = modalObj.type && modalObj.field === fieldName ? ".mdHelpIconActive" : ""
-  return [ h("div#modal_mdHelp_" + fieldName + ".mdHelpIcon" + active + ".mClick", " Previewer") ]
+function markdownIcon (ele, modalObj){
+  // console.log(ele)
+  const active = modalObj.type && modalObj.field === ele.name ? ".mdHelpIconActive" : ""
+  return [ 
+      h("div#modal_mdHelp_" + ele.name + ".mdHelpIcon" + active + ".mClick", " Previewer"),
+      ele.tmplLoader ? h("div#mdTmpl_" + ele.name + ".mdTmplBtn.mClick", "Use Template") : ""
+    ]
 }
 
 function inputSelList (action, sel, options, goClass = "filterChange", style, numIndex, inProps) {
