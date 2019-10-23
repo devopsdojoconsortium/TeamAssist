@@ -735,6 +735,23 @@ input[type=range]:focus::-ms-fill-upper {
   background-image: url(../images/markdown39x24.png);
   transition: all 0.7s;
 }
+.mdTmplBtn {
+  position: absolute !important;
+  top: 12px;
+  right: 240px;
+  z-index: 100;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #666;
+  background-color: #d6d6d6;
+}
+.mdTmplBtn:hover {
+  border: 1px solid #cecece;
+  color: #0f23d0;
+  background-color: #fff;
+  transition: all 0.7s;
+}
 
 .mdHelpPreviewCell{
   background: #fff;

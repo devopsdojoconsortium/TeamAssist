@@ -484,7 +484,7 @@ function markdownIcon (ele, modalObj){
   const active = modalObj.type && modalObj.field === ele.name ? ".mdHelpIconActive" : ""
   return [ 
       h("div#modal_mdHelp_" + ele.name + ".mdHelpIcon" + active + ".mClick", " Previewer"),
-      ele.tmplLoader ? h("div#mdTmpl_" + ele.name + ".mdTmplBtn.mClick", "Use Template") : ""
+      ele.tmplLoader ? h("div#mdTmpl_" + ele.name + ".mdTmplBtn.mClick", "Load Template") : ""
     ]
 }
 
