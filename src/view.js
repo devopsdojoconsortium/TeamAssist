@@ -428,7 +428,7 @@ function modForm (rteObj, vd, panelHeight) {
         ]))) 
       if (e.journal || e.markDown)
         markdownIcons = markdownIcon(e, vd.modalObj)
-      formEle = h('textarea.keyTAInput', { 
+      formEle = h('textarea#' + e.name + '.keyTAInput', { 
         style: formEleStyle, 
         attrs: formProps(e),
         props: { placeholder: journalEle ? "Add new notes, priors are on the right." : ""}
@@ -899,6 +899,12 @@ function renderPanel (viewData, panelHeight, panelWidth) {
   panelHeight = panelHeight || Math.ceil($('#heightMarker').innerHeight() - tabsOffset);
   panelWidth = panelWidth || Math.ceil($('#widthMarker').innerWidth() - 30);
 //  let leftMenuCalc = panelWidth > 1200 ? 231 : 144;
+  if (viewData.cntrl.textAreaVal){
+    Object.keys(viewData.cntrl.textAreaVal).forEach(ta => {
+      const currVal = $('#' + ta).val() ? $('#' + ta).val() + "\n" : ""
+      $('#' + ta).val(currVal + viewData.cntrl.textAreaVal[ta])
+    })
+  }
   return h('div.panel', {
     style: {'transition': viewData.list.length ? 'none' : 'all .3s ease-in-out'}
   }, [

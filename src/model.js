@@ -607,11 +607,9 @@ function makeModification$ (actions) {
       }
       else if (setting === "mdTmpl" && key){
         const formConfigObj = meta.formConfig.find(cnf => cnf.name === key)
-        formConfigObj.rows = formConfigObj.rows * 2
+        formConfigObj.rows = formConfigObj.rows >= 20 ? formConfigObj.rows : formConfigObj.rows * 2
         displayObj.formObj[key] = formConfigObj.tmplLoader
-        displayObj.rteObj.details = displayObj.rteObj.details || { [key]: "" }
-        displayObj.rteObj.details[key] = displayObj.rteObj.details[key] || ""
-        displayObj.rteObj.details[key] += formConfigObj.tmplLoader
+        displayObj.cntrl.textAreaVal = { [key]: formConfigObj.tmplLoader } // set here, handle in DOM via Query
       }
       else if (setting === "vsmFrm" && action.val){
         displayObj.settings.vsmObj = mutate(trimObj(action.val, ["mapkey", "pos", "actid"]), { pos: Number(action.val.pos) })

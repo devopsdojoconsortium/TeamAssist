@@ -15,7 +15,7 @@ const restreamFormConfig = [
 ]
 
 const mdTemplates = {
-  weeklies: "### What We Planned / Accomplished / Deferred\n\n ### What we Learned\n\n ### Challenges and Impediments\n\n ### What's Next\n\n ### Coaching Observations / Progress"
+  weeklies: "### What We Planned / Accomplished / Deferred\n\n### What we Learned\n\n### Challenges and Impediments\n\n### What's Next\n\n### Coaching Observations / Progress"
 }
 
 const validRoutes = {
