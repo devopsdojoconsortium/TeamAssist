@@ -427,6 +427,18 @@ input[type=range]:focus::-ms-fill-upper {
     color: #666 !important; 
     text-decoration: none !important;
 }
+.tableProgressBar {
+  width: auto;
+  height: 16px;
+  margin: 2px 5px;
+  border: #000 1px solid;
+  border-radius: 2px;
+}
+.tableProgressBar div {
+  height: 100%;
+  margin: 0;
+  background: #00aa00;
+}
 .WhtBoxM {
     padding: 15px;
     margin: 11px 0;

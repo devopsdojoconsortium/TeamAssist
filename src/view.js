@@ -677,6 +677,10 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
           attrs: c.title ? { title: (c.title === "__" ? cellVal : c.title) } : {},
           style: c.atagStyle || { height: "48px", borderRadius: "25px" }
         })
+      else if (c.progressBar && c.progressBar.high && cellVal)
+        cellVal = h('div.tableProgressBar', { 
+          attrs: c.title ? { tooltip: c.title.replace(/__/, cellVal), tooltipPos: "top" } : {},
+        }, h('div', { style: { width: (cellVal / (c.progressBar.high - c.progressBar.low) * 100) + "%" }}))
       if (c.atag){
         const parseTag = c.atag.replace(/\{(\w+)\}/, function (m, p1){ return (item[p1] || "___") })
         const hrefProps = { 

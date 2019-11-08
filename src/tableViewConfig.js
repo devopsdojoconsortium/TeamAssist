@@ -29,6 +29,7 @@ const statusHash = {
     regex: What to match on text for any tweaks needed
     replace: what to replace from regex matches (dependent on regex)
     dateFormat: will assume value is a timestamp. Use tokens from: http://momentjs.com/docs/#/parsing/string-format/
+    progressBar: { low: int, high: int } - ex. { low: 0, high: 10 }, title: "Team completion score is __. \nMax is 10" (pairs with range type forms) 
   }]
   filtersPage{ == form elements part of the top bar where pagination is dealt with. If not defined, whole ROW disappears!
     searchCol[]: list of columns relevant to a keyword search. If not defined, there will be NO keyword search.
