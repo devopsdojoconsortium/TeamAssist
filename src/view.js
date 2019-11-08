@@ -418,9 +418,13 @@ function modForm (rteObj, vd, panelHeight) {
       h('input.keyInput', mutate(formEleStyle, { props: formProps(e, detailObj[e.name]) }))
     let journalEle = ""
     let markdownIcons = []
-    if (e.type === "textarea"){
+    if (e.type === "range"){
+      const curVal = vd.formObj[e.name] ||  detailObj[e.name] || 0
+      journalEle = h('div.rangeValue', e.title ? e.title.replace(/__/, curVal) : curVal) 
+    }
+    else if (e.type === "textarea"){
       if (typeof e.journal === "object" && e.journal.length)
-        journalEle = h('div#.journalAbs', e.journal.map(e => h('div.cellDiv', [ 
+        journalEle = h('div.journalAbs', e.journal.map(e => h('div.cellDiv', [ 
           markdownRender(e.val),
           h('small', minToDateFormat(e.asOfStamp || e.eStamp, "MM/DD/YY HH:mm")),
           h('small', e.user && hashSrc(vd, "coachers")[e.user] ? " | " + hashSrc(vd, "coachers")[e.user] :
