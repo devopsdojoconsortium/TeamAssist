@@ -418,9 +418,13 @@ function modForm (rteObj, vd, panelHeight) {
       h('input.keyInput', mutate(formEleStyle, { props: formProps(e, detailObj[e.name]) }))
     let journalEle = ""
     let markdownIcons = []
-    if (e.type === "textarea"){
+    if (e.type === "range"){
+      const curVal = vd.formObj[e.name] ||  detailObj[e.name] || 0
+      journalEle = h('div.rangeValue', e.title ? e.title.replace(/__/, curVal) : curVal) 
+    }
+    else if (e.type === "textarea"){
       if (typeof e.journal === "object" && e.journal.length)
-        journalEle = h('div#.journalAbs', e.journal.map(e => h('div.cellDiv', [ 
+        journalEle = h('div.journalAbs', e.journal.map(e => h('div.cellDiv', [ 
           markdownRender(e.val),
           h('small', minToDateFormat(e.asOfStamp || e.eStamp, "MM/DD/YY HH:mm")),
           h('small', e.user && hashSrc(vd, "coachers")[e.user] ? " | " + hashSrc(vd, "coachers")[e.user] :
@@ -677,6 +681,14 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
           attrs: c.title ? { title: (c.title === "__" ? cellVal : c.title) } : {},
           style: c.atagStyle || { height: "48px", borderRadius: "25px" }
         })
+      else if (c.progressBar && c.progressBar.high && cellVal)
+        cellVal = h('div.tableProgressBar', { 
+          attrs: c.title ? { tooltip: c.title.replace(/__/, cellVal), tooltipPos: "top" } : {},
+        }, h('div', { style: { 
+            width: (cellVal / (c.progressBar.high - c.progressBar.low) * 100) + "%", 
+            background: c.progressBar.barColor ? c.progressBar.barColor : ""
+          }})
+        )
       if (c.atag){
         const parseTag = c.atag.replace(/\{(\w+)\}/, function (m, p1){ return (item[p1] || "___") })
         const hrefProps = { 

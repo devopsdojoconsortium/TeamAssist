@@ -167,7 +167,7 @@ const validRoutes = {
           { label: "Application ID", type: "text", name: "vastId", title: "."  },
           { label: "Team Color", type: "color", name: "color" }, // fixed naming convention for broad use
             { pane: "Challenge Progress/Health", name: "progress"},
-          { label: "Current Health", type: "range", min: 0, max: 10, name: "health" },
+          { label: "Percent Completed", type: "range", min: 0, max: 100, step: 5, name: "percComplete", title: " __% complete on current engagement" },
           { label: "Coaches Notes", type: "textarea", name: "coachNotes", rows: 7, cols: 35, journal: true },
             { pane: "Weekly Reporting", name: "weeklies"},
           { label: "Week 0 - post charter", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},

@@ -278,6 +278,19 @@ input[type=range]:focus::-ms-fill-upper {
 	border: none;
 	padding: 0;
 }
+.rangeValue{
+  position: absolute;
+  top: 7px;
+  right: 23px;
+  width: auto;
+  padding: 2px 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  background: #fff;
+  z-index: 100;
+}
+
 
 .formRow textarea {
 	margin: 22px 0 0 14px;
@@ -426,6 +439,18 @@ input[type=range]:focus::-ms-fill-upper {
 .tableIconLink:hover {  
     color: #666 !important; 
     text-decoration: none !important;
+}
+.tableProgressBar {
+  width: auto;
+  height: 16px;
+  margin: 2px 5px;
+  border: #000 1px solid;
+  border-radius: 2px;
+}
+.tableProgressBar div {
+  height: 100%;
+  margin: 0;
+  background: #00aa00;
 }
 .WhtBoxM {
     padding: 15px;
