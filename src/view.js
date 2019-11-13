@@ -683,9 +683,9 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
         })
       else if (c.progressBar && c.progressBar.high && cellVal)
         cellVal = h('div.tableProgressBar', { 
-          attrs: c.title ? { tooltip: c.title.replace(/__/, cellVal), tooltipPos: "top" } : {},
+          attrs: c.title ? { tooltip: c.title.replace(/__/, cellVal), tooltipPos: "bottom" } : {},
         }, h('div', { style: { 
-            width: (cellVal / (c.progressBar.high - c.progressBar.low) * 100) + "%", 
+            width: ((cellVal - c.progressBar.low) / (c.progressBar.high - c.progressBar.low) * 100) + "%", 
             background: c.progressBar.barColor ? c.progressBar.barColor : ""
           }})
         )
