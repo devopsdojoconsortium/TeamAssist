@@ -1,7 +1,7 @@
 import {h} from '@cycle/dom';
 import {benchMark, range, dateFormat, minToDateFormat, mutate, trimObj} from './frpHelpers';
 import $ from "jquery";
-import {loginLevels, ttLocs}  from './uiConfig';
+import {loginLevels, ttLocs, statusColors}  from './uiConfig';
 import mdModal from './view/viewMarkdownModal';
 import valueStreamDetail from './view/valueStreamMapper';
 import priorsModal from './view/viewPriorsModal';
@@ -738,6 +738,8 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
       const cellStyle = (idx ? {} : {'width': (c.minWidth > avgW ? c.minWidth : (c.width || avgW)) + 'px'})
       if (!cellIdx && item.color)
         cellStyle.borderLeft = "4px solid " + item.color
+      else if (c.dKey === "status" && statusColors[item.status])
+        cellStyle.borderRight = "4px solid " + statusColors[item.status]
       if (idx && idx === list.length - 1)
         cellStyle.borderBottom = "none"
       return h('td' + cellClass, {
