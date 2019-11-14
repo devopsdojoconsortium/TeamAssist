@@ -243,7 +243,7 @@ function getMenuRecurse (obj, route, dO, depth, tabs){
       //  console.log("bail out over obj[mi].meta.menuLevel > dO.session.loginLevel OR? ON: ", mi)
     }
     else if (obj[mi].meta.tabPage && tabs.length) {
-      tabs.push({ key: mi, name: obj[mi].meta.name });
+      tabs.push({ key: mi, name: obj[mi].meta.name, color: obj[mi].meta.color || "" });
       // console.log( "tabs.push ", obj[mi]);
     }
     else if (!obj[mi].meta.tabPage) {
@@ -251,7 +251,7 @@ function getMenuRecurse (obj, route, dO, depth, tabs){
       if (mi === sel) { // mark it and recurse!
         tmpObj.sel = true;
         if (obj[mi].meta.primeTab && mi === dO.rteObj.meta.pageKey)
-          tabs.push({ key: "", name: obj[mi].meta.primeTab })
+          tabs.push({ key: "", name: obj[mi].meta.primeTab, color: obj[mi].meta.color || "" })
         if (obj[mi])
           tmpObj.list = getMenuRecurse( obj[mi], route, dO, (depth + 1), tabs)[0];
       }

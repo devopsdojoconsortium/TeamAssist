@@ -299,28 +299,14 @@ function tableTabs (vd, elementObj = {}) {
   const pagePath = vd.rteObj.meta.routeChain.filter(x => x !== routeKey || routeKey === vd.rteObj.meta.pageKey);
   // console.log('pagePath', pagePath, vd.rteObj.meta);
   const countMark = vd.totRows.list > 1 ? ' (' + vd.totRows.list + ')' : '';
-  return  h('div.tableTabs', elementObj, vd.menu.tabs.map((ti, i) => { 
-    if (ti.key === routeKey || (!ti.key && routeKey === vd.rteObj.meta.pageKey)){ // 
-      return h('a#VAAdsTab' + (i + 1) + '.TabOnOut', { 
-        attrs: {href: "#/" + pagePath.join("/") + (ti.key ? "/" + ti.key : "") }
-      }, [
-        h('div.TabOnLt' ), 
-        h('div.TabOnCnt', [
-          h('span#VAAdsTabText' + (i + 1) + '.TabOnTxt.TabPadLtRt', ti.name + countMark)
-        ]), 
-        h('div.TabOnRt' ),
-        h('span#VAAdsTabBdr' + (i + 1) + '.TabBdrOff') 
-      ])
-    }
-    else {
-      const nextTab = vd.menu.tabs[(i + 1)];
-      return h('a#VAAdsTab' + (i + 1) + '.TabOffOut', { 
-        attrs: {href: "#/" + pagePath.join("/") + (ti.key ? "/" + ti.key : "") }
-      }, [
-        h('span#VAAdsTabText' + (i + 1) + '.TabOffTxt.TabPadLtRt', ti.name),
-        (nextTab && nextTab.key === routeKey ? "" : h('span#VAAdsTabBdr' + (i + 1) + '.TabBdrOn'))
-      ])
-    } 
+  return  h('ul.menuUl', elementObj, vd.menu.tabs.map((ti, i) => { 
+    const tiSelClass = ti.key === routeKey || (!ti.key && routeKey === vd.rteObj.meta.pageKey) ? ".menuSel" : ""
+    return h('li.menuLi.tableTabs' + tiSelClass, { }, 
+      h('a', { 
+        attrs: { href: "#/" + pagePath.join("/") + (ti.key ? "/" + ti.key : "") },
+        style: { borderBottom: (ti.color ? "3px solid " + ti.color : "transparent")}
+      }, ti.name + ( tiSelClass ? countMark : ""))
+    )
   }));
 }
 

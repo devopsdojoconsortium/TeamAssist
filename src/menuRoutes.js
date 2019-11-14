@@ -96,7 +96,8 @@ const validRoutes = {
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
       hardFilt: { status: ["imm", "eng", "ch", "vsm"] }, // imm kept for backwardsComp
 //    cParams: { vhoid: "", sgid: "", zoneid: "", channelid: "", status: "", preverperiod: "? -1?" },
-      primeTab: "Current Teams"
+      primeTab: "Current Teams",
+      color: "#4bb529"
     },
     teamLeads: { meta: {
       name: "Potential TeamTrek Teams", menuName: "Pipeline",
@@ -105,6 +106,7 @@ const validRoutes = {
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
       hardFilt: { status: ["qual", "cons", "cont", "vsm", "lead", "pre", "null"] },
       tabPage: true,
+      color: "#57a1e4"
     }},
     teamsCompleted: { meta: {
       name: "Completed Teams", menuName: "Pipeline",
@@ -112,6 +114,7 @@ const validRoutes = {
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
       hardFilt: { status: ["grad"] },
       tabPage: true,
+      color: "#f57c00"
     }},
     teamsAllStatii: { meta: {
       name: "All Teams",
