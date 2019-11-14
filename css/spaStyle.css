@@ -965,16 +965,29 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .menuLi.menuSubLi a{
 	padding: 7px 8px;
-    font-family: arial;
-    font-size: 14px;
-    letter-spacing: .025em;	
+  font-family: arial;
+  font-size: 14px;
+  letter-spacing: .025em;	
 	font-weight: bold;
 	border: 1px solid transparent;
 	border-radius: 0 0 5px 5px;
 	color: #cd040b;
-	border: none;
 	background: none;
 }
+
+.menuLi.tableTabs a {
+  padding: 7px 8px 12px 8px;
+  margin: 0 4px;
+  font-family: arial;
+  font-size: 12px;
+  letter-spacing: .025em; 
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 5px 5px 0 0;
+  color: #333;
+  background: none;
+}
+
 .menuLi.menuSel a{
 	background: #fafaff !important;
 	color: #333;
@@ -984,50 +997,15 @@ input[type=range]:focus::-ms-fill-upper {
 .menuLi a:hover{
 	background: #666;
 }
-.menuSubLi.menuSel a, .menuSubLi a:hover{
-	color: #cd040b;
-	border: 1px solid #aaa;
-	background: none;
+.menuSubLi.menuSel a, .menuSubLi a:hover {
+  color: #cd040b;
+  border: 1px solid #aaa;
+  background: none;
+}
+.tableTabs.menuSel a, .tableTabs a:hover {
+  color: #cd040b;
+  border: 1px solid #aaa;
+  border-bottom: none;
+  background: none;
 }
 
-/* orig tab stuff */
-.TabOnLt {
-	BACKGROUND-POSITION: 0px -599px; FLOAT: left; BACKGROUND-IMAGE: url(../Images/BgImages/Img2.gif); WIDTH: 8px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 37px
-}
-.TabOnCnt {
-	FLOAT: left; BACKGROUND-IMAGE: url(../Images/BgImages/Img23.gif); BACKGROUND-REPEAT: repeat-x; HEIGHT: 37px
-}
-.TabOnRt {
-	BACKGROUND-POSITION: -20px -599px; FLOAT: left; BACKGROUND-IMAGE: url(../Images/BgImages/Img2.gif); WIDTH: 14px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 37px
-}
-.TabOnTxt {
-	FLOAT: left; COLOR: #d13606; LINE-HEIGHT: 35px; HEIGHT: 35px
-}
-.TabOnTxt1
-{
-	float: left;
-	color: green;
-	line-height: 35px;
-	height: 35px;
-}
-.TabOffTxt {
-	FLOAT: left; COLOR: #555555; LINE-HEIGHT: 25px; 
-	margin: 1px; padding: 4px 11px;
-}
-.TabOffTxt:hover {
-	background: #e7eaec; 
-	border-radius: 8px 8px 0 0;
-}
-.TabOnOut{float:left;cursor:pointer;font-weight:bold;position:relative;top:2px;height:37px;z-index:1;}
-.TabOffOut {
-	margin: 3px 0 0 0; PADDING-RIGHT: 14px; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FLOAT: left; PADDING-BOTTOM: 0px; PADDING-TOP: 2px; HEIGHT: 33px
-}
-.TabBdrOn {
-	MARGIN-TOP: 12px; FLOAT: left; WIDTH: 2px; HEIGHT: 20px; BACKGROUND-COLOR: #e0e0e0
-}
-.TabBdrOff {
-	MARGIN-TOP: 12px; FLOAT: left; WIDTH: 2px; HEIGHT: 20px
-}
-.TabPadLtRt {
-	PADDING-RIGHT: 12px; PADDING-LEFT: 12px
-}
