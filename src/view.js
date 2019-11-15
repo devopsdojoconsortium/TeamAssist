@@ -881,7 +881,7 @@ function renderHeader (viewData) {
     h('div.BannerBg.dataEnv_' + viewData.session.dataEnv, [
       h('div.bannerTitle', ""),
       h('img.ttLogo', {props: {src: "images/teamTrek.png"}}), 
-      h('img.topRightLogo', {props:{ src: "images/CignaLogo_white.png"}}), 
+      h('img.topRightLogo', {props:{ src: "images/Logo_white.png"}}), 
       h('div.bannerMeta', [
         h('div', h('span.yell', viewData.session.displayName || viewData.session.loginName)), 
         h('div', loginLevels[viewData.session.loginLevel] || "Welcome"), 

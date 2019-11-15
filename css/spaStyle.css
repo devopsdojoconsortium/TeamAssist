@@ -1,8 +1,13 @@
-body {font: 12px Roboto, Helvetica, Arial, sans-serif; margin: 0px; color: #333333; background:#F4F5F7; }
+body {
+  font: 12px Roboto, Helvetica, Arial, sans-serif; 
+  margin: 0px; 
+  color: #333333; 
+  background:#F4F5F7; 
+}
 
 /* lifted and altered from styles.css */
 .BannerBg { position: relative; overflow: hidden; width: 100%; height: 50px; background: #101056}
-  .dataEnv_dev, .dataEnv_dit { background: #222467}
+.dataEnv_dev, .dataEnv_dit { background: #222467}
 .ttLogo { float: left; margin: -5px 0 0 -10px; height: 60px; }
 .topRightLogo {margin: -51px 3px 0 0; float: right;}
 .bannerTitle { position: absolute; margin: 14px 0 0 65px; color: #fff; }
@@ -16,7 +21,6 @@ body {font: 12px Roboto, Helvetica, Arial, sans-serif; margin: 0px; color: #3333
 .bannerMeta {margin: 4px 8px 6px 0; float: right; width: 160px; color: #a9abab; text-align: right}
 .gearIcon {margin: -6px 0 0 0; height: 28px;}
 
-
 /* positioned sectionals */
 .panel{
 	margin: 16px 0 0 0;
@@ -24,18 +28,18 @@ body {font: 12px Roboto, Helvetica, Arial, sans-serif; margin: 0px; color: #3333
 	padding: 0 15px; /* determines page margins and all internal div width! */
 }
 .panelHeader{
-    width: 100%;
-    height: 45px;
+  width: 100%;
+  height: 45px;
 }
 .panelTitle{
-    padding: 0 0 0 15px;
-    float: left;
-    color: #55616a;
+  padding: 0 0 0 15px;
+  float: left;
+  color: #55616a;
 }
 .iconSprite {
-    height: 50px;
-    margin: 0 0 0 13px;
-    float: left;
+  height: 50px;
+  margin: 0 0 0 13px;
+  float: left;
 }
 .hey {
   border: 1px solid red;
@@ -135,15 +139,15 @@ body {font: 12px Roboto, Helvetica, Arial, sans-serif; margin: 0px; color: #3333
 	clear: both;
 }
 .formFloat {
-    float: left;
+  float: left;
 	margin: 2px 0 0 6px;
 }
 
 .formSubmit{
-    padding: 0 0 8px 0;
-	background: #eee;
-    width: auto;
-	overflow: auto;
+  padding: 0 0 8px 0;
+  background: #eee;
+  width: auto;
+  overflow: auto;
 }
 
 .formRow{
@@ -152,12 +156,12 @@ body {font: 12px Roboto, Helvetica, Arial, sans-serif; margin: 0px; color: #3333
 	overflow: hidden;
 }
 .formRow label{
-    display: block;
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    font-size: 15px;
-    font-weight: bold;
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 input[type=range] {
@@ -294,78 +298,78 @@ input[type=range]:focus::-ms-fill-upper {
 
 .formRow textarea {
 	margin: 22px 0 0 14px;
-    font-size: 1.3em;
-    padding: 4px 0 0 5px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    box-shadow: inset 1px 1px 6px 0px #757575;
+  font-size: 1.3em;
+  padding: 4px 0 0 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 6px 0px #757575;
 }
 .formRow input, .formRow select {
-    display: block;
-    position: absolute;
-    top: 25px;
-    left: 15px;
-    width: 390px;
-    height: 25px;
-    padding: 0 0 0 4px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: 15px;
-    background-color: #fff;
+  display: block;
+  position: absolute;
+  top: 25px;
+  left: 15px;
+  width: 390px;
+  height: 25px;
+  padding: 0 0 0 4px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  background-color: #fff;
 }
 .formRow input[type=text], .formRow input[type=number], .formRow input[type=date], .formRow select {
-    box-shadow: inset 1px 1px 6px 0px #757575;
+  box-shadow: inset 1px 1px 6px 0px #757575;
 }
 .formRow input:disabled {
-	background: #eee;
-	color: #333;
+  background: #eee;
+  color: #333;
 }
 .formRow input[type=submit] {
-    display: block;
-    position: absolute;
-    top: 15px;
-    left: 25px;
-    background-color: #006;
-    color: #ffffff;
-    width: auto;
-    height: auto;
-    padding: 4px 7px;
-    border-radius: 11px;
-    font-size: 17px;
-    cursor: pointer;
+  display: block;
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  background-color: #006;
+  color: #ffffff;
+  width: auto;
+  height: auto;
+  padding: 4px 7px;
+  border-radius: 11px;
+  font-size: 17px;
+  cursor: pointer;
 }   
 .formRowErrorMsg {
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: -115px;
-    left: 230px;
-    height: 17px;
-    padding: 4px;
-    margin: 0;
-    font-size: 1.6em;
-    color: #900;
-    border-radius: 5px;
-    background-color: #eaa;
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: -115px;
+  left: 230px;
+  height: 17px;
+  padding: 4px;
+  margin: 0;
+  font-size: 1.6em;
+  color: #900;
+  border-radius: 5px;
+  background-color: #eaa;
 }
 
 .formPaneContainer {
-    background-color: #999;
-    position: relative;
-    width: 100%;
-    margin: 0 12px;
+  background-color: #999;
+  position: relative;
+  width: 100%;
+  margin: 0 12px;
 }
 .formPaneActive {
-	position: absolute;
-	top: 3px;
-    width: 710px;
-    padding: 6px;
-    margin: 0;
-    border: 3px solid #aaa;
-    border-radius: 15px;
-    background-color: #fff;
-    z-index: 110;
-    transform: translateZ(6px)
+  position: absolute;
+  top: 3px;
+  width: 710px;
+  padding: 6px;
+  margin: 0;
+  border: 3px solid #aaa;
+  border-radius: 15px;
+  background-color: #fff;
+  z-index: 110;
+  transform: translateZ(6px)
 }
 .formPaneActive h2 {
   margin: 3px 0 0 0 ;
@@ -377,12 +381,12 @@ input[type=range]:focus::-ms-fill-upper {
 	height: 45px;
 	margin-top: -48px;
   padding: 6px;
-    border: 2px solid #aaa;
-    border-radius: 15px 15px 0 0;
-    background-color: #eee;
+  border: 2px solid #aaa;
+  border-radius: 15px 15px 0 0;
+  background-color: #eee;
 }
 .formPaneInactive span, .formPaneInactive h3{
-    float: left;
+  float: left;
 	display: block;
 	margin: 0 4px;
 }
@@ -397,57 +401,57 @@ input[type=range]:focus::-ms-fill-upper {
 
 .tablePageFilters{
 	clear: both;	 
-    border: #dadada 2px solid;
-    background-color: #fbfbfb;	
-    background-position: 0 -46px;
-    background-image: url(../images/BgImages/Img11.gif);
-    background-repeat: repeat-x;
-    height: 42px;
+  border: #dadada 2px solid;
+  background-color: #fbfbfb;	
+  background-position: 0 -46px;
+  background-image: url(../images/BgImages/Img11.gif);
+  background-repeat: repeat-x;
+  height: 42px;
 }
 .tableKeywordFilter{
-	min-width: 250px;
-    float: left;
-	margin: 9px 0 0 3px;
+  min-width: 250px;
+  float: left;
+  margin: 9px 0 0 3px;
 }
 .tableExtraFilters{
-    float: left;
-	margin: 0px 0 0 7px;
-	padding: 0 4px;
-	font-size: 10px;
-    height: 39px;
+  float: left;
+  margin: 0px 0 0 7px;
+  padding: 0 4px;
+  font-size: 10px;
+  height: 39px;
 }
 .tablePagingFilter{
-	width: auto;
-    float: right;
-	margin: 9px 0 0 0;
+  width: auto;
+  float: right;
+  margin: 9px 0 0 0;
 }
 .tableGridContainer {
 	border: #dadada 2px solid;
 }
 .tableGridHighlight{
-	padding: 15px 0;
-	background: #fff;
-	color: #e4151a;
-	text-align: center;
-	font-weight: bold;
-    font-size: 16px;
+  padding: 15px 0;
+  background: #fff;
+  color: #e4151a;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
 }
 .tableGrid {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    height: auto;
-    overflow-x: auto;
-    overflow-y: auto;
-    text-align: left;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+  text-align: left;
 }
 .tableIconLink {
-    color: #5392b3 !important;
-    padding: 2px !important; 
+  color: #5392b3 !important;
+  padding: 2px !important; 
 }
 .tableIconLink:hover {  
-    color: #666 !important; 
-    text-decoration: none !important;
+  color: #666 !important; 
+  text-decoration: none !important;
 }
 .tableProgressBar {
   width: auto;
@@ -462,48 +466,48 @@ input[type=range]:focus::-ms-fill-upper {
   background: #00aa00;
 }
 .WhtBoxM {
-    padding: 15px;
-    margin: 11px 0;
-    background: #fbfbfc;
-    border-top: 3px solid #e0e0e0;
-    border-bottom: 3px solid #e0e0e0;
-    border-radius: 3px;
+  padding: 15px;
+  margin: 11px 0;
+  background: #fbfbfc;
+  border-top: 3px solid #e0e0e0;
+  border-bottom: 3px solid #e0e0e0;
+  border-radius: 3px;
 }
 .markdown p {
   margin: 0 0 1em 0;
   padding: 0;
 }
 .markdown code, .markdown tt {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    background-color: rgba(27,31,35,0.05);
-    border-radius: 3px;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  background-color: rgba(27,31,35,0.05);
+  border-radius: 3px;
 }
 .markdown pre {
-    padding: 14px;
-    overflow: auto;
-    font-size: 1em;
-    line-height: 1.45;
-    background-color: #f6f8fa;
-    border-radius: 3px;
+  padding: 14px;
+  overflow: auto;
+  font-size: 1em;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
 }
 
 .sectionLabel {
-    padding: 0 0 0 8px;
-    font-weight: bold !important;
-    font-size: 1.1em;
-    color: #5d5d5d !important;
-    margin: 7px 0;
+  padding: 0 0 0 8px;
+  font-weight: bold !important;
+  font-size: 1.1em;
+  color: #5d5d5d !important;
+  margin: 7px 0;
 }
 .sectionLabel img{
-    padding: 0 11px 0 8px;
+  padding: 0 11px 0 8px;
 }
 .djvSubHead{
-	background: #dadada;
-	border-radius: 4px;
-	padding: 3px 7px;
-	font-weight: bold;
-    font-size: 14px;	
+  background: #dadada;
+  border-radius: 4px;
+  padding: 3px 7px;
+  font-weight: bold;
+  font-size: 14px;	
 }
 .easeAll{
 	transition: all .5s ease-in-out;
@@ -517,13 +521,13 @@ input[type=range]:focus::-ms-fill-upper {
 }
 /* highlights */
 .tFilterInput {
-	margin: 0 5px;
-    border: #9d9d9f 1px solid;
-    border-radius: 4px;
-    color: #535353;
-    width: 150px;
-    height: 20px;
-    background: #ffffff;
+  margin: 0 5px;
+  border: #9d9d9f 1px solid;
+  border-radius: 4px;
+  color: #535353;
+  width: 150px;
+  height: 20px;
+  background: #ffffff;
 }
 
 .vsmContainer{
@@ -682,22 +686,22 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .yell{
-	color: #ff9;
+  color: #ff9;
 }
 .bold{
-	font-weight: bold;
+  font-weight: bold;
 }
 .larger2m{
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 .greenBg{
-	background: #9bfdd2;
+  background: #9bfdd2;
 }
 .blueBg{
-	background: #5f6eea;
+  background: #5f6eea;
 }
 .redBg{
-	background: #f99;
+  background: #f99;
 }
 .muted{
   color: #777;
@@ -706,16 +710,16 @@ input[type=range]:focus::-ms-fill-upper {
   background: #777;
 }
 .mClick{
-	cursor: pointer;
+  cursor: pointer;
 }
 .linkText{
-	color: #99f;
+  color: #99f;
 }
 .clickBg{
-	background: #d2e7f9;
+  background: #d2e7f9;
 }
 .thClearJQ{
-	padding: 0px !important;
+  padding: 0px !important;
 }
 .thMapsigns{
   padding: 0px 12px 1px 1px !important;
@@ -723,22 +727,22 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 1.6em !important;
 }
 .thSchedToggle{
-	padding: 0px 2px 1px 4px !important;
-	color: #367ebd;
+  padding: 0px 2px 1px 4px !important;
+  color: #367ebd;
 }
 .borderRight2Blk{
-	border-right: 2px solid #333;
+  border-right: 2px solid #333;
 }
 .borderLeft2Blk{
-	border-left: 2px solid #333;
+  border-left: 2px solid #333;
 }
 .journalAbs{
   position: absolute;
   top: 19px;
   right: 22px;
-    width: 300px;
-    height: 152px;
-    overflow: auto;
+  width: 300px;
+  height: 152px;
+  overflow: auto;
   border: 1px solid #999;
   border-radius: 5px;
   background: #f5f5f5;
@@ -794,12 +798,12 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .cellAbs{
-	position: absolute;
-	top: 0;
-	left: -5px;
-	border: 1px solid red;
-	background: #fff;
-	z-index: 100;
+  position: absolute;
+  top: 0;
+  left: -5px;
+  border: 1px solid red;
+  background: #fff;
+  z-index: 100;
 }
 .schCell{
   height: 100%;
@@ -813,31 +817,31 @@ input[type=range]:focus::-ms-fill-upper {
   background: #e2f1d9;
 }
 .sch_loose{
-  background: #ecdede;
+  background: #fcfdda;
 }
 
 .orange{
-    color: #f7a800;
+  color: #f7a800;
 }
 .blue {
-    color: #2978bc; 
+  color: #2978bc; 
 }
 .red {
-    color: #cd040b;
+  color: #cd040b;
 }
 .green {
-    color: #55b747;
+  color: #55b747;
 }
 .black {
-    color: #000;
+  color: #000;
 }
 .challNum{
-    display: inline-block;
-    vertical-align: top;
-    width: 12px;
-    margin: 3px 0 0 -12px;
-    font-weight: bold;
-    color: #fff;    
+  display: inline-block;
+  vertical-align: top;
+  width: 12px;
+  margin: 3px 0 0 -12px;
+  font-weight: bold;
+  color: #fff;    
 }
 .schFrm{
   width: auto;
@@ -878,17 +882,17 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 20;
 }
 .cellDiv{
-	width: auto;
-	padding: 6px;
-	color: #333;
-	border-bottom: 1px solid #a8a8a8;
+  width: auto;
+  padding: 6px;
+  color: #333;
+  border-bottom: 1px solid #a8a8a8;
 }
 .GrayTxt {
-    color: #8d8d8d;
+  color: #8d8d8d;
 }
 .GrayTxtBold {
-    COLOR: #8d8d8d;
-    font-weight: bolder;
+  COLOR: #8d8d8d;
+  font-weight: bolder;
 }
 
 /* Tooltips stuff (for anywhere) */
@@ -946,42 +950,42 @@ input[type=range]:focus::-ms-fill-upper {
 
 /* Menu stuff */
 #menuMain{
-	position: absolute;
-	top: 26px;
-	left: 280px;
+  position: absolute;
+  top: 26px;
+  left: 280px;
 }
 #menuSub{
-	position: absolute;
-	top: 58px;
-	left: 250px;
+  position: absolute;
+  top: 58px;
+  left: 250px;
 }
 .menuUl{
-	list-style: none;
+  list-style: none;
 }
 .menuLi{
-	display: inline;
-	list-style: none;
+  display: inline;
+  list-style: none;
 }
 .menuLi a{
-	margin: 0 3px 0 0;	
-	padding: 6px 12px;
-	border: 1px solid #aaa;
-	border-radius: 5px 5px 0 0;
-	background: #222;
-	font-size: 16px;
-	color: #eee;
-	text-decoration: none;
+  margin: 0 3px 0 0;	
+  padding: 6px 12px;
+  border: 1px solid #aaa;
+  border-radius: 5px 5px 0 0;
+  background: #222;
+  font-size: 16px;
+  color: #eee;
+  text-decoration: none;
 }
 .menuLi.menuSubLi a{
-	padding: 7px 8px;
+  padding: 7px 8px;
   font-family: arial;
   font-size: 14px;
   letter-spacing: .025em;	
-	font-weight: bold;
-	border: 1px solid transparent;
-	border-radius: 0 0 5px 5px;
-	color: #cd040b;
-	background: none;
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 0 0 5px 5px;
+  color: #cd040b;
+  background: none;
 }
 
 .menuLi.tableTabs a {
@@ -998,13 +1002,13 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .menuLi.menuSel a{
-	background: #fafaff !important;
-	color: #333;
-	font-weight: bold;
-	transition: "all .3s ease-in-out";
+  background: #fafaff !important;
+  color: #333;
+  font-weight: bold;
+  transition: "all .3s ease-in-out";
 }
 .menuLi a:hover{
-	background: #666;
+  background: #666;
 }
 .menuSubLi.menuSel a, .menuSubLi a:hover {
   color: #cd040b;
