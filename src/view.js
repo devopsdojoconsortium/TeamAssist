@@ -364,11 +364,11 @@ function modForm (rteObj, vd, panelHeight) {
   let activePane = 0
   rteObj.meta.formConfig.forEach(e => {
     if (e.pane && (e.name === vd.formObj.activePane || (!vd.formObj.activePane && panes.length === 0))){
-      panes.push({ active: true, name: e.name, label: e.pane })
+      panes.push({ active: true, name: e.name, label: e.pane, color: e.color })
       activePane = 1
     }
     else if (e.pane){
-      panes.push({ name: e.name, label: e.pane, fConfig: [] })
+      panes.push({ name: e.name, label: e.pane, fConfig: [], color: e.color })
       activePane = 0      
     }
     else if (activePane)
@@ -440,12 +440,12 @@ function modForm (rteObj, vd, panelHeight) {
     style: { height: (panelHeight ? (panelHeight - 15) : 395) + "px" }
   }, formArr)
   let offset = 0
-  let activeLabel = ""
+  let activePaneObj = {}
   const inactiveW = panelHeight + 7
   return h('div.formPaneContainer', panes.map((p, idx) => {
     if (p.active){
       offset = offset + 710 + (idx * 47)
-      activeLabel = p.label
+      activePaneObj = p
       return ""
     }
     offset = offset + (p.active ? 710 + (idx * 47) : 0)
@@ -458,14 +458,17 @@ function modForm (rteObj, vd, panelHeight) {
         transform: "rotate(" + (offset ? 90 : 270) + "deg)",
         transformOrigin: (offset ? "bottom left" : "bottom right")
       }}, 
-      [ h('h3', p.label) ].concat(p.fConfig.map(fo => {
+      [ h('h3', { style: { background: (p.color || "#888") }}, p.label) ]
+      .concat(p.fConfig.map(fo => {
         const labClass = (vd.formObj.errors[fo.name] ? ".redBg" : vd.formObj[fo.name] ? ".greenBg" : "")
         return h('span' + labClass, fo.label)
       }))
     )
   })
   .concat(h('div.formPaneActive.easeAll', { style: {left: ((offset ? offset : 710) - 710) + 'px'}}, [ 
-    h('h2', activeLabel), formTag // had to move this out of panes map loop to enable transition animations
+    h('h2', { style:{ 
+      borderBottom: "5px solid " + (activePaneObj.color || "#888")
+    }}, activePaneObj.label), formTag // had to move this out of panes map loop to enable transition animations
   ])))
 }
 
