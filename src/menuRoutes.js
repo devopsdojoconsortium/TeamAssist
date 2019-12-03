@@ -186,8 +186,9 @@ const validRoutes = {
           { label: "Business Impact", type: "textarea", name: "businessImpact", rows: 3, cols: 72 },
           { label: "Speed to Value Improvement", type: "text", name: "speedToValueImprovement" },
           { label: "Post TeamTrek Follow Up Notes", type: "textarea", name: "followUp", rows: 7, cols: 35, journal: true},
-            { pane: "Assignments, etc", name: "meta"},
-          { label: "Primary Coach / POC", type: "select", name: "keyCoach", opts: "coachers", numIndex: true },
+            { pane: "Additional Settings / Forking", name: "meta"},
+          { label: "Primary Point of Contact", type: "select", name: "keyCoach", opts: "coachers", numIndex: true },
+          { label: "Create New from Clone - NAME", type: "text", name: "forkProject", title: "Select new Program/Project (Team Name)" },
           { label: "Permanently DELETE", type: "checkbox", name: "statusDELETE", value: 1 },
         ],
         panel: "Update information for team"
