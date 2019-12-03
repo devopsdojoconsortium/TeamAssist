@@ -773,7 +773,16 @@ function makeModification$ (actions) {
       // console.log('formObj displayObj.session', extend({}, formObj), action, displayObj.session);
       // new vs mod
       let idSeed = meta.pageKey === meta.routeKey ? formObj[keys[0]] : "" // VERY temp
-      if (meta.sessPropForId && displayObj.session[meta.sessPropForId]){
+      if (formObj.forkProject && formObj.forkProject.length){
+        idSeed = formObj.forkProject
+        formObj = mutate(trimObj(formObj, ["contactName", "color", "keyCoach"]), {
+          parentId: displayObj.rteObj.details.id,
+          project: formObj.project.replace(/\s+\(.+/, "") + " -- " + formObj.forkProject,
+          salesNotes: "Created from Project: " + formObj.project,
+          status: "lead"
+        })
+      }
+      else if (meta.sessPropForId && displayObj.session[meta.sessPropForId]){
         formObj.id = displayObj.session[meta.sessPropForId] // non-hashed for eid
         // idSeed = displayObj.session[meta.sessPropForId]  // hash method for any other stream
         formObj = mutate(formObj, trimObj(displayObj.session, ["loginLevel", "loginName", "email", "employeeId", "eid"]))
@@ -1005,7 +1014,10 @@ function makeModification$ (actions) {
           // return displayByRoute(displayObj.returnRte, displayObj, ["vsm", "id", req.hstream.replace(/\w+_/, "")])
           delete displayObj.settings.vsmObj
           return mutate(displayObj, {cntrl: {snd: "gong"}}) // bass ?
-
+        }
+        if (req.hstream === "teams" && post.parentId && post.salesNotes && post.salesNotes.match(/from Project/)){ // CLONE
+          displayObj.cntrl.snd = "chime2"
+          return displayByRoute(displayObj.returnRte, displayObj, ["teams", "modTeam", "id", post.id])
         }
         // refresh same stream with noCache call.
         readReq({ resProp: "main", noCache: true, req: { hstream: req.hstream }}, 900)
