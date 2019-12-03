@@ -188,7 +188,7 @@ const validRoutes = {
           { label: "Post TeamTrek Follow Up Notes", type: "textarea", name: "followUp", rows: 7, cols: 35, journal: true},
             { pane: "Additional Settings / Forking", name: "meta"},
           { label: "Primary Point of Contact", type: "select", name: "keyCoach", opts: "coachers", numIndex: true },
-          { label: "Create New from Clone - NAME", type: "text", name: "forkProject", title: "Select new Program/Project (Team Name)" },
+          { label: "Forking! Create new Engagement lead record from this", type: "text", name: "forkProject", tooltipPos: "bottom",  tooltip: "Submitting with this field will:\n - Create new record with this as parent.\n - Append this field to current name.\n - Redirect you to form for new record to enter new Target Type, etc.\n - NOT update this record at all." },
           { label: "Permanently DELETE", type: "checkbox", name: "statusDELETE", value: 1 },
         ],
         panel: "Update information for team"

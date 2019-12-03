@@ -1126,7 +1126,6 @@ function makeModification$ (actions) {
             const priorKeys = obj.priors ? [obj.eId].concat(obj.priors.reverse()) : [obj.eId]
             const addReports = [] 
             let topReport = 0, splicePoint = 0
-            // console.log(" priorKeys priorKeys priorKeys", priorKeys)
             meta.formConfig.forEach((f, idx) => {
               if (f.journal && priorKeys){
                 f.journal = priorKeys.map(i => eventStore[meta.hstream][i]).filter(x => x[f.name])
