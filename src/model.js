@@ -1017,6 +1017,7 @@ function makeModification$ (actions) {
         }
         if (req.hstream === "teams" && post.parentId && post.salesNotes && post.salesNotes.match(/from Project/)){ // CLONE
           displayObj.cntrl.snd = "chime2"
+          readReq({ resProp: "main", noCache: true, req: { hstream: req.hstream }}, 900)
           return displayByRoute(displayObj.returnRte, displayObj, ["teams", "modTeam", "id", post.id])
         }
         // refresh same stream with noCache call.
@@ -1125,8 +1126,9 @@ function makeModification$ (actions) {
             const priorKeys = obj.priors ? [obj.eId].concat(obj.priors.reverse()) : [obj.eId]
             const addReports = [] 
             let topReport = 0, splicePoint = 0
+            // console.log(" priorKeys priorKeys priorKeys", priorKeys)
             meta.formConfig.forEach((f, idx) => {
-              if (f.journal){
+              if (f.journal && priorKeys){
                 f.journal = priorKeys.map(i => eventStore[meta.hstream][i]).filter(x => x[f.name])
                   .map(res => mutate(trimObj(res, ["eId", "asOfStamp", "eStamp", "user"]), {val: res[f.name]}))
               }
