@@ -425,10 +425,17 @@ function modForm (rteObj, vd, panelHeight) {
       }, journalEle ? "" : (detailObj[e.name] || ""))
     }
     const formRowStyle = { style: {height: "0px"} } // default hide
-    if (activeEles[e.name] || e.type === "submit" || !panes.length)
+    const tooltipObj = { style: {}}
+    if (activeEles[e.name] || e.type === "submit" || !panes.length) {
       formRowStyle.style = (formRowHeightMap[e.type] ? { height: formRowHeightMap[e.type]} : {}) 
+      if (e.tooltip) {
+        formRowStyle.style.overflow = "visible"
+        tooltipObj.attrs = { tooltip: e.tooltip, tooltipPos: ( e.tooltipPos || "bottom") }
+      }
+    }
     return h('div.formRow.easeAll', formRowStyle, [
       h('label', (e.type !== "submit" ? (e.label || e.name) : "")), 
+      (e.tooltip ? h('div.tableIconLink.infoCircle', tooltipObj, h('div.la.la-info-circle.la-2x')) : ""),
       (e.type !== "submit" ? h('br') : ""),
       formEle, journalEle, ...markdownIcons,
 

@@ -895,6 +895,13 @@ input[type=range]:focus::-ms-fill-upper {
   font-weight: bolder;
 }
 
+.infoCircle {
+  display: absolute;
+  top: 5px;
+  left: 420px;
+  width: 26px;
+}
+
 /* Tooltips stuff (for anywhere) */
 [tooltip] {
   position: relative;
@@ -929,7 +936,7 @@ input[type=range]:focus::-ms-fill-upper {
   color: #fff;
   padding: 4px 2px;
   font-size: 12px;
-  min-width: 150px;
+  min-width: 160px;
   border-radius: 3px;
   pointer-events: none;
   padding: 4px 4px;
@@ -945,7 +952,7 @@ input[type=range]:focus::-ms-fill-upper {
 [tooltip]:hover::after,
 [tooltip]:hover::before {
   opacity: 1;
-  transition: all 1.0s;
+  transition: all 0.6s;
 }
 
 /* Menu stuff */
