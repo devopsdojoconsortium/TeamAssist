@@ -21,12 +21,15 @@
     "@cycle/rxjs-run": "^4.0.0-rc.5",
     "@cycle/storage": "^5.0.3",
     "exceljs": "^3.0.4",
+    "express": "^4.17.1",
     "history": "^4.10.1",
     "jquery": "^3.3.1",
     "js-cookie": "2.2.0",
-    "marked": "^0.4.0",
+    "marked": "^0.7.0",
     "moment": "^2.22.2",
     "murmur": "0.0.2",
+    "node-fetch": "latest",
+    "rimraf": "^3.0.0",
     "rxjs": "^5.5.11",
     "uuid": "^3.2.1",
     "xstream": "^11.7.0"
@@ -47,9 +50,10 @@
     "eslint": "^4.18.2",
     "eslint-watch": "^1.2.5",
     "jsonfile": "^4.0.0",
-    "live-server": "^0.9.0",
+    "live-server": "^1.2.1",
     "mkdirp": "^0.5.1",
     "mocha": "5.2.0",
+    "nodemon": "^2.0.1",
     "npm-run-all": "^1.4.0",
     "read-file": "0.2.0",
     "uglify-js": "3.1.5",
@@ -70,6 +74,13 @@
     "lint": "eslint src/ || true",
     "wmocha": "mocha -w --compilers js:@babel/register src/test/*.js || true",
     "wlint": "esw src/ --quiet -w",
-    "jenkins-mocha": "mocha --compilers js:@babel/register src/test/*.js"
+    "jenkins-mocha": "mocha --compilers js:@babel/register src/test/*.js",
+    "excelServe": "babel-node ./excelService/serve",
+    "excelServe:prod": "node ./dist/serve",
+    "excelDev": "NODE_ENV=development npm-run-all excelServe",
+    "clean": "rimraf dist",
+    "excelBuild": "babel ./src --out-dir dist",
+    "excelProd": "NODE_ENV=production npm-run-all clean build excelServe:prod",
+    "excelWatch": "nodemon"
   }
 }

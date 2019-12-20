@@ -1,0 +1,5 @@
+{
+	"exec": "npm run excelDev",
+	"watch": ["excelService"],
+	"ext": "js"
+}
