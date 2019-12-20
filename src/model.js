@@ -178,10 +178,10 @@ function buildStateObj (stateObj, eventStore, sKey, lsObj) {
         console.error("Events skipped from stateObj !!!", idx)
     idx++
   }
-  console.log(sKey, ' === sKey of stateObj !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ', stateObj[sKey]);
+  // console.log(sKey, ' === sKey of stateObj !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ', stateObj[sKey]);
   lsObj.lastState = lsObj.latest
   lsObj.cachedData = idList.reverse()
-  return lsObj.cachedData
+  return lsObj.returnState ? {state: stateObj[sKey], ids: lsObj.cachedData} : lsObj.cachedData
 }
 
 function getlsObj (key) {
@@ -1225,4 +1225,4 @@ function model (actions) {
     })
 }
 
-export {model, getRteObj, validateForm};
+export {model, getRteObj, validateForm, buildStateObj};
