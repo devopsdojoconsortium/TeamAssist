@@ -324,7 +324,7 @@ input[type=range]:focus::-ms-fill-upper {
   background: #eee;
   color: #333;
 }
-.formRow input[type=submit] {
+.formRow input[type=submit], .formBtn  {
   display: block;
   position: absolute;
   top: 15px;

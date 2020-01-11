@@ -570,9 +570,16 @@ function makeModification$ (actions) {
         else if(key === "mdHelp" && displayObj.rteObj.details){
           modal.preview = displayObj.formObj[divId] || displayObj.rteObj.details[divId]
         }
+        else if(key === "export"){
+          modal.urlIds = displayObj.list.map(e => e.id)
+          modal.tab = divId === "custom" ? displayObj.rteObj.meta.routeKey : ""
+          modal.tabName = modal.tabName || "Selected Records"
+        }
         console.log("MODAL action, modal", action, modal)
 
-        modal.type = ( key === "clear" || modal.type === key) ? "" : key // toggler
+        modal.type = ( key === "clear" || modal.type) ? "" : key // toggler
+        if(key === "export") // recover type to retain modal for export
+          modal.type = key
         modal.field = divId || "" // for field markup preview tracking
         return mutate(displayObj, { modalObj: modal } )
       }
@@ -661,6 +668,10 @@ function makeModification$ (actions) {
       if(action.textarea && displayObj.modalObj.field){
         displayObj.modalObj.preview = action.value
         displayObj.modalObj.field = action.name
+      }
+      else if(displayObj.modalObj.tabName){
+        displayObj.modalObj.tabName = action.value
+        return displayObj
       }
       const vsmSettingsObj = displayObj.settings.vsmObj || {}
       displayObj.formObj.errors = validateForm(displayObj, action, 

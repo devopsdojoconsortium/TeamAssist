@@ -14,8 +14,8 @@ app.get('/excel/:tab', (req, res) => {
         return acc
       }, {})
       const excelRes = excelProc(mutate(req.params, req.query, req.body), events, json.entries.length)
-      // console.log(excelRes)
-      res.send("HERE WE GO.... <pre>" + excelRes + JSON.stringify(events, null, 2))
+       console.log(excelRes)
+      res.send("File created! <br>" + excelRes )
     }
   );
   console.log('teamLoader')

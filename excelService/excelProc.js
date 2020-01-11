@@ -4,6 +4,7 @@ import {tableConfig} from '../src/tableViewConfig'
 import {buildStateObj} from '../src/model'
 import {mutate} from '../src/frpHelpers'
 import {statusColors} from '../src/uiConfig'
+
 function excelProc(req, events, evtCnt){
   const stateObj = buildStateObj({}, { teams: events}, "teams", { latest: evtCnt, returnState: true})
   var workbook = new Excel.Workbook({
@@ -21,11 +22,11 @@ function excelProc(req, events, evtCnt){
   const counts = {}
   // do sheets in a loop of metas from menuRoutes
   tabArray.forEach((tab, i) => {
-    const custom = i === 3 ? mutate(req, { name: "Selected Records"}) : {}
+    const custom = i === 3 ? mutate(req, { name: (req.tabName || "Selected Records")}) : {}
     const routeMeta = validRoutes.teams[tab] ? validRoutes.teams[tab].meta : validRoutes.teams.meta
     const tableCols = tableConfig[tab] || { cols: []}
     const teamIds = req.teamIds && custom.tab ? req.teamIds.split(/\W+/) : stateObj.ids
-    const tabColor = routeMeta.color.replace("#", "FF")
+    const tabColor = routeMeta.color ? routeMeta.color.replace("#", "FF") : "FFFFFFFF"
     console.log("tab, custom,", tabArray, tab, custom)
     var sheet = workbook.addWorksheet((custom.name || routeMeta.name), {
       properties:{tabColor:{argb: tabColor}, outlineLevelRow: 2, outlineLevelCol: 7},
@@ -93,10 +94,15 @@ function excelProc(req, events, evtCnt){
       }
     })
   })
+
+  const filePath = "Engagements_" + new Date().toISOString() + "_Evts_" + evtCnt + ".xlsx"
   // write to file in dist
-  workbook.xlsx.writeFile("./dist/test.xlsx").then(excelOut => console.log("excelOut", excelOut))
-  return JSON.stringify(counts, null, 2)
+  workbook.xlsx.writeFile("./dist/" + filePath).then(excelOut => console.log("excelOut", excelOut))
+
+  return JSON.stringify(counts, null, 2) + "<br><br>File generated! <a href='http://localhost:8080/dist/" + filePath + "'>Download</a>"
 }
+
+// internal funcs
 function cells2Arr (cellArr, rIdx, cIdx, prop, val) {
   return cellArr.concat({ cid: cellKeys(rIdx, cIdx), prop: prop, val: val})
   // return cells
