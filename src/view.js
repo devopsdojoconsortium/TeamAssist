@@ -5,6 +5,7 @@ import {loginLevels, ttLocs, statusColors}  from './uiConfig';
 import mdModal from './view/viewMarkdownModal';
 import valueStreamDetail from './view/valueStreamMapper';
 import priorsModal from './view/viewPriorsModal';
+import exportModal from './view/excelExportModal';
 import markdownRender from './view/viewMarkdownRender';
 
 const panelObj = { 
@@ -585,6 +586,7 @@ function tablePagingFilter (vd) {
     });
   }
   return  h('div.tablePagingFilter', [
+    h('div#modal_export.mClick.blue', { style: {float: "left", margin: "4px 10px"} }, "Excel Export"),
     inputSelList( "filterLimit", (vd.settings.pageLimit || 40), perPageOpts, undefined, { float: "left", margin: "4px 10px" }, true ),
     inputSelList( "filterOffset", 0, offsetOpts, undefined, { float: "left", margin: "4px 10px" }, true ),
   ]);
@@ -985,6 +987,13 @@ function renderModal (viewData) {
     ])
     modalPos = modalObj.params.modalPos
     title = modalObj.params.title
+  }
+  else if (viewData.modalObj.type === "export"){
+    const modalObj = exportModal(viewData, hashSrc(viewData, "coachers"))
+    modalBody = modalObj.retView
+    modalPos = modalObj.params.modalPos
+    title = "Export Team Data to Excel"
+    footer = viewData.modalObj.footer
   }
   else if (viewData.modalObj.type === "priors"){
     const modalObj = priorsModal(viewData.modalObj.list, hashSrc(viewData, "coachers"))
