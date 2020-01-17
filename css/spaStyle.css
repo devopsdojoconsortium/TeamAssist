@@ -1004,12 +1004,12 @@ input[type=range]:focus::-ms-fill-upper {
   font-weight: bold;
   border: 1px solid transparent;
   border-radius: 5px 5px 0 0;
-  color: #333;
+  color: #666;
   background: none;
 }
 
 .menuLi.menuSel a{
-  background: #fafaff !important;
+  background: #ffffff !important;
   color: #333;
   font-weight: bold;
   transition: "all .3s ease-in-out";
@@ -1024,7 +1024,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .tableTabs.menuSel a, .tableTabs a:hover {
   color: #cd040b;
-  border: 1px solid #aaa;
+  border: 1px solid #000;
   border-bottom: none;
   background: none;
 }
