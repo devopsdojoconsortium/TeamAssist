@@ -1164,8 +1164,12 @@ function makeModification$ (actions) {
           else if (meta.panelFn === "teamPanel"){
             const obj = extend(displayObj.rteObj.details)
             const keys = Object.keys(obj).filter(x => x.match(/weeklyReport/))
+            const journals = (displayObj.rteObj.modTeam.meta && displayObj.rteObj.modTeam.meta.formConfig || [])
+              .concat(displayObj.rteObj.modTeam.id.meta && displayObj.rteObj.modTeam.id.meta.additionalFormConfig || [])
+              .filter(x => x.journal).map(i => i.name)
+
             displayObj.rteObj.details.eMap = {}
-            keys.forEach(k => {
+            keys.concat(journals).forEach(k => {
               displayObj.rteObj.details.eMap[k] = getEventMapByProperty(obj, meta.hstream, k) // all depth
             })
           }
