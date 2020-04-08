@@ -135,6 +135,7 @@ const tableConfig = {
       { dKey: "description", label: "Challenge Description", minWidth: 300 },
       { dKey: "teamSize", label: "Team Size"},
       { dKey: "coachNotes", label: "Coaching Notes", sort: "asc", width: 280, tdStyle: "#modal_priors_cell.mClick.clickBg" },
+      { dKey: "percComplete", label: "Progress", progressBar: { low: 0, high: 100, barColor: "#9f9" }, title: "__% complete"},
       { dKey: "challengeStartDate", label: "Start Date", dateFormat: "MM/DD/YY" },
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       ...teamLinks

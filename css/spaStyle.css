@@ -142,6 +142,9 @@ body {
 .teamRows {
   text-align: left;  
 }
+.inlineMiddling > * {
+  vertical-align: middle; 
+}
 .detailBoxLeft .label{
   padding: 3px 10px 0 3px;
   font-size: 1.2em;

@@ -58,7 +58,17 @@ function htmlBlock (team, vd, fc) {
       val = minToDateFormat(val, "MM/DD/YY")
     else if (i.type === "range"){
       const curVal = team[i.name] || 0
-      // val = h('div.rangeValue', i.title ? i.title.replace(/__/, curVal) : curVal) 
+      val = h('div.inlineMiddling', {style: {}}, [ 
+        h('div.tableProgressBar', { 
+          style: { display: "inline-block", width: "50%"},
+          attrs: i.title ? { tooltip: i.title.replace(/__/, val), tooltipPos: "bottom" } : {},
+        }, h('div', { style: { 
+            width: ((val - i.min) / (i.max - i.min) * 100) + "%", 
+            background: i.barColor ? i.barColor : ""
+          }})
+        ),
+        h('small', { style: { padding: "0 0 0 5px"}}, i.title ? i.title.replace(/__/, curVal) : curVal)
+      ])
     }
     return h('div.teamRows', [
         h('div.label', i.label + ""),
