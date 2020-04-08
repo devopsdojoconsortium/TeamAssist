@@ -58,7 +58,7 @@ function htmlBlock (team, vd, fc) {
       val = minToDateFormat(val, "MM/DD/YY")
     else if (i.type === "range"){
       const curVal = team[i.name] || 0
-      val = h('div.inlineMiddling', {style: {}}, [ 
+      val = h('div.inlineMiddling', [ 
         h('div.tableProgressBar', { 
           style: { display: "inline-block", width: "50%"},
           attrs: i.title ? { tooltip: i.title.replace(/__/, val), tooltipPos: "bottom" } : {},
