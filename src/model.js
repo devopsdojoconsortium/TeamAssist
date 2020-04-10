@@ -1213,7 +1213,7 @@ function makeModification$ (actions) {
 }
 
 function getEventMapByProperty (obj, stream, prop, depth) {
-  const priorKeys = obj.priors ? [obj.eId].concat(obj.priors.reverse()) : [obj.eId]
+  const priorKeys = obj.priors ? [obj.eId].concat(extend(obj.priors).reverse()) : [obj.eId]
   return priorKeys
     .map(i => eventStore[stream][i])
     .filter((x, idx) => x[prop] && (!depth || idx < depth))
