@@ -84,8 +84,11 @@ function htmlBlock (team, vd, fc) {
   return  (out.length ? out : "")
 }
 
-function isDetailBoxOpen (team, section, fc) {
-  return (!section.stArr.some(s => s === team.status)) ? 0 : 1
+function isDetailBoxOpen (team, section, fc, settings) {
+  const toggleKey = "detView" + team.id
+  if (settings[toggleKey] && settings[toggleKey][section.key])
+    return settings[toggleKey][section.key] === "plus" ? 1 : 0
+  return (section.stArr.some(s => s === team.status)) ? 1 : 0
 }
 
 function isDetailBoxAvailable (team, sec, sections, fc) {
@@ -99,9 +102,9 @@ function isDetailBoxAvailable (team, sec, sections, fc) {
   return secStatMatch
 }
 
-function toggleExpander (s, isOpen, isAvail) {
+function toggleExpander (id, s, isOpen, isAvail) {
   const icon = isOpen ? "minus" : "plus"
-  return isAvail ? h('span#detailSectionToggle_' + s.key + '.la.la-' + icon + '-circle.mClick') : ""
+  return isAvail ? h('span#detailSectionToggle_' + id + '_' + s.key + '-' + icon + '.la.la-' + icon + '-circle.mClick') : ""
 }
 
 export default function teamDetail (team, meta, vd) {
@@ -120,16 +123,18 @@ export default function teamDetail (team, meta, vd) {
     completed: htmlBlock(team, vd, [formConfig.completed])
   }
   const rightSections = sections.map(s => {
-    const isOpen = isDetailBoxOpen(team, s, formConfig[s.key])
+    const isOpen = isDetailBoxOpen(team, s, formConfig[s.key], vd.settings)
     const isAvail = isDetailBoxAvailable(team, s, sections, formConfig[s.key])
     const color = isAvail ? formConfig[s.key].color : "#ccc"
     return h('div.detailBoxRight', [
       h('div.detailBoxHeader', { style: { background: color, borderColor: color } }, [ 
         h('label', s.label), 
-        toggleExpander(s, isOpen, isAvail),
+        toggleExpander(team.id, s, isOpen, isAvail),
         h('a.la.la-edit', { attrs: { href: "#/teams/modTeam/pane_" + s.key + "/id/" + team.id }}, "")
       ]),
-      h('div.detailBox.easeAll', { style: { height: (isOpen ? "auto" : "0px"), borderColor: color } }, sectionBlocks[s.key])
+      h('div.detailBox.easeAll', { style: { 
+        maxHeight: (isOpen ? "2000px" : "0px"), transform: "scaleY(" + isOpen + ")", borderColor: color 
+      } }, sectionBlocks[s.key])
     ])
   })
   return  h('div.detailContainer', [

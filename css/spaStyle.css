@@ -139,6 +139,7 @@ body {
   background: #fff;
   border: 1px solid #101056;
   overflow: hidden;
+  transform-origin: top
 }
 .teamRows {
   text-align: left;  

@@ -583,6 +583,12 @@ function makeModification$ (actions) {
         modal.field = divId || "" // for field markup preview tracking
         return mutate(displayObj, { modalObj: modal } )
       }
+      if (setting === "detailSectionToggle" && key && divId){ 
+        const idKey = "detView" + key
+        const [section, tog] = divId.split("-")
+        displayObj.settings[idKey] = displayObj.settings[idKey] || {} // set obj if undefined
+        displayObj.settings[idKey][section] = tog
+      }
       if (setting === "setting" && ["ttLoc"].some(s => s === key)){ // ttLoc 1st in array settings update
         const arr = displayObj.settings[key] || []
         const filteredArr = arr.filter(x => x !== divId)
