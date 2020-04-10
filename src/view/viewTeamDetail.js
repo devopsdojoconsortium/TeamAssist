@@ -53,7 +53,7 @@ function htmlBlock (team, vd, fc) {
         ])))
     }
     else if (i.type === "select")
-      val = i.opts[val]
+      val = i.opts === "coachers" ? hashSrc(vd, "coachers")[val] : i.opts[val]
     else if (i.type === "date")
       val = minToDateFormat(val, "MM/DD/YY")
     else if (i.type === "range"){
@@ -133,7 +133,7 @@ export default function teamDetail (team, meta, vd) {
         h('a.la.la-edit', { attrs: { href: "#/teams/modTeam/pane_" + s.key + "/id/" + team.id }}, "")
       ]),
       h('div.detailBox.easeAll', { style: { 
-        maxHeight: (isOpen ? "2000px" : "0px"), transform: "scaleY(" + isOpen + ")", borderColor: color 
+        maxHeight: (isOpen ? "4000px" : "0px"), transform: "scaleY(" + isOpen + ")", borderColor: color 
       } }, sectionBlocks[s.key])
     ])
   })
