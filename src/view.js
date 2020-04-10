@@ -4,6 +4,7 @@ import $ from "jquery";
 import {loginLevels, ttLocs, statusColors}  from './uiConfig';
 import mdModal from './view/viewMarkdownModal';
 import valueStreamDetail from './view/valueStreamMapper';
+import teamDetail from './view/viewTeamDetail';
 import priorsModal from './view/viewPriorsModal';
 import exportModal from './view/excelExportModal';
 import markdownRender from './view/viewMarkdownRender';
@@ -179,15 +180,11 @@ const panelObj = {
   teamPanel: function (rteObj, vd){
     const team = rteObj.details || {}
     return  h('div', { style: { position: "relative", textAlign: "center" }}, [
-      h('h1', (team.project || "") + " Weekly Progress Reporting"),
-      h('a.la.la-edit.la-3x.tableIconLink', {
-        attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
-        style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
-      }, ""),
+      h('h1', (team.project || "") + " Details"),
       h('a.la.la-map.la-3x.tableIconLink', {
-        attrs: { href: "#/vsm/id/" + team.id },
-        style: { position: "absolute", top: "43px", right: "45px", width: "30px", textDecoration: "none"}
-      }, ""),
+        attrs: { href: "#/vsm/id/" + team.id, title: "Value Stream Map" },
+        style: { position: "absolute", top: "3px", right: "75px", width: "30px", textDecoration: "none"}
+      }, h('sup', {style: {fontSize: "0.6em"}}, "VSM")),
       rteObj.meta.blockIt ? rteObj.meta.blockIt : teamDetail(team, rteObj.meta, vd)
     ])
   },
@@ -311,35 +308,6 @@ function tableTabs (vd, elementObj = {}) {
   }));
 }
 
-function teamDetail (team, meta, vd) {
-  const weeklies = Object.keys(team).filter(x => x.match(/weeklyReport/))
-    .map(i => ({
-      report: markdownRender(team[i]),
-      meta: team.eMap[i][0],
-      priors: team.eMap[i].length - 1,
-      weekNum: Number(i.replace(/\D+/, ""))
-    }))
-  const coachObj = hashSrc(vd, "coachers")
-  const out = weeklies.map(row => {
-    const metaHtml = [
-      h('small', minToDateFormat(row.meta.asOfStamp || row.meta.eStamp, "MM/DD/YY HH:mm")),
-      h('small', row.meta.user && coachObj[row.meta.user] ? " | " + coachObj[row.meta.user] :
-      (row.meta.user ? " | " + row.meta.user : "")),
-      (row.priors ? h('small#modal_priors_reports.mClick.blue', { attrs: { 
-        prop: "weeklyReport" + row.weekNum
-      }}, " (edits: " + row.priors + ")" ) : ""),
-    ]
-    return h('div.teamRows', 
-      [
-        h('div.stickyLeft', h('span.bigSticky.fa.fa-sticky-note.orange', 
-          h('span.bigStickyTxt', [ h('b', "Week"), h('br'), h('b', row.weekNum) ]))), 
-        h('div.weeklyText', [row.report, h('div.weeklyMeta', metaHtml)]),
-        h('br', { style: { clear: "all" }})
-      ]
-    )
-  })
-  return  h('div.teamContainer', out)
-}
 
 function formProps (e, val) {
   const allowed = ["type", "name", "min", "max", "maxlength", "disabled", 

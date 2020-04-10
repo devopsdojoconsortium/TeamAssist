@@ -126,6 +126,10 @@ const validRoutes = {
     id: { meta: {
       name: "Team",
       menuLevel: 3,
+      hstream: "teams",
+      subUrl: {
+        hstream: "vsm_",
+      },
       panelFn: "teamPanel",
     }},
     teamReports: { meta: {

@@ -583,6 +583,12 @@ function makeModification$ (actions) {
         modal.field = divId || "" // for field markup preview tracking
         return mutate(displayObj, { modalObj: modal } )
       }
+      if (setting === "detailSectionToggle" && key && divId){ 
+        const idKey = "detView" + key
+        const [section, tog] = divId.split("-")
+        displayObj.settings[idKey] = displayObj.settings[idKey] || {} // set obj if undefined
+        displayObj.settings[idKey][section] = tog
+      }
       if (setting === "setting" && ["ttLoc"].some(s => s === key)){ // ttLoc 1st in array settings update
         const arr = displayObj.settings[key] || []
         const filteredArr = arr.filter(x => x !== divId)
@@ -1164,8 +1170,12 @@ function makeModification$ (actions) {
           else if (meta.panelFn === "teamPanel"){
             const obj = extend(displayObj.rteObj.details)
             const keys = Object.keys(obj).filter(x => x.match(/weeklyReport/))
+            const journals = (displayObj.rteObj.modTeam.meta && displayObj.rteObj.modTeam.meta.formConfig || [])
+              .concat(displayObj.rteObj.modTeam.id.meta && displayObj.rteObj.modTeam.id.meta.additionalFormConfig || [])
+              .filter(x => x.journal).map(i => i.name)
+
             displayObj.rteObj.details.eMap = {}
-            keys.forEach(k => {
+            keys.concat(journals).forEach(k => {
               displayObj.rteObj.details.eMap[k] = getEventMapByProperty(obj, meta.hstream, k) // all depth
             })
           }
