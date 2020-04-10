@@ -138,6 +138,7 @@ body {
   margin: 0 4px 12px 4px;
   background: #fff;
   border: 1px solid #101056;
+  overflow: hidden;
 }
 .teamRows {
   text-align: left;  
@@ -152,7 +153,7 @@ body {
   font-weight: bold;  
 }
 .detailBoxLeft .value{
-  margin: 0 0 0 7px;
+  margin: 0 1px 0 7px;
   padding: 5px 3px 5px 7px;
   font-size: 1.4em;
   border: 1px solid #fefefe;

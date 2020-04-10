@@ -84,30 +84,54 @@ function htmlBlock (team, vd, fc) {
   return  (out.length ? out : "")
 }
 
+function isDetailBoxOpen (team, section, fc) {
+  return (!section.stArr.some(s => s === team.status)) ? 0 : 1
+}
+
+function isDetailBoxAvailable (team, sec, sections, fc) {
+  let secStatMatch = 2
+  sections.forEach(i => {
+    if(i.stArr.some(s => s === team.status)) 
+      secStatMatch = 1
+    else if(secStatMatch === 1 && sec.key == i.key)
+      secStatMatch = 0
+  })
+  return secStatMatch
+}
+
+function toggleExpander (s, isOpen, isAvail) {
+  const icon = isOpen ? "minus" : "plus"
+  return isAvail ? h('span#detailSectionToggle_' + s.key + '.la.la-' + icon + '-circle.mClick') : ""
+}
+
 export default function teamDetail (team, meta, vd) {
   const formConfig = getFormConfig (vd.rteObj)
-  console.log(formConfig)
   const sections = [
-    { key: "pipeline", label: "Engagement Opportunity Tracking" }, 
-    { key: "active", label: "Engagement Activation and Progress" }, 
-    { key: "weeklies",  label: "Weekly Engagement Reports" },
-    { key: "completed",  label: "Engagement Outcomes" }
+    { key: "pipeline", label: "Engagement Opportunity Tracking", stArr: ["pre", "lead", "cont", "cons", "qual", "out"] }, 
+    { key: "progress", label: "Engagement Activation and Progress", stArr: ["ch", "eng"] }, 
+    { key: "weeklies",  label: "Weekly Engagement Reports", stArr: [ "eng"]},
+    { key: "completed",  label: "Engagement Outcomes", stArr: ["grad"] }
   ]
   const sectionBlocks = {
     initial: htmlBlock(team, vd, [formConfig.initial]),
     pipeline: htmlBlock(team, vd, [formConfig.pipeline]),
-    active: htmlBlock(team, vd, [formConfig.active, formConfig.progress]),
+    progress: htmlBlock(team, vd, [formConfig.active, formConfig.progress]),
     weeklies: weeklyReports(team, vd),
     completed: htmlBlock(team, vd, [formConfig.completed])
   }
-  const rightSections = sections.map(s => h('div.detailBoxRight', [
-    h('div.detailBoxHeader', { style: { background: formConfig[s.key].color, borderColor: formConfig[s.key].color }}, [ 
-      h('label', s.label), 
-      h('span#collToggle_' + s.key + '.la.la-minus-circle.mClick'),
-      h('a.la.la-edit', { attrs: { href: "#/teams/modTeam/pane_" + s.key + "/id/" + team.id }}, "")
-    ]),
-    h('div.detailBox', { style: { borderColor: formConfig[s.key].color }}, sectionBlocks[s.key])
-  ]))
+  const rightSections = sections.map(s => {
+    const isOpen = isDetailBoxOpen(team, s, formConfig[s.key])
+    const isAvail = isDetailBoxAvailable(team, s, sections, formConfig[s.key])
+    const color = isAvail ? formConfig[s.key].color : "#ccc"
+    return h('div.detailBoxRight', [
+      h('div.detailBoxHeader', { style: { background: color, borderColor: color } }, [ 
+        h('label', s.label), 
+        toggleExpander(s, isOpen, isAvail),
+        h('a.la.la-edit', { attrs: { href: "#/teams/modTeam/pane_" + s.key + "/id/" + team.id }}, "")
+      ]),
+      h('div.detailBox.easeAll', { style: { height: (isOpen ? "auto" : "0px"), borderColor: color } }, sectionBlocks[s.key])
+    ])
+  })
   return  h('div.detailContainer', [
     h('div.detailBoxLeft', [
       h('div.detailBoxHeader', { style: { background: formConfig.initial.color, borderColor: formConfig.initial.color }}, [

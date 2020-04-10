@@ -5,10 +5,10 @@ const ttLocs = { ct: "Connecticut", vr: "Virtual" }
 const lobs = ["Customer", "Provider", "Platform", "Client", "Producer"]
 
 const teamStatus = { pre: "Prefill", lead: "Lead", cont: "Contacted", 
-  cons: "Consult", qual: "Pre-qualification", vsm: "VSM Session", ch: "Charter", eng: "Engagement", grad: "Graduated", out: "Opt-Out" }
+  cons: "Consult", qual: "Pre-qualification", ch: "Charter", eng: "Engagement", grad: "Graduated", out: "Opt-Out" }
 
 const statusColors = { pre: "#aaa", lead: "#89a0c3", cont: "#57a1e4", 
-  cons: "#57d0d6", qual: "#0eadb5", vsm: "#6cf091", ch: "#79e200", eng: "#4bb529", grad: "#f57c00", out: "#333" }
+  cons: "#57d0d6", qual: "#0eadb5", ch: "#79e200", eng: "#4bb529", grad: "#f57c00", out: "#333" }
 
 const loginLevels = ["Access Pending", "Visitor", "Team Member", "TeamTrek Coach", "TeamTrek Admin", "System Admin"] // 0-5
 const commitmentTypes = { demo: "Demos", lead: "Demos & Leadership", core: "Core Member", consult: "Affiliated Consult" }
