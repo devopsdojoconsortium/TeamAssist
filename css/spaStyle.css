@@ -6,10 +6,10 @@ body {
 }
 
 /* lifted and altered from styles.css */
-.BannerBg { position: relative; overflow: hidden; width: 100%; height: 50px; background: #101056}
-.dataEnv_dev, .dataEnv_dit { background: #222467}
-.ttLogo { float: left; margin: -5px 0 0 -10px; height: 60px; }
-.topRightLogo {margin: -51px 3px 0 0; float: right;}
+.BannerBg { position: relative; overflow: sss; width: 100%; height: 50px; background: #101056}
+.dataEnv_dev, .dataEnv_dit { background: #000}
+.ttLogo { float: left; margin: 6px; height: 86px; }
+.topRightLogo {float: right; height: 50px; margin: 0 8px 0 0; }
 .bannerTitle { position: absolute; margin: 14px 0 0 65px; color: #fff; }
 .bannerLocIcons {margin: 0 55px 0 0; float: right; width: 275px; color: #a9abab; text-align: right}
 .locIconImgDiv { float: right; margin: 0 3px 0 0; width: 45px; height: 45px;  }

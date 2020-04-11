@@ -857,8 +857,14 @@ function renderHeader (viewData) {
   return h('div.header', [
     h('div.BannerBg.dataEnv_' + viewData.session.dataEnv, [
       h('div.bannerTitle', ""),
-      h('img.ttLogo', {props: {src: "images/teamTrek.png"}}), 
-      h('img.topRightLogo', {props:{ src: "images/Logo_white.png"}}), 
+      h('a', {
+         props: { href: "https://github.com/devopsdojoconsortium/TeamAssist", target: "outTeamTrek"},
+         attrs: { tooltip: "You can fork \nTeamAssist from \nGitHub", tooltipPos: "bottom" }
+      }, h('img.ttLogo', {props: {src: "images/TeamAssistLogoT.png"}})), 
+      h('a', {
+         props: { href: "https://dojoconsortium.org/", target: "outTeamTrek"},
+         attrs: { title: "TeamAssist is designed to be a fit for enterprises in the\n Dojo Consortium" }
+      }, h('img.topRightLogo', {props:{ src: "images/dojo-consortium-circle.png"}})), 
       h('div.bannerMeta', [
         h('div', h('span.yell', viewData.session.displayName || viewData.session.loginName)), 
         h('div', loginLevels[viewData.session.loginLevel] || "Welcome"), 
