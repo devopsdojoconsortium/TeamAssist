@@ -177,7 +177,7 @@ const validRoutes = {
           { label: "Percent Completed", type: "range", min: 0, max: 100, step: 5, name: "percComplete", title: " __% complete on current engagement" },
           { label: "Coaches Notes", type: "textarea", name: "coachNotes", rows: 7, cols: 35, journal: true },
             { pane: "Weekly Reporting", name: "weeklies", color: "#4bb529"},
-          { label: "Week 0 - post charter", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},
+          { label: "Start Up Report", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},
           { label: "Week 1 Report", type: "textarea", name: "weeklyReport1", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
           { label: "Week 2 Report", type: "textarea", name: "weeklyReport2", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
           { label: "Week 3 Report", type: "textarea", name: "weeklyReport3", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
