@@ -1,6 +1,6 @@
 ## Remote Data help if your npm start has a CORS issue.
 
-If you need to your local copy of teamTrek to see the data from a non-localhost service, you MAY need to launch browser in a particular way and set up.
+If you need to your local copy of TeamAssist to see the data from a non-localhost service, you MAY need to launch browser in a particular way and set up.
 
 To execute a remote service from your web browser that is not on your local machine you will need to tell Chrome it is okay. This is basically enabling Cross-Origin Resource Sharing (CORS).
 

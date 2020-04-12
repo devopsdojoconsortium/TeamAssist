@@ -1,7 +1,7 @@
-![](./readmeAssets/teamTrekBlack800.png)
+![](./readmeAssets/TeamAssistBlack800.png)
 
 # Summary
-ToBeNamed is a fast running full-stack application usable within the enterprise to aid in tracking DevOps and other Digital Transformations by connecting Programs and Teams to Coaching engagements including Dojos, Workshops, SRE embeds, Agile Training and more. It allows 
+TeamAssist is a fast running full-stack application usable within the enterprise to aid in tracking DevOps and other Digital Transformations by connecting Programs and Teams to Coaching engagements including Dojos, Workshops, SRE embeds, Agile Training and more. It allows 
 # Technologies
 Runs as a very short full stack app with just two layers. CycleJS in the front handles over 95% of the workload, is highly configurable and runs as a lightweight Chrome Single Page Application. The back end is strictly an Event Sourcing engine that records posted events and enables controlled reading by the Front End. Additional layers for API gateways and other data models are easy to include into the suite when needed.
 * [CycleJS](https://cycle.js.org/) ([v7.0.0](https://github.com/cyclejs/cyclejs/releases/tag/v7.0.0))
@@ -33,22 +33,22 @@ Runs as a very short full stack app with just two layers. CycleJS in the front h
 
 Screenshots available on features2.md
 
-# Contributing to ToBeNamed
+# Contributing to TeamAssist
 
 ## Quick Pre-reqs
 
 - Install git
-- Install NodeJS (v10.3.0 - v12.8.0 for now)
+- Install NodeJS (v10.3.0 - v12.8.0)
 - Clone this repo
 - `$ npm install`
 
 ## Use Chrome for development, use and testing.
-teamTrek is currently only tested to work on Chrome, although Edge and newer FireFox appears to be fine.
+TeamAssist is currently only tested to work on Chrome, although Edge and newer FireFox appears to be fine.
 
 
-# Running and Debugging teamTrek
+# Running and Debugging TeamAssist
 
-To serve teamTrek locally (http://localhost:8080) on your development machine, after `npm install`, just execute:
+To serve TeamAssist locally (http://localhost:8080) on your development machine, after `npm install`, just execute:
 
 ```
 $ npm start
@@ -62,7 +62,7 @@ The terminal window will show you the rebuild, or a parsing error. On success, r
 
 ```
 4750135 bytes written to dist/app.js (0.75 seconds) at 10:40:32 AM
-File change detected /Users/$user/repos/teamTrek/dist/app.js
+File change detected /Users/$user/repos/TeamAssist/dist/app.js
 ```
 
 # Accessing EventStore Data
