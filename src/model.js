@@ -1047,7 +1047,7 @@ function makeModification$ (actions) {
         // ses.loginName = ses.firstName + " " + ses.lastName
         ses.loginLevel = 1
         ses.dataEnv = results.fromES.match(/localhost/) ? "dev" :
-          (results.fromES.match(/(119-99-239|teamTrek.ebiz)/) ? "stg" : "dit")
+          (results.fromES.match(/(119-99-239|TeamAssist.ebiz)/) ? "stg" : "dit")
    // console.log('stateObj[req.hstream] && ses', stateObj, req.hstream, ses)
         displayObj.session = mutate(displayObj.session, ses)
         if (displayObj.session.loginName)

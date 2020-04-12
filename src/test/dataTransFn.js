@@ -11,7 +11,7 @@ describe('translateBulkTeamJson', () => {
   });
 
   const teamsAlready = { "8acda8754ba0c7f3014ba0cb9a391e5a": 1 }
-  const rawJson = getMockJson("EasyFormReport-TeamTrekIntake.json");
+  const rawJson = getMockJson("EasyFormReport-TeamAssistIntake.json");
   const bulkObj = translateBulkTeamJson(JSON.stringify(rawJson), teamsAlready) 
   const reqKeys = ["ttLoc", "lob", "teamContactName", "teamContactEmail", "confluenceInterests", "id", "created"]
   it('should translate ttLoc into two digit keys', () => {

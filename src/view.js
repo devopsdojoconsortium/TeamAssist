@@ -14,13 +14,13 @@ const panelObj = {
     const locs = vd.settings.ttLoc && vd.settings.ttLoc.length ? vd.settings.ttLoc : ["ct", "vr"]
     const metaMap = {
       ct: {
-        title: "TeamTrek at Connecticut Campus",
+        title: "TeamAssist at Connecticut Campus",
         confluenceUrl: "https://confluence.com", 
         activitiesImg: "./images/posters/null.jpg",
         activitiesUrl: "https://goo.gl/forms/sample",
       },
       vr: {
-        title: "The Virtual TeamTrek (VoJo)",
+        title: "The Virtual TeamAssist (VoJo)",
         confluenceUrl: "https://confluence.com", 
         activitiesImg: "./images/posters/virtualWarriorsArentMade.jpg",
         activitiesUrl: "https://confluence.com"
@@ -41,11 +41,11 @@ const panelObj = {
         ]),
         h('h3', metaMap[l].title),
         metaMap[l].confluenceUrl ? h('a', { 
-          props: { href: metaMap[l].confluenceUrl, target: "outTeamTrek" }
+          props: { href: metaMap[l].confluenceUrl, target: "outTeamAssist" }
         }, "Confluence Page") : "", 
         h('br'), h('br'),
         metaMap[l].activitiesUrl ? h('a', { 
-          props: {href: metaMap[l].activitiesUrl, target: "outTeamTrek"}
+          props: {href: metaMap[l].activitiesUrl, target: "outTeamAssist"}
         }, activities) : ""
       ])
     }))
@@ -348,7 +348,7 @@ function modForm (rteObj, vd, panelHeight) {
       elements.push(e)
   })
   const buttonText = rteObj.meta.buttonText
-  // const loginLevels = ["Welcome", "Visitor", "Team Member", "TeamTrek Coach", "TeamTrek Admin", "System Admin"]
+  // const loginLevels = ["Welcome", "Visitor", "Team Member", "TeamAssist Coach", "TeamAssist Admin", "System Admin"]
   const loginLevelsColors = ["#ffffff", "#ffffff", "#193ABA", "#199A19",    "#F88B22",   "#D9141B"] 
   const detailObj = rteObj.details || {}
   const formRowHeightMap = { textarea: "auto", checkbox: "37px", radio: "33px" }
@@ -858,11 +858,11 @@ function renderHeader (viewData) {
     h('div.BannerBg.dataEnv_' + viewData.session.dataEnv, [
       h('div.bannerTitle', ""),
       h('a', {
-         props: { href: "https://github.com/devopsdojoconsortium/TeamAssist", target: "outTeamTrek"},
+         props: { href: "https://github.com/devopsdojoconsortium/TeamAssist", target: "outTeamAssist"},
          attrs: { tooltip: "You can fork \nTeamAssist from \nGitHub", tooltipPos: "bottom" }
       }, h('img.ttLogo', {props: {src: "images/TeamAssistLogoT.png"}})), 
       h('a', {
-         props: { href: "https://dojoconsortium.org/", target: "outTeamTrek"},
+         props: { href: "https://dojoconsortium.org/", target: "outTeamAssist"},
          attrs: { title: "TeamAssist is designed to be a fit for enterprises in the\n Dojo Consortium" }
       }, h('img.topRightLogo', {props:{ src: "images/dojo-consortium-circle.png"}})), 
       h('div.bannerMeta', [
