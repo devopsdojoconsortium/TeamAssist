@@ -75,7 +75,7 @@ You will need to edit local data in testing -- install EventStore locally. Instr
 ### Dev session management
 You will need to have a session for a dev environment to navigate properly. To do this, just go to http://localhost:8080/#/register to create a workable session in EventStore. Clear your ttId cookie to log out.
 
-You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable (rename) the accessLevel and sessValFilter attributes in menuRoutes below and update your access level:
+You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable (rename) the accessLevel and sessValFilter attributes in src/menuRoutes.js below and update your access level:
 
 ```
 { label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
@@ -84,9 +84,21 @@ You will be registed as a visitor, so to update your access level to admin or sy
 
 In some cases, you may need to bypass CORS to get to data. More on that [here](./readmeAssets/readme.md) 
 
-# About [CycleJS](https://cycle.js.org)
+# Application Architecture
 
-## Key Essentials of this FRP Front-end framework 
+TeamAssist seeks to follow the [clean architecture principles](https://www.youtube.com/watch?v=Nsjsiz2A9mg) laid out by Uncle Bob Martin. The code is highly testable and unaware of the IO devices it touches. It has scaled well without tangling so far, and allows decisions to be deferred. The data architecture has been a fascinating pleasure in app development as the use of Event Sourcing has brought the following benefits:
+
+- Events are very easy to fold into current state.
+- Notes fields are designated as 'journals', where all prior entry values are naturally accessible for the view.
+- The backend of the application is almost entirely a non-factor for the app, reducing overall complexity significantly.
+  - Data schema fully configurable in the front end. 
+- The power of the browser (away from the DOM) was proven out to be highly perfomant for data processing.
+- After initial data calls on browser reload, subsequent calls are only for new events -- a very light payload.
+- Events are easy to re-model as needed,unlike state-based data stores
+
+## Empowered by the [CycleJS](https://cycle.js.org) FRP Framework
+
+### Key Essentials of how we leveraged CycleJS 
 
 ### Strict separation of concerns with Model-View-Intent (MVI)
 * **Model**: Manages ALL state and business logic using mutable objects.
