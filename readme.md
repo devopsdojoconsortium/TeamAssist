@@ -1,4 +1,4 @@
-![](./readmeAssets/TeamAssistBlack800.png)
+![](./readmeAssets/TeamAssistLogoT.png)
 
 # Summary
 TeamAssist is a fast running full-stack application usable within the enterprise to aid in tracking DevOps and other Digital Transformations by connecting Programs and Teams to Coaching engagements including Dojos, Workshops, SRE embeds, Agile Training and more. It allows 
