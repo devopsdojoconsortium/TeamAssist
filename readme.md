@@ -1,5 +1,5 @@
 | ![](./readmeAssets/TeamAssistLogo250.png) | TeamAssist is a ready-to-tweak team and program engagement application designed to help transforming organizations connect coaches and other DevOps practitioners with the people they are seeking to help. <br><br>Every enterprise seeking to become a learning organization needs a specialized CRM-to-Lifecycle management application like TeamAssist. |
-| --- | ---:|
+| --- |:--- |
 
 # Technologies
 TeamAssist runs as a very short full stack app with just two layers. CycleJS in the front handles over 95% of the workload, is highly configurable and runs as a lightweight Chrome Single Page Application. The back end is strictly an Event Sourcing engine that records posted events and enables controlled reading by the Front End. Additional layers for API gateways and other data models are easy to include into the suite when needed.
