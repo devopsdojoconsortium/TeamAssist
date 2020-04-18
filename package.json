@@ -1,10 +1,10 @@
 {
-  "name": "teamTrek",
-  "version": "0.0.2",
-  "author": "Andrew Deal",
+  "name": "TeamAssist",
+  "version": "0.0.7",
+  "author": "Drew Deal",
   "repository": {
     "type": "git",
-    "url": "tbd"
+    "url": "https://github.com/devopsdojoconsortium/TeamAssist"
   },
   "license": "MIT",
   "private": true,

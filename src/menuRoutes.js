@@ -20,12 +20,12 @@ const mdTemplates = {
 
 const validRoutes = {
   home: { meta: {
-    name: "Welcome to TeamTrek - The Cool Tagline goes Here!",      menuName: "Home",
+    name: "TeamAssist - Connecting Coach Practitioners to Those that need Them",    menuName: "Home",
     panelFn: "Home",
   }},
   schedule: {
     meta: {
-      name: "TeamTrek Coaching Schedule", menuName: "TeamTrek Schedule",
+      name: "Coaching Schedule", menuName: "Schedule",
       hstream: "teams",
       menuLevel: 3,
       postStream: "schedule",
@@ -91,7 +91,7 @@ const validRoutes = {
   },
   teams: {
     meta: {
-      name: "Actively TeamTreking Teams", menuName: "Teams",
+      name: "Actively TeamAssisting Teams", menuName: "Teams",
       hstream: "teams",
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
       hardFilt: { status: ["imm", "eng", "ch", "vsm"] }, // imm kept for backwardsComp
@@ -100,7 +100,7 @@ const validRoutes = {
       color: "#4bb529"
     },
     teamLeads: { meta: {
-      name: "Potential TeamTrek Teams", menuName: "Pipeline",
+      name: "Potential TeamAssist Teams", menuName: "Pipeline",
       hstream: "teams",
       menuLevel: 3,
       params: { startdate: dateFormat(-1), enddate: dateFormat(31) },
@@ -143,14 +143,14 @@ const validRoutes = {
         name: "Add Team",
         hstream: "teams",
         menuLevel: 3,
-        panel: "Add a New Team to teamTrek",
+        panel: "Add a New Team to TeamAssist",
         panelFn: "formPanel",
         formConfig: [
             { pane: "Initial Contact", name: "initial", color: "#89a0c3"},
           { label: "Project Name (Team Name)", type: "text", name: "project" },
           { label: "Team Contact", type: "text", name: "contactName" },
           { label: "Contact Email", type: "email", name: "contactEmail" },
-          { label: "TeamTrek Location", req: "You must select a Location", type: "select", name: "ttLoc", opts: ttLocs },
+          { label: "TeamAssist Location", req: "You must select a Location", type: "select", name: "ttLoc", opts: ttLocs },
           // { label: "Line of Business", type: "select", name: "lob", opts: lobs },
           { label: "What's your goal?", type: "textarea", name: "keyGoal", rows: 3, cols: 72, markDown: true },
         ]
@@ -177,7 +177,7 @@ const validRoutes = {
           { label: "Percent Completed", type: "range", min: 0, max: 100, step: 5, name: "percComplete", title: " __% complete on current engagement" },
           { label: "Coaches Notes", type: "textarea", name: "coachNotes", rows: 7, cols: 35, journal: true },
             { pane: "Weekly Reporting", name: "weeklies", color: "#4bb529"},
-          { label: "Week 0 - post charter", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},
+          { label: "Start Up Report", type: "textarea", name: "weeklyReport0", rows: 5, cols: 72, markDown: true},
           { label: "Week 1 Report", type: "textarea", name: "weeklyReport1", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
           { label: "Week 2 Report", type: "textarea", name: "weeklyReport2", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
           { label: "Week 3 Report", type: "textarea", name: "weeklyReport3", rows: 5, cols: 72, markDown: true, tmplLoader: mdTemplates.weeklies },
@@ -189,7 +189,7 @@ const validRoutes = {
           { label: "Practices Learned", type: "text", name: "keyPracticesLearned" },
           { label: "Business Impact", type: "textarea", name: "businessImpact", rows: 3, cols: 72 },
           { label: "Speed to Value Improvement", type: "text", name: "speedToValueImprovement" },
-          { label: "Post TeamTrek Follow Up Notes", type: "textarea", name: "followUp", rows: 7, cols: 35, journal: true},
+          { label: "Post TeamAssist Follow Up Notes", type: "textarea", name: "followUp", rows: 7, cols: 35, journal: true},
             { pane: "Additional Settings / Forking", name: "meta"},
           { label: "Primary Point of Contact", type: "select", name: "keyCoach", opts: "coachers", numIndex: true },
           { label: "Forking! Create new Engagement lead record from this", type: "text", name: "forkProject", tooltipPos: "bottom",  tooltip: "Submitting with this field will:\n - Create new record with this as parent.\n - Append this field to current name.\n - Redirect you to form for new record to enter new Target Type, etc.\n - NOT update this record at all." },
@@ -202,7 +202,7 @@ const validRoutes = {
       name: "Bulk Team Import",
       hstream: "teams",
       menuLevel: 5,
-      panel: "Dump JSON from Confluence Intake for to load Teams to teamTrek",
+      panel: "Dump JSON from Confluence Intake for to load Teams to TeamAssist",
       panelFn: "formPanel",
       formConfig: [
         { label: "Paste in JSON", req: "Must paste in valid JSON from Confluence", type: "textarea", name: "bulkJson", rows: 10, cols: 72 },
@@ -212,7 +212,7 @@ const validRoutes = {
   },
   users: {
     meta: {
-      name: "teamTrek Users",      menuName: "Users",
+      name: "TeamAssist Users",      menuName: "Users",
       menuLevel: 3,
       hstream: "users",
       hardFilt: { loginLevel: [1, 2, 3, 4, 5] },
@@ -222,12 +222,12 @@ const validRoutes = {
         name: "Add User",
         menuLevel: 3, // gone
         hstream: "users",
-        panel: "Add a New User to teamTrek",
+        panel: "Add a New User to TeamAssist",
         panelFn: "formPanel",
         formConfig: [
           { pane: "Basic Profile Information", name: "basic"},
           { label: "Preferred Display Name (First/Last)", type: "text", name: "displayName", req: "The name you love to hear. YOURS!" },
-          { label: "TeamTrek Location", req: "Most relevant Location", type: "select", name: "ttLoc", opts: ttLocs },
+          { label: "TeamAssist Location", req: "Most relevant Location", type: "select", name: "ttLoc", opts: ttLocs },
           { label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
             name: "loginLevel", opts: loginLevels, numIndex: true, title: "App Permission only settable up to YOUR level!" }
         ]
@@ -344,18 +344,18 @@ const validRoutes = {
   }},
   welcomeLevel: { meta: {
     menuLevel: 10, // over 5 kept from menu
-    name: "Welcome to the TeamTrek!",
+    name: "Welcome to the TeamAssist!",
     hstream: "users",
     href: "",
     panelFn: "formPanel",
     // move this to special validRoutes property
     sessPropForId: "eid",
     formConfig: [
-      { pane: "What role best fits you in the teamTrek?", name: "roleSelect"},
+      { pane: "What role best fits you in the TeamAssist?", name: "roleSelect"},
       { label: "Just Visiting", type: "radio", name: "levelSought", value: "1" },
       { label: "Team Member", type: "radio", name: "levelSought", value: "2" },
-      { label: "TeamTrek Coach", type: "radio", name: "levelSought", value: "3" },
-      { label: "TeamTrek Admin", type: "radio", name: "levelSought", value: "4" }
+      { label: "TeamAssist Coach", type: "radio", name: "levelSought", value: "3" },
+      { label: "TeamAssist Admin", type: "radio", name: "levelSought", value: "4" }
       // sys admin never a choice coming in, but another sys admin can enable!
     ]
   }},

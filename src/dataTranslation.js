@@ -148,7 +148,7 @@ function translateBulkTeamJson (json, ss) {
   if (teamKeys.length < 1)
     return { errors: "Go to teams tab and come back" }
   const colMap = mutate(jObj.columns.reduce((acc, i) => {
-    acc[i.uid] = i.title === "TeamTrek Location" ? "ttLoc" : camelize(i.title)
+    acc[i.uid] = i.title === "TeamAssist Location" ? "ttLoc" : camelize(i.title)
     return acc
   }, {}), { c3btSKJ: "lob", c7fUYdY: "teamContactName", ciEEaA: "teamContactEmail", c4AiPuB: "confluenceInterests" })
   const ttLocsMap = { "NJ": "nj", "TX": "tx", "FL": "fl", "Chennai": "ch", "Hyderabad": "hy"}

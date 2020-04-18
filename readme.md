@@ -1,9 +1,8 @@
-![](./readmeAssets/teamTrekBlack800.png)
+| ![](./readmeAssets/TeamAssistLogo250.png) | TeamAssist is a ready-to-tweak team and program engagement application designed to help transforming organizations connect coaches and other DevOps practitioners with the people they are seeking to help. <br><br>Every enterprise seeking to become a learning organization needs a specialized CRM-to-Lifecycle management application like TeamAssist. |
+| --- |:--- |
 
-# Summary
-ToBeNamed is a fast running full-stack application usable within the enterprise to aid in tracking DevOps and other Digital Transformations by connecting Programs and Teams to Coaching engagements including Dojos, Workshops, SRE embeds, Agile Training and more. It allows 
 # Technologies
-Runs as a very short full stack app with just two layers. CycleJS in the front handles over 95% of the workload, is highly configurable and runs as a lightweight Chrome Single Page Application. The back end is strictly an Event Sourcing engine that records posted events and enables controlled reading by the Front End. Additional layers for API gateways and other data models are easy to include into the suite when needed.
+TeamAssist runs as a very short full stack app with just two layers. CycleJS in the front handles over 95% of the workload, is highly configurable and runs as a lightweight Chrome Single Page Application. The back end is strictly an Event Sourcing engine that records posted events and enables controlled reading by the Front End. Additional layers for API gateways and other data models are easy to include into the suite when needed.
 * [CycleJS](https://cycle.js.org/) ([v7.0.0](https://github.com/cyclejs/cyclejs/releases/tag/v7.0.0))
 * [EventStore](https://eventstore.org/) (v4.0.2)
 
@@ -33,22 +32,22 @@ Runs as a very short full stack app with just two layers. CycleJS in the front h
 
 Screenshots available on features2.md
 
-# Contributing to ToBeNamed
+# Contributing to TeamAssist
 
 ## Quick Pre-reqs
 
 - Install git
-- Install NodeJS (v10.3.0 - v12.8.0 for now)
+- Install NodeJS (v10.3.0 - v12.8.0)
 - Clone this repo
 - `$ npm install`
 
 ## Use Chrome for development, use and testing.
-teamTrek is currently only tested to work on Chrome, although Edge and newer FireFox appears to be fine.
+TeamAssist is currently only tested to work on Chrome, although Edge and newer FireFox appears to be fine.
 
 
-# Running and Debugging teamTrek
+# Running and Debugging TeamAssist
 
-To serve teamTrek locally (http://localhost:8080) on your development machine, after `npm install`, just execute:
+To serve TeamAssist locally (http://localhost:8080) on your development machine, after `npm install`, just execute:
 
 ```
 $ npm start
@@ -62,7 +61,7 @@ The terminal window will show you the rebuild, or a parsing error. On success, r
 
 ```
 4750135 bytes written to dist/app.js (0.75 seconds) at 10:40:32 AM
-File change detected /Users/$user/repos/teamTrek/dist/app.js
+File change detected /Users/$user/repos/TeamAssist/dist/app.js
 ```
 
 # Accessing EventStore Data
@@ -75,7 +74,7 @@ You will need to edit local data in testing -- install EventStore locally. Instr
 ### Dev session management
 You will need to have a session for a dev environment to navigate properly. To do this, just go to http://localhost:8080/#/register to create a workable session in EventStore. Clear your ttId cookie to log out.
 
-You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable (rename) the accessLevel and sessValFilter attributes in menuRoutes below and update your access level:
+You will be registed as a visitor, so to update your access level to admin or sysadmin, you just need to disable (rename) the accessLevel and sessValFilter attributes in src/menuRoutes.js below and update your access level:
 
 ```
 { label: "Access Level", req: "No blocking yet.", accessLevel: 3, sessValFilter: true, type: "select",
@@ -84,9 +83,21 @@ You will be registed as a visitor, so to update your access level to admin or sy
 
 In some cases, you may need to bypass CORS to get to data. More on that [here](./readmeAssets/readme.md) 
 
-# About [CycleJS](https://cycle.js.org)
+# Application Architecture
 
-## Key Essentials of this FRP Front-end framework 
+TeamAssist seeks to follow the [clean architecture principles](https://www.youtube.com/watch?v=Nsjsiz2A9mg) laid out by Uncle Bob Martin. The code is highly testable and unaware of the IO devices it touches. It has scaled well without tangling so far, and allows decisions to be deferred. The data architecture has been a fascinating pleasure in app development as the use of Event Sourcing has brought the following benefits:
+
+- Events are very easy to fold into current state.
+- Notes fields are designated as 'journals', where all prior entry values are naturally accessible for the view.
+- The backend of the application is almost entirely a non-factor for the app, reducing overall complexity significantly.
+  - Data schema fully configurable in the front end. 
+- The power of the browser (away from the DOM) was proven out to be highly perfomant for data processing.
+- After initial data calls on browser reload, subsequent calls are only for new events -- a very light payload.
+- Events are easy to re-model as needed,unlike state-based data stores
+
+## Empowered by the [CycleJS](https://cycle.js.org) FRP Framework
+
+### Key Essentials of how we leveraged CycleJS 
 
 ### Strict separation of concerns with Model-View-Intent (MVI)
 * **Model**: Manages ALL state and business logic using mutable objects.

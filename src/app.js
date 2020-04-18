@@ -17,7 +17,7 @@ run(main, {
   // THE DOM DRIVER
   // `makeDOMDriver(container)` from Cycle DOM returns a
   // driver function to interact with the DOM.
-  DOM: makeDOMDriver('#teamTrek'),
+  DOM: makeDOMDriver('#TeamAssist'),
   // THE HISTORY DRIVER
   // A driver to interact with browser history
   history: makeHashHistoryDriver(),

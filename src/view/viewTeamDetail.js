@@ -6,7 +6,7 @@ import {statusColors} from '../uiConfig';
 
 
 function weeklyReports (team, vd) {
-  const weeklies = Object.keys(team).filter(x => x.match(/weeklyReport/))
+  const weeklies = Object.keys(team).filter(x => x.match(/weeklyReport/)).sort()
     .map(i => ({
       report: markdownRender(team[i]),
       meta: team.eMap[i][0],
