@@ -1,4 +1,4 @@
-# Personas for AppToBeNamed
+# Personas for TeamAssist
 
 ## Rachel - the Dojo Admin
 Rachel is tasked not only with affirming Dojo engagement scheduling but also making sure coaches and teams are well aware of assignments well in advance. Additionally, she also is looped in, if not downright responsible, regarding potential teams -- Taking inquiries, scheduling consults, pitching the coaching model, responding on avaiability, closing the deal and providing reports. We assume her enterprise has Dojos in multiple locations, and while she is coordinating with the other Dojo Admins, the bulk of her concern is the smooth operation of her own.
