@@ -611,9 +611,12 @@ input[type=range]:focus::-ms-fill-upper {
 
 .vsmContainer{
   width: 98%;
-  height: 400px;
-  overflow: auto;
+  height: 250px;
   margin: 6px;  
+}
+.vsmHeader {
+  height: 120px;
+  text-align: left;
 }
 .vsmAction{
   position: relative;
@@ -758,10 +761,21 @@ input[type=range]:focus::-ms-fill-upper {
 .vsmMetaFrm{
   position: relative;
   float: left;
-  margin: 0;
+  margin: 0 8px 0 0;
   color: #F4F5F7;
   background: #ccf;
+  border: 1px solid #999;
+  border-radius: 5px;
   transition: all 0.8s ease-in-out;  
+}
+.vsmTrigger{
+  margin: 11px 0 0 0;
+  color: #843434;
+}
+.vsmTrigger span{
+  display: block;
+  margin: 9px 0 0 0;
+  color: #000;
 }
 
 .yell{

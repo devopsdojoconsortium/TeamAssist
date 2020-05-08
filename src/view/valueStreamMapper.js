@@ -31,7 +31,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ]),
         h('div.vsmLegend', { style: { width: (ptLen * 30) + "px" }}, [
           h('h4', { attrs: {
-            tooltip: "Action Type: " + actOpts[act.actType] + " \n More fields coming here. let's see what happens on overloads",
+            tooltip: "Action Type: " + actOpts[act.actType] + " ",
             tooltipPos: "bottom"            
           }}, act.name),
           h('div', [
@@ -47,7 +47,9 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   .concat( h('div.vsmAction', outLen > 1 ? summaryBox(vsMap.filter(x => x.lTime)) : "" ))
 
   return  h('div.vsmContainer', [
-    h('div', { style: { height: "120px"}}),
+    h('div.vsmHeader', [
+      h('h2', "Map: " + (cntrlObj && cntrlObj.name || "Current State"))
+    ]),
     h('div', { style: { width: "max-content"  }}, [ metaFrm(vd.settings.vsmObj, mapKey, vd), ...out] )  
   ])
 
@@ -130,31 +132,38 @@ function metaFrm (vsmIObj, mapKey, vd) {
   })
 
   const formTag = h('form.formSubmit', { 
-    style: { padding: "0 5px", color: "#333", minHeight: "210px", overflow: "visible" },
+    style: { padding: "0 5px", color: "#333", minHeight: "218px"},
     attrs: { onSubmit: "return false" }
   }, [...formArr, h('input.vsmFrmSub', { props: { type: "submit", value: (frmObj.id ? "Update" : "Create") }} )] )
  
 
-  const styleObj = { width: "350px", top: "0px", height: "1px" }
+  const styleObj = { width: "330px", top: "0px", height: "1px"}
   let frmStyle = { top: "-110px", left: "0px", opacity: 1 }
 
   // console.log('vsmIObj, mapKey', vsmIObj, mapKey, styleObj)
-
+  let triggerName = ""
   if (!vsmIObj || vsmIObj.pos !== -1){
-    mutate(styleObj, { width: "25px", top: "-150px", height: "250px" })
-    frmStyle = { top: "-75px", left: "-355px", opacity: 0 }
+    mutate(styleObj, { width: "120px", top: "-50px", height: "88px" })
+    frmStyle = { top: "-75px", left: "-355px", opacity: "0" }
+    triggerName = frmObj.trigger || "Set Your First Trigger Event!"
   }
 
   const vsmFrmEle = [ 
     h('div.vsmFrm', { style: frmStyle }, [
       exitX,
       h('div', "Update Map Meta Data"),
-      formTag
+      formTag,
     ]), 
-    h('div.la.la-arrow-right', { style:{ fontSize:"2em", fontWeight: "bold", marginTop: "115px" }} ) 
+    (triggerName ? h('h3.vsmTrigger', ["Trigger Event", h('span', triggerName)]) : ""), 
   ] 
 
-  return h('div#vsmFrm.mClick.vsmMetaFrm', { style: styleObj, attrs: { mapkey: mapKey, pos: -1} }, vsmFrmEle)  
+  return h('div#vsmFrm.mClick.vsmMetaFrm', { style: styleObj, attrs: { mapkey: mapKey, pos: -1} }, [
+    h('div.la.la-arrow-right', { style:{ 
+      position: "absolute", top: "34px", right: "-14px", fontSize:"2em", fontWeight: "bold", color: "#000" 
+    }} ),
+    h('div', vsmFrmEle) 
+  ])
+
 }
 
 
