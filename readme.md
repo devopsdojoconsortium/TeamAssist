@@ -30,7 +30,7 @@ TeamAssist runs as a very short full stack app with just two layers. CycleJS in 
     - Weekly reports designed for Dojo challenges, but valuable for any multi-week engagement.
     - Configurable for additional team maturity progress measures the enterprise needs to track, including DevOps Radar, Agility Health, etc.
 
-Screenshots available on features2.md
+Screenshots available on [features2.md](./docs/features.md)
 
 # Contributing to TeamAssist
 
