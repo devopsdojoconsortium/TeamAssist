@@ -11,15 +11,15 @@ Teams/Engagements are divided into:
 
 Each has a configurable set of sub-statii, allowing focus on what matters in your timeline, and for your value stream. 
 
-![](./readmeAssets/currentTeamsSnap.png)
+![](../readmeAssets/currentTeamsSnap.png)
 
 ## Schedule
 
 The scheduling feature allows coaching orgs to visualize their availability and capacity alongside the demands and priorities of the teams they are seeking to help. Consults, Charters and Engagements are each marked iconically. 
 
-![](./readmeAssets/scheduleSnap.png)
+![](../readmeAssets/scheduleSnap.png)
 
-## sf
+## Feature Summary
 
 1. Multiple User levels: SysAdmin, Admin, Coach, Team member, visitor, with connections between team assignments. See more in [personas](./docs/Personas.md) page.
     - All menu items can be configured to be accessible to any level
