@@ -610,7 +610,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .vsmContainer{
-  width: 98%;
+  width: auto;
   height: 250px;
   margin: 6px;  
 }
@@ -739,7 +739,7 @@ input[type=range]:focus::-ms-fill-upper {
 .vsmFrmCallInsert:hover {
   border-left: 2px solid #0f0;
 }
-.vsmFrmCallInsert:hover div {
+.vsmFrmCallInsert:hover div, .vsmStartShow div {
   background: #ccc;
 }
 

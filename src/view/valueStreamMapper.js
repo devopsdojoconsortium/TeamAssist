@@ -152,14 +152,14 @@ function metaFrm (vsmIObj, mapKey, vd) {
     h('div.vsmFrm', { style: frmStyle }, [
       exitX,
       h('div', "Update Map Meta Data"),
-      formTag,
+      formTag
     ]), 
     (triggerName ? h('h3.vsmTrigger', ["Trigger Event", h('span', triggerName)]) : ""), 
   ] 
 
   return h('div#vsmFrm.mClick.vsmMetaFrm', { style: styleObj, attrs: { mapkey: mapKey, pos: -1} }, [
     h('div.la.la-arrow-right', { style:{ 
-      position: "absolute", top: "34px", right: "-14px", fontSize:"2em", fontWeight: "bold", color: "#000" 
+      position: "absolute", top: "34px", right: "-14px", fontSize:"2em", fontWeight: "bold", color: "#999", zIndex: "-1" 
     }} ),
     h('div', vsmFrmEle) 
   ])
@@ -168,11 +168,12 @@ function metaFrm (vsmIObj, mapKey, vd) {
 
 
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
-
+  const isNew = vd.sub1 && ((vd.sub1[0] && vd.sub1[0].errorMessage) || 
+    (vd.sub1["meta_"+mapKey] && (!vd.sub1["meta_"+mapKey].ord || !vd.sub1["meta_"+mapKey].ord.length))) ? ".vsmStartShow" : ""
   if (!vsmIObj || idx !== vsmIObj.pos)
     return [
-      h('div#vsmFrm.mClick.vsmFrmCallInsert', { 
-        attrs: { mapkey: mapKey, pos: idx} 
+      h('div#vsmFrm.mClick.vsmFrmCallInsert' + isNew, { 
+        attrs: { mapkey: mapKey, pos: idx, tooltip: "       Add / Insert Step " + (idx + 1), tooltipPos: "bottom" }
       }, h('div.la.la-plus', { 
         style:{ fontSize:"1.6em"}
       })),
