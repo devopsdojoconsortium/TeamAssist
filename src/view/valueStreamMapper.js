@@ -260,7 +260,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
 function keyValsTT (e) {
   const tips = {
     lTime: "From receipt to complete! \n\nThe total time of step from inception to passing along to the next step.",
-    pTime: "The actual time of the work or process. \n\n(subset of Lead Time)",
+    pTime: "The actual time taken to work the process step. \n\n(subset of Lead Time)",
     pctAcc: "% Complete and Accurate. \n\nThe percentage of completeness based on absence of rework, as reported from subsequent steps in the value stream"
   }
   return e.name && tips[e.name] ? { attrs: { tooltip: tips[e.name], tooltipPos: "top" }} : {}
