@@ -238,7 +238,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
         h('input#' + r.k + '.keyInput', { props: formProps(mutate(e, {value: frmObj[e.name], title: r.v}), r.k) } )
       ])).concat( h('div', {style:{clear: "both", width: "180px", height: "3px"}}) ))
     return h('div.vsmFrmRows', [
-      h('strong', (e.type !== "submit" ? e.label + ": " : "")), 
+      h('strong', keyValsTT(e) , (e.type !== "submit" ? e.label + ": " : "")), 
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', { style: {fontSize: "0.8em"}}, vd.formObj.errors[e.name]) : ""),
     ])
@@ -255,6 +255,15 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     formTag
   ])
 
+}
+
+function keyValsTT (e) {
+  const tips = {
+    lTime: "From receipt to complete! \n\nThe total time of step from inception to passing along to the next step.",
+    pTime: "The actual time of the work or process. \n\n(subset of Lead Time)",
+    pctAcc: "% Complete and Accurate. \n\nThe percentage of completeness based on absence of rework, as reported from subsequent steps in the value stream"
+  }
+  return e.name && tips[e.name] ? { attrs: { tooltip: tips[e.name], tooltipPos: "top" }} : {}
 }
 
 function calcDaysHrs (num, inDays, inMins) {
