@@ -583,6 +583,12 @@ function makeModification$ (actions) {
         modal.field = divId || "" // for field markup preview tracking
         return mutate(displayObj, { modalObj: modal } )
       }
+      if (setting === "detailSectionToggle" && key && divId){ 
+        const idKey = "detView" + key
+        const [section, tog] = divId.split("-")
+        displayObj.settings[idKey] = displayObj.settings[idKey] || {} // set obj if undefined
+        displayObj.settings[idKey][section] = tog
+      }
       if (setting === "setting" && ["ttLoc"].some(s => s === key)){ // ttLoc 1st in array settings update
         const arr = displayObj.settings[key] || []
         const filteredArr = arr.filter(x => x !== divId)
@@ -1041,7 +1047,7 @@ function makeModification$ (actions) {
         // ses.loginName = ses.firstName + " " + ses.lastName
         ses.loginLevel = 1
         ses.dataEnv = results.fromES.match(/localhost/) ? "dev" :
-          (results.fromES.match(/(119-99-239|teamTrek.ebiz)/) ? "stg" : "dit")
+          (results.fromES.match(/(119-99-239|TeamAssist.ebiz)/) ? "stg" : "dit")
    // console.log('stateObj[req.hstream] && ses', stateObj, req.hstream, ses)
         displayObj.session = mutate(displayObj.session, ses)
         if (displayObj.session.loginName)
@@ -1207,7 +1213,7 @@ function makeModification$ (actions) {
 }
 
 function getEventMapByProperty (obj, stream, prop, depth) {
-  const priorKeys = obj.priors ? [obj.eId].concat(obj.priors.reverse()) : [obj.eId]
+  const priorKeys = obj.priors ? [obj.eId].concat(extend(obj.priors).reverse()) : [obj.eId]
   return priorKeys
     .map(i => eventStore[stream][i])
     .filter((x, idx) => x[prop] && (!depth || idx < depth))

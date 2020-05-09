@@ -37,7 +37,7 @@ if($_GET['idassume'] && $HTTP_Headers["eid"] == "VnotAUser") // QS AND already n
     "Email" => "devCrew@cmp.com"
   );
   
-$teamTrekID  = preg_replace("/\W+/", "" , crypt(strtolower($HTTP_Headers["eid"]), 'teamTrekIDCryptSalt'));
+$TeamAssistID  = preg_replace("/\W+/", "" , crypt(strtolower($HTTP_Headers["eid"]), 'TeamAssistIDCryptSalt'));
 $curlStr = "";
 // Step-2: If ttID cookie is not present, then do an HTTP POST to EventStore
 if(!isset($_COOKIE[$cookie_name])) {
@@ -62,9 +62,9 @@ if(!isset($_COOKIE[$cookie_name])) {
   $esHostName = getenv('ES_HOST_NAME') || "localhost";
   //post user info to EventStore
   // -- TODO: Centralize EventStore settings (see also: src/uiConfig.js)
-  $EvenStoreStreamURL = $protocol . '://' . $esHostName . ':2113/streams/session_' . $teamTrekID;
+  $EvenStoreStreamURL = $protocol . '://' . $esHostName . ':2113/streams/session_' . $TeamAssistID;
   if(strlen($esHostName) < 5 || preg_match("/localhost/", $_SERVER['HTTP_HOST'])) // for dev env only
-    $EvenStoreStreamURL =  $protocol . '://localhost:2113/streams/session_' . $teamTrekID;
+    $EvenStoreStreamURL =  $protocol . '://localhost:2113/streams/session_' . $TeamAssistID;
   // if(preg_match("/ditServerSession/i", $_SERVER['REQUEST_URI']))
   $curl_headers = array(
     'Content-Type: application/json',
@@ -79,7 +79,7 @@ if(!isset($_COOKIE[$cookie_name])) {
   // need error output to deal with.
 }
 
-setcookie($cookie_name, $teamTrekID, time() + $days * 86400, "/"); //reset the cookie
+setcookie($cookie_name, $TeamAssistID, time() + $days * 86400, "/"); //reset the cookie
 
 //echo "<br> RESPONSE:" . $curlResp; // = `curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"id":100}' http://localhost/api/postJsonReader.do`
 //if($curlStr)

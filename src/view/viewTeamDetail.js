@@ -6,7 +6,7 @@ import {statusColors} from '../uiConfig';
 
 
 function weeklyReports (team, vd) {
-  const weeklies = Object.keys(team).filter(x => x.match(/weeklyReport/))
+  const weeklies = Object.keys(team).filter(x => x.match(/weeklyReport/)).sort()
     .map(i => ({
       report: markdownRender(team[i]),
       meta: team.eMap[i][0],
@@ -53,12 +53,22 @@ function htmlBlock (team, vd, fc) {
         ])))
     }
     else if (i.type === "select")
-      val = i.opts[val]
+      val = i.opts === "coachers" ? hashSrc(vd, "coachers")[val] : i.opts[val]
     else if (i.type === "date")
       val = minToDateFormat(val, "MM/DD/YY")
     else if (i.type === "range"){
       const curVal = team[i.name] || 0
-      // val = h('div.rangeValue', i.title ? i.title.replace(/__/, curVal) : curVal) 
+      val = h('div.inlineMiddling', [ 
+        h('div.tableProgressBar', { 
+          style: { display: "inline-block", width: "50%"},
+          attrs: i.title ? { tooltip: i.title.replace(/__/, val), tooltipPos: "bottom" } : {},
+        }, h('div', { style: { 
+            width: ((val - i.min) / (i.max - i.min) * 100) + "%", 
+            background: i.barColor ? i.barColor : ""
+          }})
+        ),
+        h('small', { style: { padding: "0 0 0 5px"}}, i.title ? i.title.replace(/__/, curVal) : curVal)
+      ])
     }
     return h('div.teamRows', [
         h('div.label', i.label + ""),
@@ -74,30 +84,59 @@ function htmlBlock (team, vd, fc) {
   return  (out.length ? out : "")
 }
 
+function isDetailBoxOpen (team, section, fc, settings) {
+  const toggleKey = "detView" + team.id
+  if (settings[toggleKey] && settings[toggleKey][section.key])
+    return settings[toggleKey][section.key] === "plus" ? 1 : 0
+  return (section.stArr.some(s => s === team.status)) ? 1 : 0
+}
+
+function isDetailBoxAvailable (team, sec, sections, fc) {
+  let secStatMatch = 2
+  sections.forEach(i => {
+    if(i.stArr.some(s => s === team.status)) 
+      secStatMatch = 1
+    else if(secStatMatch === 1 && sec.key == i.key)
+      secStatMatch = 0
+  })
+  return secStatMatch
+}
+
+function toggleExpander (id, s, isOpen, isAvail) {
+  const icon = isOpen ? "minus" : "plus"
+  return isAvail ? h('span#detailSectionToggle_' + id + '_' + s.key + '-' + icon + '.la.la-' + icon + '-circle.mClick') : ""
+}
+
 export default function teamDetail (team, meta, vd) {
   const formConfig = getFormConfig (vd.rteObj)
-  console.log(formConfig)
   const sections = [
-    { key: "pipeline", label: "Engagement Opportunity Tracking" }, 
-    { key: "active", label: "Engagement Activation and Progress" }, 
-    { key: "weeklies",  label: "Weekly Engagement Reports" },
-    { key: "completed",  label: "Engagement Outcomes" }
+    { key: "pipeline", label: "Engagement Opportunity Tracking", stArr: ["pre", "lead", "cont", "cons", "qual", "out"] }, 
+    { key: "progress", label: "Engagement Activation and Progress", stArr: ["ch", "eng"] }, 
+    { key: "weeklies",  label: "Weekly Engagement Reports", stArr: [ "eng"]},
+    { key: "completed",  label: "Engagement Outcomes", stArr: ["grad"] }
   ]
   const sectionBlocks = {
     initial: htmlBlock(team, vd, [formConfig.initial]),
     pipeline: htmlBlock(team, vd, [formConfig.pipeline]),
-    active: htmlBlock(team, vd, [formConfig.active, formConfig.progress]),
+    progress: htmlBlock(team, vd, [formConfig.active, formConfig.progress]),
     weeklies: weeklyReports(team, vd),
     completed: htmlBlock(team, vd, [formConfig.completed])
   }
-  const rightSections = sections.map(s => h('div.detailBoxRight', [
-    h('div.detailBoxHeader', { style: { background: formConfig[s.key].color, borderColor: formConfig[s.key].color }}, [ 
-      h('label', s.label), 
-      h('span#collToggle_' + s.key + '.la.la-minus-circle.mClick'),
-      h('a.la.la-edit', { attrs: { href: "#/teams/modTeam/pane_" + s.key + "/id/" + team.id }}, "")
-    ]),
-    h('div.detailBox', { style: { borderColor: formConfig[s.key].color }}, sectionBlocks[s.key])
-  ]))
+  const rightSections = sections.map(s => {
+    const isOpen = isDetailBoxOpen(team, s, formConfig[s.key], vd.settings)
+    const isAvail = isDetailBoxAvailable(team, s, sections, formConfig[s.key])
+    const color = isAvail ? formConfig[s.key].color : "#ccc"
+    return h('div.detailBoxRight', [
+      h('div.detailBoxHeader', { style: { background: color, borderColor: color } }, [ 
+        h('label', s.label), 
+        toggleExpander(team.id, s, isOpen, isAvail),
+        h('a.la.la-edit', { attrs: { href: "#/teams/modTeam/pane_" + s.key + "/id/" + team.id }}, "")
+      ]),
+      h('div.detailBox.easeAll', { style: { 
+        maxHeight: (isOpen ? "4000px" : "0px"), transform: "scaleY(" + isOpen + ")", borderColor: color 
+      } }, sectionBlocks[s.key])
+    ])
+  })
   return  h('div.detailContainer', [
     h('div.detailBoxLeft', [
       h('div.detailBoxHeader', { style: { background: formConfig.initial.color, borderColor: formConfig.initial.color }}, [
