@@ -13,6 +13,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
   const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
+  const editModeOpts = { discovery: "Discovery", correct: "Correction", track: "Track Improvements" } // from menuRoutes
   let outLen = 0
 
   const out = vsMap.filter(x => x.lTime).map((act, idx) => {
@@ -51,7 +52,12 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
 
   return  h('div.vsmContainer', [
     h('div.vsmHeader', [
-      h('h2', "Map: " + (cntrlObj && cntrlObj.name || "Current State"))
+      h('h2', [ h('span', "Map: "), (cntrlObj.name || "Current State") ]),
+      cntrlObj.updateType && vd.settings.vsmObj && vd.settings.vsmObj.mapkey === mapKey ? 
+        h('h2',  h('strong', "Edit Mode: " + editModeOpts[cntrlObj.updateType])) : "",
+      h('div.clearBoth'),
+      cntrlObj.notes ? h('h3', [ h('span', "Notes: "), cntrlObj.notes ]) : "",
+      cntrlObj.appStack ? h('h3', [ h('span', "Application: "), cntrlObj.appStack ]) : ""
     ]),
     h('div', { style: { width: "max-content"  }}, [ metaFrm(vd.settings.vsmObj, mapKey, vd), ...out] )  
   ])

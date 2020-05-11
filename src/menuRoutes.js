@@ -83,7 +83,7 @@ const validRoutes = {
         { label: "Edit Mode", type: "select", name: "updateType", req: "Choose Edit Mode", opts: {
           discovery: "Discovery", correct: "Correction", track: "Track Improvements"
         } },
-        { label: "App Stack", type: "text", name: "appStack" },
+        { label: "Application", type: "text", name: "appStack" },
         { label: "Notes", type: "text", name: "notes" }
       ]
 

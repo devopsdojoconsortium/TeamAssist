@@ -623,6 +623,22 @@ input[type=range]:focus::-ms-fill-upper {
   height: 120px;
   text-align: left;
 }
+.vsmHeader h2 {
+  float: left;
+  margin: 0 7px;
+}
+.vsmHeader h3 {
+  float: right;
+  margin: 0 7px;
+}
+.vsmHeader h2 span, .vsmHeader h3 span {
+  font-size: 0.8em;
+  color: #999;
+}
+.vsmHeader h2 strong, .vsmHeader h3 strong {
+  font-size: 1.2em;
+  color: #d60707;
+}
 .vsmAction{
   position: relative;
   height: 50px;
