@@ -616,8 +616,8 @@ input[type=range]:focus::-ms-fill-upper {
 
 .vsmContainer{
   width: auto;
-  height: 250px;
-  margin: 6px;  
+  height: 210px;
+  margin: 0 7px;  
 }
 .vsmHeader {
   height: 120px;

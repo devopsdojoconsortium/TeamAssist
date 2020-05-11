@@ -4,10 +4,13 @@ import {formProps, hashSrc, inputSelList} from '../view';
 
 export default function valueStreamDetail (mapKey, team, meta, vd) {
 
-  const actOpts = meta.formConfig.find(o => o.name === "actType").opts
+  if (mapKey === "newMap")
+    return h('div.vsmContainer', [
+      h('div.vsmHeader'), h('div', metaFrm(vd.settings.vsmObj, mapKey, vd) )  
+    ])
 
+  const actOpts = meta.formConfig.find(o => o.name === "actType").opts
   const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
-  
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
   const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
   let outLen = 0
@@ -92,12 +95,11 @@ function summaryBox (vsMap) {
 
 
 function metaFrm (vsmIObj, mapKey, vd) {
-
-  let frmObj = vd.sub1 && vd.sub1["meta_" + mapKey]
+  let frmObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
   if (vd.sub1 && vd.sub1[0] && vd.sub1[0].errorMessage) {
     frmObj = { name: "" }
   }
-  else if (!frmObj)
+  else if (!frmObj && mapKey !== "newMap")
     return h('div', [
       h('img', { 
         style: {
@@ -141,8 +143,13 @@ function metaFrm (vsmIObj, mapKey, vd) {
   let frmStyle = { top: "-110px", left: "0px", opacity: 1 }
 
   // console.log('vsmIObj, mapKey', vsmIObj, mapKey, styleObj)
-  let triggerName = ""
-  if (!vsmIObj || vsmIObj.pos !== -1){
+  let triggerName = ""  
+  if ((!vsmIObj || vsmIObj.mapkey !== mapKey) && mapKey === "newMap") {
+    mutate(styleObj, { width: "31px", top: "-30px", height: "33px" })
+    frmStyle = { top: "-75px", left: "-355px", opacity: "0" }
+        
+  }
+  else if (!vsmIObj || vsmIObj.pos !== -1 || vsmIObj.mapkey !== mapKey){
     mutate(styleObj, { width: "120px", top: "-50px", height: "88px" })
     frmStyle = { top: "-75px", left: "-355px", opacity: "0" }
     triggerName = frmObj.trigger || "Set Your First Trigger Event!"
@@ -154,13 +161,14 @@ function metaFrm (vsmIObj, mapKey, vd) {
       h('div', "Update Map Meta Data"),
       formTag
     ]), 
-    (triggerName ? h('h3.vsmTrigger', ["Trigger Event", h('span', triggerName)]) : ""), 
+    (triggerName ? h('h3.vsmTrigger', ["Trigger Event", h('span', triggerName)]) : 
+      h('div.la.la-plus', { style:{ fontSize:"2.6em"}}) ), 
   ] 
 
   return h('div#vsmFrm.mClick.vsmMetaFrm', { style: styleObj, attrs: { mapkey: mapKey, pos: -1} }, [
-    h('div.la.la-arrow-right', { style:{ 
+    triggerName ? h('div.la.la-arrow-right', { style:{ 
       position: "absolute", top: "34px", right: "-14px", fontSize:"2em", fontWeight: "bold", color: "#999", zIndex: "-1" 
-    }} ),
+    }}) : "",
     h('div', vsmFrmEle) 
   ])
 
@@ -170,7 +178,7 @@ function metaFrm (vsmIObj, mapKey, vd) {
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
   const isNew = vd.sub1 && ((vd.sub1[0] && vd.sub1[0].errorMessage) || 
     (vd.sub1["meta_"+mapKey] && (!vd.sub1["meta_"+mapKey].ord || !vd.sub1["meta_"+mapKey].ord.length))) ? ".vsmStartShow" : ""
-  if (!vsmIObj || idx !== vsmIObj.pos)
+  if (!vsmIObj || idx !== vsmIObj.pos || mapKey !== vsmIObj.mapkey)
     return [
       h('div#vsmFrm.mClick.vsmFrmCallInsert' + isNew, { 
         attrs: { mapkey: mapKey, pos: idx, tooltip: "       Add / Insert Step " + (idx + 1), tooltipPos: "bottom" }
