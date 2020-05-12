@@ -278,7 +278,8 @@ function panelHeader (rObj) {
     teamsCompleted: "graduation-cap",
     teamsAllStatii: "cubes",
     users: "user-secret",
-    modUser: "user-secret"
+    modUser: "user-secret",
+    vsm: "map"
   }
   return   h('div.panelHeader', [
     h('div.iconSprite', [
