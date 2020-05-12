@@ -4,12 +4,16 @@ import {formProps, hashSrc, inputSelList} from '../view';
 
 export default function valueStreamDetail (mapKey, team, meta, vd) {
 
-  const actOpts = meta.formConfig.find(o => o.name === "actType").opts
+  if (mapKey === "newMap")
+    return h('div.vsmContainer', [
+      h('div.vsmHeader'), h('div', metaFrm(vd.settings.vsmObj, mapKey, vd) )  
+    ])
 
+  const actOpts = meta.formConfig.find(o => o.name === "actType").opts
   const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
-  
   // const vsMap = vd.sub1 ? Object.keys(vd.sub1).map(i => vd.sub1[i]) : []
   const vsMap = cntrlObj.ord ? cntrlObj.ord.map(i => vd.sub1[i]) : []
+  const editModeOpts = { discovery: "Discovery", correct: "Correction", track: "Track Improvements" } // from menuRoutes
   let outLen = 0
 
   const out = vsMap.filter(x => x.lTime).map((act, idx) => {
@@ -31,7 +35,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
         ]),
         h('div.vsmLegend', { style: { width: (ptLen * 30) + "px" }}, [
           h('h4', { attrs: {
-            tooltip: "Action Type: " + actOpts[act.actType] + " \n More fields coming here. let's see what happens on overloads",
+            tooltip: "Action Type: " + actOpts[act.actType] + " ",
             tooltipPos: "bottom"            
           }}, act.name),
           h('div', [
@@ -47,7 +51,14 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   .concat( h('div.vsmAction', outLen > 1 ? summaryBox(vsMap.filter(x => x.lTime)) : "" ))
 
   return  h('div.vsmContainer', [
-    h('div', { style: { height: "120px"}}),
+    h('div.vsmHeader', [
+      h('h2', [ h('span', "Map: "), (cntrlObj.name || "Current State") ]),
+      cntrlObj.updateType && vd.settings.vsmObj && vd.settings.vsmObj.mapkey === mapKey ? 
+        h('h2',  h('strong', "Edit Mode: " + editModeOpts[cntrlObj.updateType])) : "",
+      h('div.clearBoth'),
+      cntrlObj.notes ? h('h3', [ h('span', "Notes: "), cntrlObj.notes ]) : "",
+      cntrlObj.appStack ? h('h3', [ h('span', "Application: "), cntrlObj.appStack ]) : ""
+    ]),
     h('div', { style: { width: "max-content"  }}, [ metaFrm(vd.settings.vsmObj, mapKey, vd), ...out] )  
   ])
 
@@ -90,12 +101,11 @@ function summaryBox (vsMap) {
 
 
 function metaFrm (vsmIObj, mapKey, vd) {
-
-  let frmObj = vd.sub1 && vd.sub1["meta_" + mapKey]
+  let frmObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
   if (vd.sub1 && vd.sub1[0] && vd.sub1[0].errorMessage) {
     frmObj = { name: "" }
   }
-  else if (!frmObj)
+  else if (!frmObj && mapKey !== "newMap")
     return h('div', [
       h('img', { 
         style: {
@@ -130,19 +140,25 @@ function metaFrm (vsmIObj, mapKey, vd) {
   })
 
   const formTag = h('form.formSubmit', { 
-    style: { padding: "0 5px", color: "#333", minHeight: "210px", overflow: "visible" },
+    style: { padding: "0 5px", color: "#333", minHeight: "218px"},
     attrs: { onSubmit: "return false" }
   }, [...formArr, h('input.vsmFrmSub', { props: { type: "submit", value: (frmObj.id ? "Update" : "Create") }} )] )
  
 
-  const styleObj = { width: "350px", top: "0px", height: "1px" }
+  const styleObj = { width: "330px", top: "0px", height: "1px"}
   let frmStyle = { top: "-110px", left: "0px", opacity: 1 }
 
   // console.log('vsmIObj, mapKey', vsmIObj, mapKey, styleObj)
-
-  if (!vsmIObj || vsmIObj.pos !== -1){
-    mutate(styleObj, { width: "25px", top: "-150px", height: "250px" })
-    frmStyle = { top: "-75px", left: "-355px", opacity: 0 }
+  let triggerName = ""  
+  if ((!vsmIObj || vsmIObj.mapkey !== mapKey) && mapKey === "newMap") {
+    mutate(styleObj, { width: "31px", top: "-30px", height: "33px" })
+    frmStyle = { top: "-75px", left: "-355px", opacity: "0" }
+        
+  }
+  else if (!vsmIObj || vsmIObj.pos !== -1 || vsmIObj.mapkey !== mapKey){
+    mutate(styleObj, { width: "120px", top: "-50px", height: "88px" })
+    frmStyle = { top: "-75px", left: "-355px", opacity: "0" }
+    triggerName = frmObj.trigger || "Set Your First Trigger Event!"
   }
 
   const vsmFrmEle = [ 
@@ -151,19 +167,27 @@ function metaFrm (vsmIObj, mapKey, vd) {
       h('div', "Update Map Meta Data"),
       formTag
     ]), 
-    h('div.la.la-arrow-right', { style:{ fontSize:"2em", fontWeight: "bold", marginTop: "115px" }} ) 
+    (triggerName ? h('h3.vsmTrigger', ["Trigger Event", h('span', triggerName)]) : 
+      h('div.la.la-plus', { style:{ fontSize:"2.6em"}}) ), 
   ] 
 
-  return h('div#vsmFrm.mClick.vsmMetaFrm', { style: styleObj, attrs: { mapkey: mapKey, pos: -1} }, vsmFrmEle)  
+  return h('div#vsmFrm.mClick.vsmMetaFrm', { style: styleObj, attrs: { mapkey: mapKey, pos: -1} }, [
+    triggerName ? h('div.la.la-arrow-right', { style:{ 
+      position: "absolute", top: "34px", right: "-14px", fontSize:"2em", fontWeight: "bold", color: "#999", zIndex: "-1" 
+    }}) : "",
+    h('div', vsmFrmEle) 
+  ])
+
 }
 
 
 function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
-
-  if (!vsmIObj || idx !== vsmIObj.pos)
+  const isNew = vd.sub1 && ((vd.sub1[0] && vd.sub1[0].errorMessage) || 
+    (vd.sub1["meta_"+mapKey] && (!vd.sub1["meta_"+mapKey].ord || !vd.sub1["meta_"+mapKey].ord.length))) ? ".vsmStartShow" : ""
+  if (!vsmIObj || idx !== vsmIObj.pos || mapKey !== vsmIObj.mapkey)
     return [
-      h('div#vsmFrm.mClick.vsmFrmCallInsert', { 
-        attrs: { mapkey: mapKey, pos: idx} 
+      h('div#vsmFrm.mClick.vsmFrmCallInsert' + isNew, { 
+        attrs: { mapkey: mapKey, pos: idx, tooltip: "       Add / Insert Step " + (idx + 1), tooltipPos: "bottom" }
       }, h('div.la.la-plus', { 
         style:{ fontSize:"1.6em"}
       })),
@@ -228,7 +252,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
         h('input#' + r.k + '.keyInput', { props: formProps(mutate(e, {value: frmObj[e.name], title: r.v}), r.k) } )
       ])).concat( h('div', {style:{clear: "both", width: "180px", height: "3px"}}) ))
     return h('div.vsmFrmRows', [
-      h('strong', (e.type !== "submit" ? e.label + ": " : "")), 
+      h('strong', keyValsTT(e) , (e.type !== "submit" ? e.label + ": " : "")), 
       formEle,
       (vd.formObj.errors[e.name] ? h('div.formRowErrorMsg', { style: {fontSize: "0.8em"}}, vd.formObj.errors[e.name]) : ""),
     ])
@@ -245,6 +269,15 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     formTag
   ])
 
+}
+
+function keyValsTT (e) {
+  const tips = {
+    lTime: "From receipt to complete! \n\nThe total time of step from inception to passing along to the next step.",
+    pTime: "The actual time taken to work the process step. \n\n(subset of Lead Time)",
+    pctAcc: "% Complete and Accurate. \n\nThe percentage of completeness based on absence of rework, as reported from subsequent steps in the value stream"
+  }
+  return e.name && tips[e.name] ? { attrs: { tooltip: tips[e.name], tooltipPos: "top" }} : {}
 }
 
 function calcDaysHrs (num, inDays, inMins) {

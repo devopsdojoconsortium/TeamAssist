@@ -893,6 +893,10 @@ function makeModification$ (actions) {
         const stepObj = displayObj.settings.vsmObj
         const postObj = {  actionType: "VsmActionCreated" }
         postObj.id = stepObj.actid ? stepObj.actid : "m" + untilUniq( moment().format(), stateObj[postStream])
+        if (stepObj.mapkey === "newMap"){ // name id for mapKey after form entry
+          const oCount = displayObj.sub1.maps && displayObj.sub1.maps.ord && displayObj.sub1.maps.ord.length || 1
+          stepObj.mapkey = formObj.name.replace(/\W+/g, "").toLowerCase() + oCount
+        }
         if (stepObj.pos === -1)
           postObj.id = "meta_" + stepObj.mapkey
         if (action.deleteIt && action.deleteIt.value && action.deleteIt.checked)

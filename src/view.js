@@ -192,13 +192,14 @@ const panelObj = {
     const team = rteObj.details || {}
     const vsmMaps = vd.sub1 && vd.sub1.maps && vd.sub1.maps.ord || ["current"]
     return  h('div', { style: { position: "relative", textAlign: "center" }}, [
-      h('h1', " Value Stream Maps"),
+      h('h1', " Value Stream Mapping"),
       h('a.la.la-edit.la-3x.tableIconLink', {
         attrs: { href: "#/teams/modTeam/pane_weeklies/id/" + team.id },
         style: { position: "absolute", top: "3px", right: "45px", width: "30px", textDecoration: "none"}
       }, ""),
       h('div', 
-        rteObj.meta.blockIt ? rteObj.meta.blockIt : vsmMaps.map(i => valueStreamDetail(i, team, rteObj.meta, vd))
+        rteObj.meta.blockIt ? rteObj.meta.blockIt : 
+          vsmMaps.map(i => valueStreamDetail(i, team, rteObj.meta, vd)).concat(valueStreamDetail("newMap", "", "", vd))
       )
     ])
   },
@@ -277,7 +278,8 @@ function panelHeader (rObj) {
     teamsCompleted: "graduation-cap",
     teamsAllStatii: "cubes",
     users: "user-secret",
-    modUser: "user-secret"
+    modUser: "user-secret",
+    vsm: "map"
   }
   return   h('div.panelHeader', [
     h('div.iconSprite', [
