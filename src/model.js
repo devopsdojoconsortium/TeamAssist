@@ -570,6 +570,9 @@ function makeModification$ (actions) {
         else if(key === "mdHelp" && displayObj.rteObj.details){
           modal.preview = displayObj.formObj[divId] || displayObj.rteObj.details[divId]
         }
+        else if (key === "vsmCapture"){
+          modal.mapKey = divId
+        }
         else if(key === "export"){
           modal.urlIds = displayObj.list.map(e => e.id)
           modal.tab = divId === "custom" ? displayObj.rteObj.meta.routeKey : ""

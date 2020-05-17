@@ -798,6 +798,15 @@ input[type=range]:focus::-ms-fill-upper {
   margin: 9px 0 0 0;
   color: #000;
 }
+.vsmCapture {
+  margin: -8px 0 0 0 !important;
+  padding: 3px;
+  color: #fff;
+  border-radius: 5px;
+}
+.vsmCapture:hover {
+  background-color: #ccc;
+}
 
 .yell{
   color: #ff9;
