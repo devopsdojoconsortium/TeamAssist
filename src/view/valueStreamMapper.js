@@ -1,4 +1,5 @@
 import {h} from '@cycle/dom';
+import domtoimage from 'dom-to-image';
 import {mutate} from '../frpHelpers';
 import {formProps, hashSrc, inputSelList} from '../view';
 
@@ -8,6 +9,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
     return h('div.vsmContainer', [
       h('div.vsmHeader'), h('div', metaFrm(vd.settings.vsmObj, mapKey, vd) )  
     ])
+  const snapShot = mapImage (vd.modalObj, mapKey) // will ignore whenever there is no cmd for this specific mapKey
 
   const actOpts = meta.formConfig.find(o => o.name === "actType").opts
   const cntrlObj = vd.sub1 && vd.sub1["meta_" + mapKey] || {}
@@ -24,7 +26,7 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
     const ltLen = waitTime + ptLen
     outLen++
 
-    return h('div.vsmAction' + (idx % 2 ? ".sch_tentative" : ""), { style: { width: (ltLen * 30) + 4 + "px"}},
+    return h('div.vsmAction' + (idx % 2 ? ".sch_loose" : ""), { style: { width: (ltLen * 30) + 4 + "px"}},
       [
         h('div.vsmWait', { style: { width: (waitTime * 30) + "px"}}, 
           vsmFrm(vd.settings.vsmObj, mapKey, idx, act.id, ltLen, vd)
@@ -50,12 +52,13 @@ export default function valueStreamDetail (mapKey, team, meta, vd) {
   .concat( h('div.vsmAction', vsmFrm(vd.settings.vsmObj, mapKey, outLen, '', '', vd) ))
   .concat( h('div.vsmAction', outLen > 1 ? summaryBox(vsMap.filter(x => x.lTime)) : "" ))
 
-  return  h('div.vsmContainer', [
+  return  h('div#vsm_' + mapKey + '.vsmContainer', [
     h('div.vsmHeader', [
       h('h2', [ h('span', "Map: "), (cntrlObj.name || "Current State") ]),
       cntrlObj.updateType && vd.settings.vsmObj && vd.settings.vsmObj.mapkey === mapKey ? 
         h('h2',  h('strong', "Edit Mode: " + editModeOpts[cntrlObj.updateType])) : "",
       h('div.clearBoth'),
+      snapShot ? "" : h('h3#modal_vsmCapture_' + mapKey + '.la.la-camera.la-2x.vsmCapture.mClick'),
       cntrlObj.notes ? h('h3', [ h('span', "Notes: "), cntrlObj.notes ]) : "",
       cntrlObj.appStack ? h('h3', [ h('span', "Application: "), cntrlObj.appStack ]) : ""
     ]),
@@ -74,7 +77,7 @@ function summaryBox (vsMap) {
     return acc
   }, { lTime: 0, pTime: 0, pctAcc: 1 })
 
-  const out = h('div.vsmLegend', { style: { width: "220px", top: "-50px", right: "-60px", color: "#333" }}, [
+  const out = h('div.vsmLegend', { style: { width: "220px", top: "-50px", right: "25px", color: "#333" }}, [
     h('h4', { style: { background: "#333" }, attrs: {
       tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
       Math.ceil(accum.pTime / accum.lTime * 100) + "%",
@@ -93,9 +96,9 @@ function summaryBox (vsMap) {
 
   return  [
     h('div.la.la-arrow-right', { style:{ 
-      position: "absolute", top: "-15px", left: "4px", fontSize:"2em", fontWeight: "bold" 
+      position: "absolute", top: "-15px", left: "-10px", fontSize:"2em", fontWeight: "bold" 
     }} ),
-    h('div', { style: { width: "190px" } }, out)
+    h('div', { style: { width: "260px" } }, out)
   ]  
 }
 
@@ -293,3 +296,19 @@ function calcDaysHrs (num, inDays, inMins) {
     (hours ? (Math.ceil(hours * 8 * 100) / 100) + " Hour" + (hours > 0.125 ? "s" : "")  : "")
 }
 
+function mapImage (modalObj, mapKey) {
+  if(!modalObj.type === "vsmCapture" || modalObj.field !== mapKey)
+    return ""
+
+  domtoimage.toPng(document.getElementById('vsm_' + mapKey), {bgcolor: "#ffffff"}) // style: { transform: "scale(1.2)" }
+    .then(function (dataUrl) {
+        // var img = new Image();
+        // img.src = dataUrl;
+        document.getElementById('vsmFill').src = dataUrl;
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    })
+
+  return 1
+}

@@ -971,6 +971,21 @@ function renderModal (viewData) {
     title = "Export Team Data to Excel"
     footer = viewData.modalObj.footer
   }
+  else if (viewData.modalObj.type === "vsmCapture"){
+    const modalObj = {
+        params: {  modalPos: { left: 50, width: 1240 }
+      }}
+    modalBody = h('div', { style: {overflow: "scroll"}}, [
+      h('div', { style: {fontSize: "1.6em"}}, "This is your Value Stream map captured as an image. Right click on it and save as a PNG file to print and distribute."),
+      h('img#vsmFill', {
+        attrs: { src: "/images/animation/rollingLoader.gif" }, 
+        style: { minWidth: "100%", margin: "5px", border: "1px solid blue"}
+      })
+    ])
+    modalPos = modalObj.params.modalPos
+    title = "Save Value Stream for Image Sharing and Printing"
+    footer = viewData.modalObj.footer
+  }
   else if (viewData.modalObj.type === "priors"){
     const modalObj = priorsModal(viewData.modalObj.list, hashSrc(viewData, "coachers"))
     modalBody = modalObj.retView
