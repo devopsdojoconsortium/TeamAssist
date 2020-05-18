@@ -980,7 +980,8 @@ function renderModal (viewData) {
       h('img#vsmFill', {
         attrs: { src: "/images/animation/rollingLoader.gif" }, 
         style: { minWidth: "100%", margin: "5px", border: "1px solid blue"}
-      })
+      }),
+      h('div', "https://rasterbator.net/ is where you need to go to get a long printout of your VSM")
     ])
     modalPos = modalObj.params.modalPos
     title = "Save Value Stream for Image Sharing and Printing"
