@@ -125,7 +125,7 @@ function metaFrm (vsmIObj, mapKey, vd) {
     if (!e.type)
       return ""
     const formEleStyle = {}
-    formEleStyle.style = formEleTypeMap[e.type] ? mutate(formEleTypeMap[e.type], {color: "#900"}) : {width: "183px"}
+    formEleStyle.style = formEleTypeMap[e.type] ? mutate(formEleTypeMap[e.type], {color: "#900"}) : {width: "180px"}
     formEleStyle.style.border = e.req ? "2px solid #666" : "2px solid #aaa"
     const optsSrc = e.opts ? hashSrc(vd, e.opts) : ""
     const opts = optsSrc ? Object.keys(optsSrc).map(k => ( { k: k, v: optsSrc[k] } )) : ""
@@ -220,7 +220,7 @@ function vsmFrm (vsmIObj, mapKey, idx, actId, ltLen, vd) {
     if (!e.type)
       return ""
     const formEleStyle = {}
-    formEleStyle.style = formEleTypeMap[e.type] ? mutate(formEleTypeMap[e.type], {color: "#900"}) : {width: "183px"}
+    formEleStyle.style = formEleTypeMap[e.type] ? mutate(formEleTypeMap[e.type], {color: "#900"}) : {width: "180px"}
     formEleStyle.style.border = e.req ? "2px solid #666" : "2px solid #aaa"
     const optsSrc = e.opts ? hashSrc(vd, e.opts) : ""
     const opts = optsSrc ? Object.keys(optsSrc).map(k => ( { k: k, v: optsSrc[k] } )) : ""
