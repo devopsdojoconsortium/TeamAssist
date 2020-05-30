@@ -131,9 +131,9 @@ function customEventTweak (obj, isCustom, allObj, evt) {
 }
 
 function camelize (str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (letter, index) {
-    return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
-  }).replace(/\W+/g, '');
+  return str.trim().toLowerCase().split(/\W+/).reduce((acc, i) => {
+    return acc += acc ? i.replace(/^(\w)/, function (m, p1){ return p1.toUpperCase() }) : i
+  }, "")
 }
 
 function translateBulkTeamJson (json, ss) {
