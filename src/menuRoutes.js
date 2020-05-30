@@ -210,6 +210,35 @@ const validRoutes = {
       ]
     }}
   },
+  skills: {
+    meta: {
+      name: "Skills",      menuName: "Skills",
+      menuLevel: 5,
+      hstream: "skills",
+    },
+    modSkills: { 
+      meta: {
+        name: "Add Skill",
+        menuLevel: 5,
+        hstream: "skills",
+        panel: "Add a New Skill Tag",
+        panelFn: "formPanel",
+        formConfig: [
+          // { pane: "Basic Profile Information", name: "basic"},
+          { label: "Skill Tag", type: "text", name: "tag", req: "1" },
+          { label: "Skill Category", req: "Select most relevant category", type: "select", name: "category", opts: {
+            pipeline: "Pipeline", charter: "Charter", agile: "Agile"
+          }},
+          { label: "Practitioner Only?", type: "checkbox", name: "pracOnly", value: 1},
+        ]
+      },
+      id: { meta: {
+        name: "Update Skill Tag",
+        menuLevel: 5,
+        // additionalFormConfig: []
+      }}
+    }
+  },
   users: {
     meta: {
       name: "TeamAssist Users",      menuName: "Users",
