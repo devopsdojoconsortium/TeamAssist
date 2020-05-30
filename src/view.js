@@ -645,7 +645,7 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
         cellVal = minToDateFormat(cellVal, c.dateFormat)
       else if (c.imgUrl)
         cellVal = h('img', { 
-          props: { src: c.imgUrl.replace(/\{(\w+)\}/, function (m, p1){ return (item[p1] || "___") }) },
+          props: { src: c.imgUrl.replace(/\{(\w+)\}/, function (m, p1){ return (item[p1] || "__") }) },
           attrs: c.title ? { title: (c.title === "__" ? cellVal : c.title) } : {},
           style: c.atagStyle || { height: "48px", borderRadius: "25px" }
         })
