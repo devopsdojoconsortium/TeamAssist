@@ -1,4 +1,4 @@
-import {ttLocs, lobs, teamStatus, loginLevels} from "./uiConfig";
+import {ttLocs, lobs, teamStatus, skillCats, loginLevels} from "./uiConfig";
 import {range, makeWeeks} from "./frpHelpers"
 import moment from 'moment';
 // COLUMN AND FILTER FORM CONFIG FOR STANDARD PAGES ONLY.
@@ -215,6 +215,22 @@ const tableConfig = {
     filtersExtra: {
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
     }
+  },
+  skildls: {
+    cols: [
+     // { dKey: "userImg", label: " ", width: 50, atag: "#/users/modUser/id/{id}", imgUrl: "https://gitlab.com/users/{id}/avatar.png?s=40" },
+      { dKey: "tag", label: "Skills Tag", sort: "asc", width: 150, tdStyle: "sectionLabel" },
+      { dKey: "category", label: "Skill Category", sort: "asc", width: 100, hashMap: skillCats  },
+      { dKey: "pracOnly", label: " ", width: 32, title: "Skill Tag exclusive to Practictioners?",
+        thStyle: "la.la-check.la-2x",
+        imgUrl: "/images/checked{pracOnly}.png", 
+        atagStyle: { width: "32px" }
+      },
+      { dKey: "coachTied", label: "Matched Practitioners", hashMap: "coachTied" },
+      { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
+      { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/skills/modSkills/id/{id}", width: 30 }
+    ],
+    filtersPage: { searchCol: ["tag"] }
   },
   users: {
     cols: [
