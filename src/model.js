@@ -4,7 +4,7 @@ import {mutate, updatedDiff, trimObjExcl, trimObj, extend,
   benchMark, makeMinStamp, range, untilUniq, makeWeeks} from './frpHelpers';
 import {validRoutes} from './menuRoutes';
 import {tableConfig} from './tableViewConfig';
-import {makeStoreFriendlyObj, translateTeamTSV, customEventTweak} from './dataTranslation';
+import {makeStoreFriendlyObj, translateTeamTSV, customEventTweak, camelize} from './dataTranslation';
 import murmur from 'murmur';
 import moment from 'moment';
 import uuidFn from 'uuid/v4';
@@ -952,6 +952,12 @@ function makeModification$ (actions) {
 
         console.log("vsmPOST!!! vsmPost, arrOfPosts, postObj, stepObj", vsmPost, arrOfPosts, postObj, stepObj)
 
+      }
+      else if (meta.hstream === "skills"){
+        const tagTrim = camelize(formObj.tag)
+        // if (tagTrim !== formObj.id && (formObj.id.match(tagTrim) || tagTrim.match(formObj.id)))
+        //   displayObj.formObj.errors.tag = "This tag matches one already in use"
+        formObj.id = tagTrim
       }
       else if (!idSeed && !meta.makeSess)
         formObj.id = meta.routeChain[meta.routeChain.length - 1]
