@@ -218,7 +218,6 @@ const tableConfig = {
   },
   skills: {
     cols: [
-     // { dKey: "userImg", label: " ", width: 50, atag: "#/users/modUser/id/{id}", imgUrl: "https://gitlab.com/users/{id}/avatar.png?s=40" },
       { dKey: "tag", label: "Skills Tag", sort: "asc", width: 150, tdStyle: "sectionLabel" },
       { dKey: "category", label: "Skill Category", sort: "asc", width: 100, hashMap: skillCats  },
       { dKey: "pracOnly", label: " ", width: 32, title: "Skill Tag exclusive to Practictioners?",
@@ -230,7 +229,10 @@ const tableConfig = {
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/skills/modSkills/id/{id}", width: 30 }
     ],
-    filtersPage: { searchCol: ["tag"] }
+    filtersPage: { searchCol: ["tag"] },
+    filtersExtra: {
+      status: { dKey: "category", label: "Skills Category", opts: skillCats, width: 120, getCount: true }
+    }
   },
   users: {
     cols: [
