@@ -216,7 +216,7 @@ const tableConfig = {
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
     }
   },
-  skildls: {
+  skills: {
     cols: [
      // { dKey: "userImg", label: " ", width: 50, atag: "#/users/modUser/id/{id}", imgUrl: "https://gitlab.com/users/{id}/avatar.png?s=40" },
       { dKey: "tag", label: "Skills Tag", sort: "asc", width: 150, tdStyle: "sectionLabel" },
