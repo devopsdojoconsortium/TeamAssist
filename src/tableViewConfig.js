@@ -245,7 +245,7 @@ const tableConfig = {
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "teamTied", label: "Member of Team", hashMap: "engagedTeams" },
-      { dKey: "lob", label: "Business", hashMap: lobs },
+      { dKey: "coachSkills", label: "Matched Skills", hashMap: "coachSkills"},
       { dKey: "loginLevel", label: "Access Level", sort: "desc", hashMap: loginLevels },
       { dKey: "levelSought", label: "Access Requested", hashMap: loginLevels },
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },

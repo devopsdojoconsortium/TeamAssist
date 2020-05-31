@@ -641,6 +641,8 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
         hashSrc(vd, c.hashMap)[item[c.dKey]] : (item[c.dKey] || "");
       if (c.dKey === "skillsCoach" && hashSrc(vd, c.hashMap)[item.id])
         cellVal = hashSrc(vd, c.hashMap)[item.id].map(i => h('div.tagItem', i.n + ": " + i.score))
+      else if (c.dKey === "coachSkills" && hashSrc(vd, c.hashMap)[item.id])
+        cellVal = hashSrc(vd, c.hashMap)[item.id].map(i => h('div.tagItem', i.tag + ": " + i.score))
       else if (c.dKey === "eStamp" && item.asOfStamp)
         cellVal = minToDateFormat(item.asOfStamp, c.dateFormat)
       else if (c.dateFormat)
