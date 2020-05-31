@@ -1115,6 +1115,16 @@ function makeModification$ (actions) {
         displayObj.dynHashes = mutate(displayObj.dynHashes, userHashes)
         return displayObj
       }
+      else if (results.svc.resProp === "makeSkillsHash" && stateObj[req.hstream]){ // users stream pulled
+        const uObj = stateObj[req.hstream]
+        displayObj.dynHashes.coachSkills = Object.keys(stateObj.skills)
+          .reduce((acc, i) => {
+            acc[i] = Object.keys(uObj).filter(x => uObj[x]["sk_" + i])
+              .map(u => ({ uid: uObj[u].id, n: uObj[u].displayName, score: Number(uObj[u]["sk_" + i]) })) || [] 
+            return acc
+          }, {})
+        return displayObj
+      }
       // main output for list build
       if (results.data && !results.data.error){
         if (results.data.rows && doKey === "list")
@@ -1180,6 +1190,20 @@ function makeModification$ (actions) {
               meta.formConfig.splice(splicePoint, 0, ...addReports)
             }
           }
+          if (meta.panelFn === "formPanel" && meta.hstream === "users" && stateObj.skills){
+            const sCats = Object.keys(stateObj.skills).reduce((acc, i) => {
+              const sObj = stateObj.skills[i]
+              if (!acc[sObj.category])
+                acc[sObj.category] = [{ pane: sObj.category + " Skills", name: sObj.category + "Skills"}]
+              acc[sObj.category].push({ label: sObj.tag, type: "number", name: "sk_" + sObj.id, min: 0, max: 10 })
+              return acc
+            }, {})
+            Object.keys(sCats).forEach(i => {
+              meta.formConfig.push(...sCats[i])
+            })
+
+
+          }
           else if (meta.panelFn === "teamPanel"){
             const obj = extend(displayObj.rteObj.details)
             const keys = Object.keys(obj).filter(x => x.match(/weeklyReport/))
@@ -1193,11 +1217,14 @@ function makeModification$ (actions) {
             })
           }
         }
-        if (req.hstream === "users" && results.fromES){ // users need a team DD
+        if (req.hstream === "users" && !displayObj.dynHashes.engagedTeams){ // users need a team DD
           readReq({ resProp: "makeTeamHash", req: { hstream: "teams" }}, 800)
         }
-        else if (req.hstream === "teams" && results.fromES){ // teams need a coach DD
+        else if (req.hstream === "teams" && !displayObj.dynHashes.coachers){ // teams need a coach DD
           readReq({ resProp: "makeUserHash", req: { hstream: "users" }}, 800)
+        }
+        else if (req.hstream === "skills" && !displayObj.dynHashes.coachSkills){ // teams need a coach DD
+          readReq({ resProp: "makeSkillsHash", req: { hstream: "users" }}, 800)
         }
 
         /*
