@@ -639,13 +639,17 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
     const tr = tp.cols.map((c, cellIdx) => {
       let cellVal = c.hashMap && item[c.dKey] && hashSrc(vd, c.hashMap)[item[c.dKey]] ? 
         hashSrc(vd, c.hashMap)[item[c.dKey]] : (item[c.dKey] || "");
-      if (c.dKey === "eStamp" && item.asOfStamp)
+      if (c.dKey === "skillsCoach" && hashSrc(vd, c.hashMap)[item.id])
+        cellVal = hashSrc(vd, c.hashMap)[item.id].map(i => h('div.tagItem', i.n + ": " + i.score))
+      else if (c.dKey === "coachSkills" && hashSrc(vd, c.hashMap)[item.id])
+        cellVal = hashSrc(vd, c.hashMap)[item.id].map(i => h('div.tagItem', i.tag + ": " + i.score))
+      else if (c.dKey === "eStamp" && item.asOfStamp)
         cellVal = minToDateFormat(item.asOfStamp, c.dateFormat)
       else if (c.dateFormat)
         cellVal = minToDateFormat(cellVal, c.dateFormat)
       else if (c.imgUrl)
         cellVal = h('img', { 
-          props: { src: c.imgUrl.replace(/\{(\w+)\}/, function (m, p1){ return (item[p1] || "___") }) },
+          props: { src: c.imgUrl.replace(/\{(\w+)\}/, function (m, p1){ return (item[p1] || "__") }) },
           attrs: c.title ? { title: (c.title === "__" ? cellVal : c.title) } : {},
           style: c.atagStyle || { height: "48px", borderRadius: "25px" }
         })

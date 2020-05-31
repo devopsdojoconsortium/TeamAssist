@@ -1,4 +1,4 @@
-import {ttLocs, lobs, teamStatus, loginLevels} from "./uiConfig";
+import {ttLocs, lobs, teamStatus, skillCats, loginLevels} from "./uiConfig";
 import {range, makeWeeks} from "./frpHelpers"
 import moment from 'moment';
 // COLUMN AND FILTER FORM CONFIG FOR STANDARD PAGES ONLY.
@@ -216,6 +216,24 @@ const tableConfig = {
       status: { dKey: "status", label: "Team Status", opts: teamStatus, width: 120, getCount: true }
     }
   },
+  skills: {
+    cols: [
+      { dKey: "tag", label: "Skills Tag", sort: "asc", width: 150, tdStyle: "sectionLabel" },
+      { dKey: "category", label: "Skill Category", sort: "asc", width: 100, hashMap: skillCats  },
+      { dKey: "pracOnly", label: " ", width: 32, title: "Skill Tag exclusive to Practictioners?",
+        thStyle: "la.la-check.la-2x",
+        imgUrl: "/images/checked{pracOnly}.png", 
+        atagStyle: { width: "32px" }
+      },
+      { dKey: "skillsCoach", label: "Matched Practitioners", hashMap: "skillsCoach"},
+      { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
+      { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/skills/modSkills/id/{id}", width: 30 }
+    ],
+    filtersPage: { searchCol: ["tag"] },
+    filtersExtra: {
+      status: { dKey: "category", label: "Skills Category", opts: skillCats, width: 120, getCount: true }
+    }
+  },
   users: {
     cols: [
      // { dKey: "userImg", label: " ", width: 50, atag: "#/users/modUser/id/{id}", imgUrl: "https://gitlab.com/users/{id}/avatar.png?s=40" },
@@ -227,7 +245,7 @@ const tableConfig = {
         atagStyle: { width: "32px", background: "#F4F5F7" }
       },
       { dKey: "teamTied", label: "Member of Team", hashMap: "engagedTeams" },
-      { dKey: "lob", label: "Business", hashMap: lobs },
+      { dKey: "coachSkills", label: "Matched Skills", hashMap: "coachSkills"},
       { dKey: "loginLevel", label: "Access Level", sort: "desc", hashMap: loginLevels },
       { dKey: "levelSought", label: "Access Requested", hashMap: loginLevels },
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },

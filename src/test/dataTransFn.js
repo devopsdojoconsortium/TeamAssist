@@ -2,8 +2,35 @@ import chai from 'chai';
 const expect = chai.expect;
 /* global describe, it */
 
-import {getMockJson, stringFromMockData} from './data/getTestData';
-import {translateBulkTeamJson, translateTeamTSV} from '../dataTranslation';
+// import {getMockJson, stringFromMockData} from './data/getTestData';
+import {camelize, translateBulkTeamJson, translateTeamTSV} from '../dataTranslation';
+
+describe('camelize', () => {
+  it('should be a function', () => {
+    expect(camelize).to.be.a('function');
+  });
+
+  it('should get rid of any whitespace', () => {
+    expect(camelize("heythere ")).to.equal("heythere");
+    expect(camelize(" heythere  ")).to.not.match(/\W+/);
+  });
+  it('should always produce a LC first char', () => {
+    expect(camelize(" heythere  ")).to.not.match(/^[A-Z]/);
+  });
+  it('should camelize a two word lc phrase', () => {
+    expect(camelize(" hey there  ")).to.equal("heyThere");
+  });
+  it('should camelize a two word mixed case phrase', () => {
+    expect(camelize("heY tHere  ")).to.equal("heyThere");
+  });
+  it('should camelize a whole messy string with non alphas', () => {
+    expect(camelize("heY tHere Hi! there AND &^%*&()XX why?")).to.equal("heyThereHiThereAndXxWhy");
+  });
+  it('should camelize a non-alpha first messy string too', () => {
+    expect(camelize("!!heY tHere Hi! there AND &^%*&()XX why?")).to.equal("heyThereHiThereAndXxWhy");
+  });
+
+});
 
 // describe('translateBulkTeamJson', () => {
 //   it('should be a function', () => {
