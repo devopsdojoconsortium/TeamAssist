@@ -808,6 +808,15 @@ input[type=range]:focus::-ms-fill-upper {
   background-color: #ccc;
 }
 
+.tagItem {
+  float: left;
+  margin: 0 8px 0 0;
+  padding: 4px;
+  color: #333;
+  background: #ccf;
+  border: 1px solid #999;
+  border-radius: 3px;  
+}
 .yell{
   color: #ff9;
 }

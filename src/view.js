@@ -639,7 +639,9 @@ function tableGrid (vd, panelHeight, panelWidth, tableRows, tableParams) {
     const tr = tp.cols.map((c, cellIdx) => {
       let cellVal = c.hashMap && item[c.dKey] && hashSrc(vd, c.hashMap)[item[c.dKey]] ? 
         hashSrc(vd, c.hashMap)[item[c.dKey]] : (item[c.dKey] || "");
-      if (c.dKey === "eStamp" && item.asOfStamp)
+      if (c.dKey === "skillsCoach" && hashSrc(vd, c.hashMap)[item.id])
+        cellVal = hashSrc(vd, c.hashMap)[item.id].map(i => h('div.tagItem', i.n + ": " + i.score))
+      else if (c.dKey === "eStamp" && item.asOfStamp)
         cellVal = minToDateFormat(item.asOfStamp, c.dateFormat)
       else if (c.dateFormat)
         cellVal = minToDateFormat(cellVal, c.dateFormat)

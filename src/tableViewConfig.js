@@ -225,7 +225,7 @@ const tableConfig = {
         imgUrl: "/images/checked{pracOnly}.png", 
         atagStyle: { width: "32px" }
       },
-      { dKey: "coachTied", label: "Matched Practitioners", hashMap: "coachTied" },
+      { dKey: "skillsCoach", label: "Matched Practitioners", hashMap: "skillsCoach"},
       { dKey: "eStamp", label: "Updated", width: 60, dateFormat: "MM/DD/YY" },
       { dKey: "", label: "", atagClasses: ".la.la-edit.la-3x.tableIconLink", altVal: " ", atag: "#/skills/modSkills/id/{id}", width: 30 }
     ],
