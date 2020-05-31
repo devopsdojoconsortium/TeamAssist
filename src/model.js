@@ -1120,12 +1120,11 @@ function makeModification$ (actions) {
         displayObj.dynHashes.skillsCoach = Object.keys(stateObj.skills)
           .reduce((acc, i) => {
             acc[i] = Object.keys(uObj).filter(x => uObj[x]["sk_" + i])
-              .map(u => ({ uid: uObj[u].id, n: uObj[u].displayName, score: Number(uObj[u]["sk_" + i]) })) || [] 
+              .map(u => ({ uid: u, n: uObj[u].displayName, score: Number(uObj[u]["sk_" + i]) })) || [] 
             return acc
           }, {})
         displayObj.dynHashes.coachSkills = Object.keys(uObj)
           .reduce((acc, i) => {
-            const user = uObj[i]
             acc[i] = Object.keys(stateObj.skills).filter(x => uObj[i]["sk_" + x])
               .map(s => ({ sid: s, tag: stateObj.skills[s].tag, score: Number(uObj[i]["sk_" + s]) })) || [] 
             return acc
