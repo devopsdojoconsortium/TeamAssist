@@ -957,7 +957,7 @@ function makeModification$ (actions) {
         const tagTrim = camelize(formObj.tag)
         // if (tagTrim !== formObj.id && (formObj.id.match(tagTrim) || tagTrim.match(formObj.id)))
         //   displayObj.formObj.errors.tag = "This tag matches one already in use"
-        formObj.id = tagTrim
+        formObj.id = displayObj.rteObj.selectedId || tagTrim
       }
       else if (!idSeed && !meta.makeSess)
         formObj.id = meta.routeChain[meta.routeChain.length - 1]
@@ -1103,6 +1103,10 @@ function makeModification$ (actions) {
           }, {})
         return displayObj
       }
+      else if (results.svc.resProp === "getSkills" && stateObj[req.hstream]){
+        displayObj.dynHashes = mutate(displayObj.dynHashes, updateDynHashesSkills(stateObj) )
+        return displayObj
+      }
       else if (results.svc.resProp === "makeUserHash" && stateObj[req.hstream]){
         const userHashes = Object.keys(stateObj[req.hstream])
           .filter(x => stateObj[req.hstream][x].displayName && stateObj[req.hstream][x].loginLevel > 1)
@@ -1113,22 +1117,6 @@ function makeModification$ (actions) {
             return acc
           }, {})
         displayObj.dynHashes = mutate(displayObj.dynHashes, userHashes)
-        return displayObj
-      }
-      else if (results.svc.resProp === "makeSkillsHash" && stateObj[req.hstream]){ // users stream pulled
-        const uObj = stateObj[req.hstream]
-        displayObj.dynHashes.skillsCoach = Object.keys(stateObj.skills)
-          .reduce((acc, i) => {
-            acc[i] = Object.keys(uObj).filter(x => uObj[x]["sk_" + i])
-              .map(u => ({ uid: u, n: uObj[u].displayName, score: Number(uObj[u]["sk_" + i]) })) || [] 
-            return acc
-          }, {})
-        displayObj.dynHashes.coachSkills = Object.keys(uObj)
-          .reduce((acc, i) => {
-            acc[i] = Object.keys(stateObj.skills).filter(x => uObj[i]["sk_" + x])
-              .map(s => ({ sid: s, tag: stateObj.skills[s].tag, score: Number(uObj[i]["sk_" + s]) })) || [] 
-            return acc
-          }, {})
         return displayObj
       }
       // main output for list build
@@ -1200,7 +1188,7 @@ function makeModification$ (actions) {
             const sCats = Object.keys(stateObj.skills).reduce((acc, i) => {
               const sObj = stateObj.skills[i]
               if (!acc[sObj.category])
-                acc[sObj.category] = [{ pane: sObj.category + " Skills", name: sObj.category + "Skills"}]
+                acc[sObj.category] = [{ pane: Config.skillCats[sObj.category] + " Skills", name: sObj.category + "Skills"}]
               acc[sObj.category].push({ label: sObj.tag, type: "number", name: "sk_" + sObj.id, min: 0, max: 10 })
               return acc
             }, {})
@@ -1223,14 +1211,15 @@ function makeModification$ (actions) {
             })
           }
         }
-        if (req.hstream === "users" && !displayObj.dynHashes.engagedTeams){ // users need a team DD
+        if (req.hstream === "users" && !displayObj.dynHashes.engagedTeams && results.fromES){ // users need a team DD
+          displayObj.dynHashes = mutate(displayObj.dynHashes, updateDynHashesSkills(stateObj) )
           readReq({ resProp: "makeTeamHash", req: { hstream: "teams" }}, 800)
         }
-        else if (req.hstream === "teams" && !displayObj.dynHashes.coachers){ // teams need a coach DD
+        else if (req.hstream === "teams" && !displayObj.dynHashes.coachers && results.fromES){ // teams need a coach DD
           readReq({ resProp: "makeUserHash", req: { hstream: "users" }}, 800)
         }
-        else if (req.hstream === "skills" && !displayObj.dynHashes.coachSkills){ // teams need a coach DD
-          readReq({ resProp: "makeSkillsHash", req: { hstream: "users" }}, 800)
+        else if ((req.hstream === "skills" || req.hstream === "users") && results.fromES){ 
+          displayObj.dynHashes = mutate(displayObj.dynHashes, updateDynHashesSkills(stateObj) )
         }
 
         /*
@@ -1257,6 +1246,29 @@ function makeModification$ (actions) {
     wsUpdate$, filterOnChangeMod$, clickBlockMod$, changeRouteMod$, formFilterMod$, trackFormVals$, formSubmitMod$
   );
 }
+
+function updateDynHashesSkills (stateObj) {
+  if (!stateObj.skills) {
+    readReq({ resProp: "getSkills", req: { hstream: "skills" }}, 1200)
+    return { skillsCoach: {}, coachSkills: {}}
+  }
+  const uObj = stateObj.users
+  return {
+    skillsCoach: Object.keys(stateObj.skills)
+      .reduce((acc, i) => {
+        acc[i] = Object.keys(uObj).filter(x => uObj[x]["sk_" + i])
+          .map(u => ({ uid: u, n: uObj[u].displayName, score: Number(uObj[u]["sk_" + i]) })) || [] 
+        return acc
+      }, {}),
+    coachSkills: Object.keys(uObj)
+      .reduce((acc, i) => {
+        acc[i] = Object.keys(stateObj.skills).filter(x => uObj[i]["sk_" + x])
+          .map(s => ({ sid: s, tag: stateObj.skills[s].tag, score: Number(uObj[i]["sk_" + s]) })) || [] 
+        return acc
+      }, {})
+  }
+}
+
 
 function getEventMapByProperty (obj, stream, prop, depth) {
   const priorKeys = obj.priors ? [obj.eId].concat(extend(obj.priors).reverse()) : [obj.eId]
