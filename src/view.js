@@ -556,7 +556,7 @@ function tablePagingFilter (vd) {
     });
   }
   return  h('div.tablePagingFilter', [
-    h('div#modal_export.mClick.blue', { style: {float: "left", margin: "4px 10px"} }, "Excel Export"),
+    h('div#modal_export.mClick.blue', { style: {float: "left", margin: "4px 10px"} }, "Export to Excel"),
     inputSelList( "filterLimit", (vd.settings.pageLimit || 40), perPageOpts, undefined, { float: "left", margin: "4px 10px" }, true ),
     inputSelList( "filterOffset", 0, offsetOpts, undefined, { float: "left", margin: "4px 10px" }, true ),
   ]);

@@ -5,7 +5,10 @@ import {buildStateObj} from '../src/model'
 import {mutate} from '../src/frpHelpers'
 import {statusColors} from '../src/uiConfig'
 
-function excelProc(req, events, evtCnt){
+function excelProc(req, PULLevents, evtCnt){
+  console.log("PRE EVENTS", req.events, PULLevents)
+  const events = JSON.parse(Buffer.from(req.events, 'base64').toString('utf-8'))
+  console.log("THE EVENTS", events, PULLevents)
   const stateObj = buildStateObj({}, { teams: events}, "teams", { latest: evtCnt, returnState: true})
   var workbook = new Excel.Workbook({
     modified: new Date(),
