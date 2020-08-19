@@ -13,7 +13,7 @@ export default function exportModal (vd, coachObj) {
       name: "exportFrame",
       width: "628px", 
       height: "800px", 
-      src: url + "&events=" + vd.modalObj.events,
+      src: url + "&eventCnt=" + vd.modalObj.eventCnt + "&events=" + vd.modalObj.events,
       scrolling: "yes" },
       style: { background: "#f4f5f7" }
     }) :

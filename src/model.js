@@ -578,6 +578,7 @@ function makeModification$ (actions) {
           modal.tab = divId === "custom" ? displayObj.rteObj.meta.routeKey : ""
           modal.tabName = modal.tabName || "Selected Records"
           modal.events = btoa(JSON.stringify(eventStore.teams))
+          modal.eventCnt = Object.keys(eventStore.teams).length || 1
         }
         console.log("MODAL action, modal", action, modal)
 
