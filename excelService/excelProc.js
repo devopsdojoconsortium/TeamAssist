@@ -5,8 +5,10 @@ import {buildStateObj} from '../src/model'
 import {mutate} from '../src/frpHelpers'
 import {statusColors} from '../src/uiConfig'
 
-function excelProc(req, events, evtCnt){
-  const stateObj = buildStateObj({}, { teams: events}, "teams", { latest: evtCnt, returnState: true})
+function excelProc(req){
+  const events = JSON.parse(Buffer.from(req.events, 'base64').toString('utf-8'))
+  console.log("THE EVENTS", events)
+  const stateObj = buildStateObj({}, { teams: events}, "teams", { latest: req.eventCnt, returnState: true})
   var workbook = new Excel.Workbook({
     modified: new Date(),
     creator: 'Me',
@@ -95,7 +97,7 @@ function excelProc(req, events, evtCnt){
     })
   })
 
-  const filePath = "Engagements_" + new Date().toISOString() + "_Evts_" + evtCnt + ".xlsx"
+  const filePath = "Engagements_" + new Date().toISOString() + "_Evts_" + req.eventCnt + ".xlsx"
   // write to file in dist
   workbook.xlsx.writeFile("./dist/" + filePath).then(excelOut => console.log("excelOut", excelOut))
 

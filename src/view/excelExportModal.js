@@ -4,16 +4,16 @@ import markdownRender from './viewMarkdownRender';
 
 export default function exportModal (vd, coachObj) { 
 
-  let url = "http://localhost:4000/excel/" + (vd.modalObj.tab || "teams")
+  let url = "http://localhost:4000/excel/" + (vd.modalObj.tab || "teams") + "?"
   if (vd.modalObj.tab && vd.modalObj.urlIds.length) { // selected for custom tab
-    url += "?teamIds=" + vd.modalObj.urlIds.join(",") + "&tabName=" + vd.modalObj.tabName.trim().replace(/\W+/, "+")
+    url += "teamIds=" + vd.modalObj.urlIds.join(",") + "&tabName=" + vd.modalObj.tabName.trim().replace(/\W+/, "+")
   }
   let retView = vd.modalObj.field ? // fix toggle issue and we are golden
     h('iframe', { props: { 
       name: "exportFrame",
       width: "628px", 
       height: "800px", 
-      src: url,
+      src: url + "&eventCnt=" + vd.modalObj.eventCnt + "&events=" + vd.modalObj.events,
       scrolling: "yes" },
       style: { background: "#f4f5f7" }
     }) :
