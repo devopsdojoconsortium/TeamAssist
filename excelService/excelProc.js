@@ -19,7 +19,7 @@ function excelProc(req){
   });
   const tabArray = ["teams", "teamLeads", "teamsCompleted"]
   if(req.tabNameCustom && req.tabNameCustom.length && req.teamIds)
-    tabArray.push(req.tabNameCustom)
+    tabArray.push(req.tab)
   const counts = {}
   // do sheets in a loop of metas from menuRoutes
   tabArray.forEach((tab, i) => {

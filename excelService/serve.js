@@ -9,7 +9,6 @@ app.use(bodyParser.urlencoded({ extended: true })) // middleware for parsing app
 
 app.get('/excel/:tab', (req, res) => {
   res.send("Confirmation will appear here <br>" )
-  console.log(req.query)
 })
 app.post('/excel/:tab', (req, res) => {
   const reqs = mutate(req.params, req.query, req.body)
