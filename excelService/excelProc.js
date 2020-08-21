@@ -7,7 +7,6 @@ import {statusColors} from '../src/uiConfig'
 
 function excelProc(req){
   const events = JSON.parse(Buffer.from(req.events, 'base64').toString('utf-8'))
-  console.log("THE EVENTS", events)
   const stateObj = buildStateObj({}, { teams: events}, "teams", { latest: req.eventCnt, returnState: true})
   var workbook = new Excel.Workbook({
     modified: new Date(),
@@ -19,12 +18,12 @@ function excelProc(req){
       } ]
   });
   const tabArray = ["teams", "teamLeads", "teamsCompleted"]
-  if(req.tab && req.teamIds)
-    tabArray.push(req.tab)
+  if(req.tabNameCustom && req.tabNameCustom.length && req.teamIds)
+    tabArray.push(req.tabNameCustom)
   const counts = {}
   // do sheets in a loop of metas from menuRoutes
   tabArray.forEach((tab, i) => {
-    const custom = i === 3 ? mutate(req, { name: (req.tabName || "Selected Records")}) : {}
+    const custom = i === 3 ? mutate(req, { name: (req.tabNameCustom || "Selected Records")}) : {}
     const routeMeta = validRoutes.teams[tab] ? validRoutes.teams[tab].meta : validRoutes.teams.meta
     const tableCols = tableConfig[tab] || { cols: []}
     const teamIds = req.teamIds && custom.tab ? req.teamIds.split(/\W+/) : stateObj.ids
