@@ -10,6 +10,7 @@ import moment from 'moment';
 import uuidFn from 'uuid/v4';
 import Cookie from 'js-cookie';
 import * as Config from './uiConfig';
+
 // import {deserialize} from './storage-source';
 // import serialize from './storage-sink';
 import {defaultdisplayObj} from './storage-source';
@@ -575,8 +576,7 @@ function makeModification$ (actions) {
         }
         else if(key === "export"){
           modal.urlIds = displayObj.list.map(e => e.id)
-          modal.tab = divId === "custom" ? displayObj.rteObj.meta.routeKey : ""
-          modal.tabName = modal.tabName || "Selected Records"
+          modal.tab = displayObj.rteObj.meta.routeKey || ""
           modal.events = btoa(JSON.stringify(eventStore.teams))
           modal.eventCnt = Object.keys(eventStore.teams).length || 1
         }
@@ -696,6 +696,10 @@ function makeModification$ (actions) {
   const formSubmitMod$ = actions.formSubmit$.map(action => {
     benchMark('formSubmit$ observer on action response', true);
     return (displayObj) => {
+      if (displayObj.modalObj.type === "export"){ // submit special into iFrame via JS as Submit event delegator is on.
+        document.getElementById("exportForm").submit()
+        return displayObj
+      }
       displayObj.cntrl = {};
       const vsmSettingsObj = displayObj.settings.vsmObj || {}
       const meta = displayObj.rteObj.meta
