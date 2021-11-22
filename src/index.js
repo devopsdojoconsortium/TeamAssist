@@ -7,7 +7,7 @@ import view from './view';
 // THE TTrek FUNCTION
 // Using destructuring, we pick the sources DOM, History and storage
 // from the sources object as argument.
-function TTrek (sources) { //
+function TAssist (sources) { //
   // THE INTENT (MVI PATTERN)
   // Pass relevant sources to the intent function, which set up
   // streams that model the users intentions.
@@ -21,8 +21,8 @@ function TTrek (sources) { //
   // storage stream to localStorage.
   return {
     DOM: view(state$),
-    // history: actions.url$,
+    // Storage: sources.storage,
   };
 }
 
-export default TTrek;
+export default TAssist;

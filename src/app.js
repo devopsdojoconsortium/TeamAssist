@@ -3,11 +3,9 @@ import {makeDOMDriver} from '@cycle/dom';
 import {makeHashHistoryDriver} from '@cycle/history';
 import storageDriver from '@cycle/storage';
 // THE MAIN FUNCTION
-// This is the tRow list component.
-// Hi Drew - screwing with your code...
-import TTrek from './index';
+import TAssist from './index';
 
-const main = TTrek;
+const main = TAssist;
 
 // THE ENTRY POINT
 // This is where the whole story starts.
