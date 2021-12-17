@@ -732,7 +732,7 @@ function makeModification$ (actions) {
           displayObj.formObj.errors.restreamType = "You must select a type!" 
         if (restreamType === "snap" && action.targetEvent.value < 1)
           displayObj.formObj.errors.targetEvent = "Select an event number wisely!"
-        if (!action.streamPreTag.value || !action.streamPreTag.value.match(/^\w+_$/))
+        if (action.restreamType.value !== "dump" && !action.streamPreTag.value.match(/^\w+_$/))
           displayObj.formObj.errors.streamPreTag = "target preTag must be /\w+_$/ !"
         console.log('action action action action::::::::::', action)
         if (Object.keys(displayObj.formObj.errors).length)
@@ -756,6 +756,24 @@ function makeModification$ (actions) {
           postArray.push(formEventPost(postObj, "", meta.hstream + "Snapshotted"))
           streamPreTag = "snap_"
           console.log('state based snap check', stateObj[meta.hstream], idList)
+        }
+        else if (restreamType === "dump"){
+          const streamSel = meta.subUrl ? meta.subUrl.hstream : meta.hstream
+          const eObjs = eventStore[streamSel]
+          const eids = []
+          const filts = action.filters.value.split(/\D+/).filter(x => x.length).map(i => Number(i))
+          for (let i = 0; i < Object.keys(eObjs).length; i++) {
+            if (eObjs["e" + i] && !filts.some(s => s === i)){
+              postArray.push(trimObj( formEventPost(eObjs["e" + i], "", eObjs["e" + i].eventType), 
+                ["data", "eventId", "metadata", "eventType"]))
+              eids.push(i)
+            }
+            else 
+              console.log("filtered on: e", i, " in:", filts)
+          }
+          // console.log(postArray)
+          displayObj.cntrl.dump = { hstream: streamSel, evnts: postArray, eids: eids, excluded: filts}
+          return displayObj
         }
         else if (restreamType === "filter" || restreamType === "custom"){
           const eObjs = eventStore[meta.hstream]
@@ -1014,8 +1032,11 @@ function makeModification$ (actions) {
       if (results.data.rows && !results.data.error && results.data.rows[0] && results.data.rows[0].partial)
         return mutate(displayObj, {cntrl: {noop: 1}}) // partials
       if (results.svc.req.subUrl){ // call again for nest chain of multi-calls per route change.
-        const idStream = results.svc.req.subUrl.hstream === "vsm_" ? (displayObj.rteObj.selectedId || "") : ""
+        const selId = displayObj.settings.lastVsmId || displayObj.rteObj.selectedId
+        const idStream = results.svc.req.subUrl.hstream === "vsm_" ? (selId || "") : ""
         results.svc.req.subUrl.hstream += idStream
+        displayObj.settings.lastVsmId = idStream && displayObj.rteObj.selectedId ? 
+          displayObj.rteObj.selectedId : (displayObj.settings.lastVsmId || "")
         const subCnt = results.svc.subCnt ? results.svc.subCnt + 1 : 1;
         readReq({ resProp: "sub" + subCnt, subCnt: subCnt, req: results.svc.req.subUrl}, 200)
       }

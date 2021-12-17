@@ -6,12 +6,12 @@ function today (){
 }
 const restreamFormConfig = [
   { label: "Select Restream Type", type: "select", name: "restreamType", opts: {
-    filter: "Filter Events", snap: "Make snapshot", custom: "Custom"
+    dump: "Dump Events", filter: "Filter Events", snap: "Make snapshot", custom: "Custom"
   } },
   { label: "Target stream prefix (ie. 'c_') Make SURE full target stream does not exist!", type: "text", name: "streamPreTag" },
 //  { label: "Stream Data (display only)", type: "textarea", name: "evtData", rows: 7, cols: 70, disabled: true },
-  { label: "Event ID's to filter: We'll use .split(/\D+/)", type: "textarea", name: "filters", rows: 3, cols: 60 },
-  { label: "Target Event Number", type: "number", name: "targetEvent" }
+  { label: "Event ID's to filter: We'll use .split(/\D+/)", type: "textarea", name: "filters", rows: 2, cols: 50 },
+  { label: "RelatedID tag on", name: "targetEvent" }
 ]
 
 const mdTemplates = {
@@ -305,16 +305,31 @@ const validRoutes = {
         menuLevel: 5,
         panelFn: "restream",
         hstream: "teams",
-        subUrl: { hstream: "snap_teams" },
         formConfig: restreamFormConfig,
         primeTab: "Teams Restream"
       },
+      vsmRestream: { meta: {
+        name: "Value Stream Map Restream",
+        menuLevel: 5,
+        panelFn: "restream",
+        hstream: "teams",
+        subUrl: { hstream: "vsm_" },
+        formConfig: restreamFormConfig,
+        tabPage: true
+      }},
       scheduleRestream: { meta: {
         name: "Schedule Restream",
         menuLevel: 5,
         panelFn: "restream",
         hstream: "schedule",
-        subUrl: { hstream: "snap_schedule" },
+        formConfig: restreamFormConfig,
+        tabPage: true
+      }},
+      skillsRestream: { meta: {
+        name: "Skills Restream",
+        menuLevel: 5,
+        panelFn: "restream",
+        hstream: "skills",
         formConfig: restreamFormConfig,
         tabPage: true
       }},
@@ -323,7 +338,6 @@ const validRoutes = {
         menuLevel: 5,
         panelFn: "restream",
         hstream: "users",
-        subUrl: { hstream: "snap_users" },
         formConfig: restreamFormConfig,
         tabPage: true
       }},    

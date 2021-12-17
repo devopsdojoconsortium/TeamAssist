@@ -205,16 +205,19 @@ const panelObj = {
   },
   restream: function (rteObj, vd, panelHeight){
     // const meta = rteObj.meta
+    const dump = vd.cntrl.dump 
     return  h('div', { style: { height: (panelHeight - 30) + "px" }}, [
       h('div.hey', [
-        "Review below info and select the specific utility from the list!", h('br'),
-        h('strong', "Only working for teams now. Test streams first. This form will not change, but stateObj may be affected, ALWAYS refresh app before execution!")
+        h('strong', "Select Dump Events, and use event filters if needed. The other restream options are a future feature")
       ]),
       tableTabs(vd, { style: { margin: "0 0 0 85px" }}), 
       h('div', { style: { position: "relative", margin: "35px"}}, 
         modForm(rteObj, vd, panelHeight)
-      )
-      //  h('div', "(code will pull from latest Restream."),
+      ),
+      dump ? h('textarea', {style: {
+        position: "absolute", right: "40px",
+        width: "520px", height: "520px"
+      }}, JSON.stringify(dump, 0 , 2) ) : ""
     ])
   },
   subSel: h('i', "Select a sub menu")
