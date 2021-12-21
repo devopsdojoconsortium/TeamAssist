@@ -4,7 +4,7 @@ import {mutate, updatedDiff, trimObjExcl, trimObj, extend,
   benchMark, makeMinStamp, range, untilUniq, makeWeeks} from './frpHelpers';
 import {validRoutes} from './menuRoutes';
 import {tableConfig} from './tableViewConfig';
-import {makeStoreFriendlyObj, translateTeamTSV, customEventTweak, camelize} from './dataTranslation';
+import {makeStoreFriendlyObj, objectizeStreamJSON, customEventTweak, camelize} from './dataTranslation';
 import murmur from 'murmur';
 import moment from 'moment';
 import uuidFn from 'uuid/v4';
@@ -710,17 +710,18 @@ function makeModification$ (actions) {
       })
       if (action.bulkJson){
         // const bulkObj = translateBulkTeamJson(action.bulkJson.value, stateObj[meta.hstream])
-        const bulkObj = translateTeamTSV(action.bulkJson.value, stateObj[meta.hstream])
-        console.log('bulkObj', bulkObj)
+        // const bulkObj = translateTeamTSV(action.bulkJson.value, stateObj[meta.hstream])
+        const bulkObj = objectizeStreamJSON(action.bulkJson.value, eventStore, 
+          action.allowNoES.value, action.override.value)
+        // console.log('bulkObj', bulkObj)
         // bulkObj.errors = "hold on for a min"
         if (bulkObj.errors)
           displayObj.formObj.errors.bulkJson = bulkObj.errors
         else {
-          const asOfStamp = action.importDate.value ? makeMinStamp(action.importDate.value, "y-m-d") : ""
           serviceEmitter$.emit("service", {
             resProp: "EventCreated",
-            req: { hstream: (meta.hstream) },
-            postData: bulkObj.map(i => formEventPost(i, "", meta.pageKey + "Updated", asOfStamp)),
+            req: { hstream: (bulkObj.hstream) },
+            postData: bulkObj.evnts,
             authHeader: "Content-Type:application/vnd.eventstore.events+json"
           });
           return displayObj;

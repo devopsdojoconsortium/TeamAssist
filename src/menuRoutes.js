@@ -197,18 +197,7 @@ const validRoutes = {
         ],
         panel: "Update information for team"
       }}
-    },
-    bulkTeams: { meta: {
-      name: "Bulk Team Import",
-      hstream: "teams",
-      menuLevel: 5,
-      panel: "Dump JSON from Confluence Intake for to load Teams to TeamAssist",
-      panelFn: "formPanel",
-      formConfig: [
-        { label: "Paste in JSON", req: "Must paste in valid JSON from Confluence", type: "textarea", name: "bulkJson", rows: 10, cols: 72 },
-        { label: "Import Date", req: "Must supply date for asOfStamp", type: "date", name: "importDate" },
-      ]
-    }}
+    }
   },
   skills: {
     meta: {
@@ -342,10 +331,17 @@ const validRoutes = {
         tabPage: true
       }},    
     },
-    querydb: { meta: {
-      menuLevel: 5, // uc
-      name: "Event Statistics",
-      href: ""
+    bulkImport: { meta: {
+      name: "Bulk Stream Import",
+      hstream: "teams",
+      menuLevel: 5,
+      panel: "Dump JSON from previous restreaming backup to TeamAssist",
+      panelFn: "formPanel",
+      formConfig: [
+        { label: "Paste in JSON", req: "Must paste in valid JSON", type: "textarea", name: "bulkJson", rows: 10, cols: 64 },
+        { label: "Append despite eids list", type: "checkbox", name: "override" },
+        { label: "Allow without checking for existing eventStore[hstream]", type: "checkbox", name: "allowNoES" },
+      ]
     }},
     sampleHtml: { meta: {
       menuLevel: 3, // uc

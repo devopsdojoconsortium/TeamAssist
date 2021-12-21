@@ -136,6 +136,35 @@ function camelize (str) {
   }, "")
 }
 
+function objectizeStreamJSON (json, eventStore, allowNoES, override) {
+  let jObj = {}
+  try {
+    jObj = JSON.parse(json)
+  } catch (e) {
+    return  { errors: (e.message || e) }
+  }
+
+  if (!jObj.hstream || !jObj.evnts || !jObj.excluded || !jObj.eids)
+    return { errors: "Data object is missing required attributes"}
+
+  if (!eventStore[jObj.hstream] && !allowNoES)
+    return { errors: "You cannot add events to " + jObj.hstream + " unless it is loaded in memory OR you allow an exception for new streams"}
+
+  if (jObj.override)
+    return jObj
+
+  const outEvents = []
+  jObj.eids.forEach(i => {
+    if (!eventStore[jObj.hstream]["e" + i])
+      outEvents.push(jObj.evnts[i])
+  })
+
+  if (outEvents.length < 1)
+    return { errors: "No new events to import"}
+  
+  return mutate(jObj, { evnts: outEvents})
+}
+
 function translateBulkTeamJson (json, ss) {
   let jObj = {}
   try {
@@ -281,4 +310,4 @@ function translateTeamTSV (tsv, ss) {
 }
 
 
-export {makeStoreFriendlyObj, translateBulkTeamJson, translateTeamTSV, camelize, customEventTweak};
+export {makeStoreFriendlyObj, objectizeStreamJSON, translateBulkTeamJson, translateTeamTSV, camelize, customEventTweak};
