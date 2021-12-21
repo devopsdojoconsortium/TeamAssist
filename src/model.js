@@ -712,8 +712,8 @@ function makeModification$ (actions) {
         // const bulkObj = translateBulkTeamJson(action.bulkJson.value, stateObj[meta.hstream])
         // const bulkObj = translateTeamTSV(action.bulkJson.value, stateObj[meta.hstream])
         const bulkObj = objectizeStreamJSON(action.bulkJson.value, eventStore, 
-          action.allowNoES.value, action.override.value)
-        // console.log('bulkObj', bulkObj)
+          action.allowNoES.checked, action.override.checked)
+        console.log('bulkObj & action', bulkObj, action)
         // bulkObj.errors = "hold on for a min"
         if (bulkObj.errors)
           displayObj.formObj.errors.bulkJson = bulkObj.errors
