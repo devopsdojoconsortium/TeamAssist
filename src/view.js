@@ -382,6 +382,10 @@ function modForm (rteObj, vd, panelHeight) {
       const curVal = vd.formObj[e.name] ||  detailObj[e.name] || 0
       journalEle = h('div.rangeValue', e.title ? e.title.replace(/__/, curVal) : curVal) 
     }
+    else if (e.type === "checkbox" && e.title){
+      journalEle = h('div.rangeValue', {style: {background: "none", border: "none", fontWeight: "normal"}}, 
+        e.title) 
+    }
     else if (e.type === "textarea"){
       if (typeof e.journal === "object" && e.journal.length)
         journalEle = h('div.journalAbs', e.journal.map(e => h('div.cellDiv', [ 

@@ -143,19 +143,19 @@ function objectizeStreamJSON (json, eventStore, allowNoES, override) {
   } catch (e) {
     return  { errors: (e.message || e) }
   }
-
+  const esEvents = eventStore[jObj.hstream] || {}
   if (!jObj.hstream || !jObj.evnts || !jObj.excluded || !jObj.eids)
     return { errors: "Data object is missing required attributes"}
 
-  if (!eventStore[jObj.hstream] && !allowNoES)
+  if (!esEvents.e0 && !allowNoES)
     return { errors: "You cannot add events to " + jObj.hstream + " unless it is loaded in memory OR you allow an exception for new streams"}
 
-  if (jObj.override)
+  if (override)
     return jObj
 
   const outEvents = []
   jObj.eids.forEach(i => {
-    if (!eventStore[jObj.hstream]["e" + i])
+    if (!esEvents["e" + i])
       outEvents.push(jObj.evnts[i])
   })
 

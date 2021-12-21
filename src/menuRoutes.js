@@ -338,9 +338,9 @@ const validRoutes = {
       panel: "Dump JSON from previous restreaming backup to TeamAssist",
       panelFn: "formPanel",
       formConfig: [
-        { label: "Paste in JSON", req: "Must paste in valid JSON", type: "textarea", name: "bulkJson", rows: 10, cols: 64 },
+        { label: "Paste in JSON", req: "Must paste in valid JSON", type: "textarea", name: "bulkJson", rows: 35, cols: 68 },
         { label: "Append despite eids list", type: "checkbox", name: "override" },
-        { label: "Allow without checking for existing eventStore[hstream]", type: "checkbox", name: "allowNoES" },
+        { label: "Allow Stream bypass", type: "checkbox", name: "allowNoES", title: "(no check on eventStore[hstream] in memory)" },
       ]
     }},
     sampleHtml: { meta: {
