@@ -77,9 +77,9 @@ function summaryBox (vsMap) {
     return acc
   }, { lTime: 0, pTime: 0, pctAcc: 1 })
 
-  const out = h('div.vsmLegend', { style: { width: "220px", top: "-50px", right: "25px", color: "#333" }}, [
+  const out = h('div.vsmLegend', { style: { width: "215px", top: "-50px", right: "25px", color: "#333" }}, [
     h('h4', { style: { background: "#333" }, attrs: {
-      tooltip: "Aggregating " + vsMap.length + " items... \n Process Efficiency: " + 
+      tooltip: "Aggregating " + vsMap.length + " items... \n Process/Lead Ratio: " + 
       Math.ceil(accum.pTime / accum.lTime * 100) + "%",
       tooltipPos: "top"
     }}, "VSM Summary"),

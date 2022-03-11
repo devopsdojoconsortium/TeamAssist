@@ -679,11 +679,12 @@ input[type=range]:focus::-ms-fill-upper {
   color: #fff; 
 }
 .vsmLegend div {
+  white-space: nowrap;
   padding: 4px 4px 4px 8px;
 }
 .vsmLegend b {
   display: inline-block;
-  width: 100px;
+  width: 90px;
 }
 
 .vsmFrm{
