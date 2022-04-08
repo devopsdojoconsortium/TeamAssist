@@ -17,12 +17,12 @@ const soundPrefs = { debug: "Debug beep on all views", normal: "Occasional Highl
 const ENTER_KEY = 13;
 const ESC_KEY = 27;
 
-const ES_DIT_HOST = "localhost" // TeamAssist-test.cigna.com";
+const ES_DIT_HOST = "dev.url";
 
 function getEventStoreUrl (stream) {
   const protocol = window.location.href.split(":")[0];
   const debug = window.location.href.match(/debug/);
-  const host = window.location.href.match(/localhost/) ? "localhost" : ES_DIT_HOST
+  const host = window.location.href.match(/localhost/) ? "localhost" : location.host
   // let url = `${protocol}://${host}/TeamAssistdb`;
   let url = `${protocol}://${host}:2113`;
 
