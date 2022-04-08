@@ -1033,7 +1033,7 @@ function makeModification$ (actions) {
       if (results.data.rows && !results.data.error && results.data.rows[0] && results.data.rows[0].partial)
         return mutate(displayObj, {cntrl: {noop: 1}}) // partials
       if (results.svc.req.subUrl){ // call again for nest chain of multi-calls per route change.
-        const selId = displayObj.settings.lastVsmId || displayObj.rteObj.selectedId
+        const selId = displayObj.rteObj.selectedId || displayObj.settings.lastVsmId
         const idStream = results.svc.req.subUrl.hstream === "vsm_" ? (selId || "") : ""
         results.svc.req.subUrl.hstream += idStream
         displayObj.settings.lastVsmId = idStream && displayObj.rteObj.selectedId ? 
