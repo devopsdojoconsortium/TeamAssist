@@ -14,10 +14,10 @@ RUN npm ci
 
 # Bundle app source
 COPY index.html debug.html server.js favicon.ico ./
-COPY dist ./dist/ 
 COPY css ./css/ 
 COPY images ./images/ 
 COPY sounds ./sounds
+COPY dist ./dist/ 
 
 EXPOSE 80
 

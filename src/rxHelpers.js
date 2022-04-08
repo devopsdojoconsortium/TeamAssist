@@ -132,7 +132,7 @@ export default {
         const hArr = headers.split(":")
         xmlhttp.setRequestHeader(hArr[0], hArr[1]);
       }
-      xmlhttp.setRequestHeader("Authorization", "Basic YWRtaW46Y2hhbmdlaXQ=");
+      // xmlhttp.setRequestHeader("Authorization", "Basic YWRtaW46Y2hhbmdlaXQ=");
 
       self.xmlHttpTimedOut = false;
 
