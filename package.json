@@ -44,7 +44,7 @@
     "@babel/register": "^7.7.4",
     "apickli": "^2.1.0",
     "babelify": "^10.0.0",
-    "browserify": "16.5.0",
+    "browserify": "17.0.0",
     "chai": "^3.5.0",
     "chai-virtual-dom": "^1.0.0",
     "cucumber": "^4.1.0",
@@ -62,7 +62,7 @@
     "watchify": "^3.11.1"
   },
   "scripts": {
-    "build-debug": "mkdirp dist && browserify src/app.js -d -t babelify -0 dist/app.js",
+    "build-debug": "mkdirp dist && browserify src/app.js -d -t babelify -o dist/app.js",
     "cucumber": "cucumber-js src/test/cucumber/features/ -r src/test/cucumber/steps/",
     "watch:js": "mkdirp dist && watchify src/app.js -t babelify --outfile dist/app.js -dv",
     "serve": "live-server ./ --open=debug.html --host=localhost --watch=dist/app.js --cors",
