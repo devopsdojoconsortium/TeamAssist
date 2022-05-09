@@ -1,5 +1,5 @@
 import {h} from '@cycle/dom';
-import marked from "marked";
+import { marked } from "marked";
 
 export default function markdownRender (string = "") {
   const longUrls = string.match(/(https?:\/\/\S{40,})/g)
