@@ -87,8 +87,6 @@ node_modules/
 *.sublime-project
 *.sublime-workspace
 
-package-lock.json
-
 # Ignoring local builds (CI build the project)
 build/
 
